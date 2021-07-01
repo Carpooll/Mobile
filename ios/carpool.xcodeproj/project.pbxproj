@@ -12,6 +12,11 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B5B3F7D5DC8E4CFB82378E29 /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CFC4A106EE54288BAE663A9 /* Comfortaa-Bold.ttf */; };
+		BCA16AB9AC914636888974FE /* Comfortaa-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88470F8E84D444A6BF0F6F92 /* Comfortaa-Light.ttf */; };
+		C9E41BDFDCDD44DD91E8B21A /* Comfortaa-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7EEF65967CE74D368AEF07F5 /* Comfortaa-Medium.ttf */; };
+		D8B4A85378144741A9270A90 /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37B7AF226DAF4DA8AC0FC909 /* Comfortaa-Regular.ttf */; };
+		7164D6F23AEF4811B427C06C /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FF0EDD47DBA41048DC4A1CA /* Comfortaa-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,11 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = carpool/main.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = carpool/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		0CFC4A106EE54288BAE663A9 /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; name = "Comfortaa-Bold.ttf"; path = "../src/assets/fonts/Comfortaa-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		88470F8E84D444A6BF0F6F92 /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; name = "Comfortaa-Light.ttf"; path = "../src/assets/fonts/Comfortaa-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7EEF65967CE74D368AEF07F5 /* Comfortaa-Medium.ttf */ = {isa = PBXFileReference; name = "Comfortaa-Medium.ttf"; path = "../src/assets/fonts/Comfortaa-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		37B7AF226DAF4DA8AC0FC909 /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; name = "Comfortaa-Regular.ttf"; path = "../src/assets/fonts/Comfortaa-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4FF0EDD47DBA41048DC4A1CA /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; name = "Comfortaa-SemiBold.ttf"; path = "../src/assets/fonts/Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +119,7 @@
 				00E356EF1AD99517003FC87E /* carpoolTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				BD40E1F6FA664F0BB19E6BD2 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -123,6 +134,19 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		BD40E1F6FA664F0BB19E6BD2 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0CFC4A106EE54288BAE663A9 /* Comfortaa-Bold.ttf */,
+				88470F8E84D444A6BF0F6F92 /* Comfortaa-Light.ttf */,
+				7EEF65967CE74D368AEF07F5 /* Comfortaa-Medium.ttf */,
+				37B7AF226DAF4DA8AC0FC909 /* Comfortaa-Regular.ttf */,
+				4FF0EDD47DBA41048DC4A1CA /* Comfortaa-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -214,6 +238,11 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B5B3F7D5DC8E4CFB82378E29 /* Comfortaa-Bold.ttf in Resources */,
+				BCA16AB9AC914636888974FE /* Comfortaa-Light.ttf in Resources */,
+				C9E41BDFDCDD44DD91E8B21A /* Comfortaa-Medium.ttf in Resources */,
+				D8B4A85378144741A9270A90 /* Comfortaa-Regular.ttf in Resources */,
+				7164D6F23AEF4811B427C06C /* Comfortaa-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
