@@ -103,6 +103,8 @@ const styles = StyleSheet.create({
 
         margin: 30,
 
+        marginBottom: 60,
+
         fontSize: 80,
 
         fontWeight: 'bold',
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
 
         padding: 15,
 
-        marginTop: 50,
+        marginTop: 70,
 
         borderRadius: 15,
 
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
 
         borderColor: Colors.black,
 
-        borderWidth: 1,
+        borderWidth: 2.5,
 
     },
 
@@ -152,7 +154,9 @@ const styles = StyleSheet.create({
 
         padding: 15,
 
-        marginTop: 50,
+        marginTop: 220,
+
+        // marginBottom: 0,
 
         borderRadius: 15,
 
@@ -162,7 +166,11 @@ const styles = StyleSheet.create({
 
         borderWidth: 1,
 
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+        zIndex: 5,
+        
+        position: 'absolute'
     },
 
     buttonDarkText: {
@@ -191,6 +199,8 @@ const styles = StyleSheet.create({
             width: 0,
             height: 5,
         },
+        height: 250,
+        marginTop: -30,
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
         elevation: 11,
@@ -198,21 +208,23 @@ const styles = StyleSheet.create({
         width: 261,
         borderRadius: 15,
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+        // justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1,
+        position: 'relative'
     },
     form: {
         paddingHorizontal: 20,
         color: Colors.black,
         borderBottomColor: Colors.black,
         borderBottomWidth: 1,
-        marginBottom: 10,
+        marginBottom: 30,
         width: 150,
         textAlign: 'center',
 
     },
     inputContainer: {
-        paddingTop: 30,
+        paddingTop: 40,
         marginBottom: -30
     }
 })
