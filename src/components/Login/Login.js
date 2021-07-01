@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  Dimensions,
+  ScrollView,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 // import Background from "../../assets/background.jpeg"
@@ -20,8 +20,12 @@ const Background = {
 class Login extends React.Component {
   render() {
     return (
+        <ScrollView>
+
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
+
+       
 
         <ImageBackground source={Background} style={styles.image}>
           <View style={styles.layerColor}>
@@ -32,8 +36,8 @@ class Login extends React.Component {
                 <Image
                   style={styles.logo}
                   source={{
-                    uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
-                  }}></Image>
+                      uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
+                    }}></Image>
               </View>
             </View>
 
@@ -45,25 +49,25 @@ class Login extends React.Component {
                   placeholderTextColor={Colors.black}
                   // onChangeText={text => { esq no sabemos si se usa unu
                   //     this.setState(prevState =>{
-                  //         let form = Object.assign({}, prevState.form);
-                  //         form.name = text;
-                  //         return {form};
-                  //     })
-                  // }}
-                />
+                      //         let form = Object.assign({}, prevState.form);
+                      //         form.name = text;
+                      //         return {form};
+                      //     })
+                      // }}
+                      />
                 <TextInput
                 secureTextEntry={true}
-                  style={styles.form}
-                  placeholder="Password"
-                  placeholderTextColor={Colors.black}
-                  // onChangeText={text => {
-                  //     this.setState(prevState =>{
-                  //         let form = Object.assign({}, prevState.form);
-                  //         form.name = text;
-                  //         return {form};
-                  //     })
-                  // }}
-                />
+                style={styles.form}
+                placeholder="Password"
+                placeholderTextColor={Colors.black}
+                // onChangeText={text => {
+                    //     this.setState(prevState =>{
+                        //         let form = Object.assign({}, prevState.form);
+                        //         form.name = text;
+                        //         return {form};
+                        //     })
+                        // }}
+                        />
               </View>
 
               <TouchableOpacity
@@ -73,6 +77,8 @@ class Login extends React.Component {
               </TouchableOpacity>
             </View>
 
+          </View>
+        </ImageBackground>
             <View style={styles.signup}>
               <Text style={styles.signupText}>Don't have an account?</Text>
               <TouchableOpacity
@@ -81,28 +87,40 @@ class Login extends React.Component {
                 <Text style={styles.buttonLightText}>SIGN UP</Text>
               </TouchableOpacity>
             </View>
-          </View>
-        </ImageBackground>
       </View>
+</ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-    flexDirection: 'column',
+    container: {
+        flex: 1,
+        
+        flexDirection: 'column',
 
     justifyContent: 'center',
+
+    backgroundColor: Colors.white,
+  
   },
 
   image: {
     flex: 1,
-
     resizeMode: 'cover',
-
     justifyContent: 'center',
+    borderRadius: 200, // border borderRadius same as width and height
+    overflow: 'hidden',
+    marginTop: -150,
+    paddingTop: 205, 
+    paddingBottom: 130,
+    marginBottom: -75,
+  
+    // height: 100, // same width and height for the container
+    // width: 200,
+    // position: 'absolute', // position it in circle
+    // bottom: 0, // position it in circle
+    // marginLeft: 100,
   },
 
   logoContainer: {
@@ -225,13 +243,14 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
 
-    marginTop: 40,
+    marginTop: 10,
+    marginBottom: 50,
   },
 
   signupText: {
     marginTop: 80,
 
-    color: Colors.white,
+    color: Colors.black,
   },
 
   buttonLight: {
