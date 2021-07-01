@@ -1,6 +1,6 @@
 import React from 'react'
 import Colors from '../../res/Colors'
-import { Text, View, StatusBar, StyleSheet, ImageBackground, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ImageBackground, TouchableOpacity, TextInput, Image } from 'react-native'
 import Fonts from "../../res/Fonts"
 // import Background from "../../assets/background.jpeg"
 
@@ -16,6 +16,11 @@ class Login extends React.Component {
 
             <View style={styles.container}>
                 <StatusBar backgroundColor="transparent" translucent={true} />
+
+                <View style={styles.logoContainer}>
+                    <Image style={styles.logo} source={{ uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png' }}></Image>
+                </View>
+
                 <ImageBackground source={Background} style={styles.image}>
 
                     <View style={styles.layerColor}>
@@ -59,7 +64,7 @@ class Login extends React.Component {
                         </View>
 
                         <View style={styles.signup}>
-                            <Text>Don't have an account?</Text>
+                            <Text style={styles.signupText}>Don't have an account?</Text>
                             <TouchableOpacity style={styles.buttonLight} onPress={this.handlePress}>
 
                                 <Text style={styles.buttonLightText}>SIGN UP</Text>
@@ -75,11 +80,7 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    image: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    },
+
     container: {
 
         flex: 1,
@@ -90,6 +91,54 @@ const styles = StyleSheet.create({
 
     },
 
+    image: {
+
+        flex: 1,
+
+        resizeMode: 'cover',
+
+        justifyContent: 'center',
+
+    },
+
+    logoContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        marginLeft: 30,
+        marginTop: 45,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+        backgroundColor: Colors.white,
+        width: 110,
+        height: 110,
+        resizeMode: 'cover',
+        borderRadius: 100,
+        position: 'absolute',
+        top: 25,
+        left: '28%',
+        zIndex: 2,
+    },
+    
+    logo: {
+        
+        width: 105,
+        height: 105,
+
+        zIndex: 2,
+       
+    },
+
+
     layerColor: {
 
         flex: 2,
@@ -99,6 +148,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 
     },
+
     title: {
 
         margin: 30,
@@ -117,13 +167,91 @@ const styles = StyleSheet.create({
 
     },
 
+    login: {
+
+        shadowColor: "#000",
+
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+
+        height: 250,
+
+        marginTop: -30,
+
+        shadowOpacity: 0.36,
+
+        shadowRadius: 6.68,
+
+        elevation: 11,
+
+        backgroundColor: Colors.white,
+
+        width: 261,
+
+        borderRadius: 15,
+
+        display: 'flex',
+
+        // justifyContent: 'center',
+
+        alignItems: 'center',
+
+        zIndex: 1,
+
+        position: 'relative'
+
+    },
+
+    inputContainer: {
+
+        paddingTop: 40,
+
+        marginBottom: -30
+    },
+
+    form: {
+
+        paddingHorizontal: 20,
+
+        color: Colors.black,
+
+        borderBottomColor: Colors.black,
+
+        borderBottomWidth: 1,
+
+        marginBottom: 30,
+
+        width: 150,
+
+        textAlign: 'center',
+
+    },
+
+    signup: {
+
+        display: 'flex',
+
+        justifyContent: 'center',
+
+        alignItems: 'center'
+    },
+
+
+    signupText: {
+        marginTop: 80,
+
+        color: Colors.white
+    },
+
     buttonLight: {
 
         width: 193,
 
         padding: 15,
 
-        marginTop: 70,
+        marginTop: 10,
 
         borderRadius: 15,
 
@@ -169,7 +297,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
 
         zIndex: 5,
-        
+
         position: 'absolute'
     },
 
@@ -185,48 +313,8 @@ const styles = StyleSheet.create({
 
         color: Colors.white,
 
-
     },
 
-    signup: {
-        display: 'flex',
-        justifyContent: 'center'
-    },
-
-    login: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        height: 250,
-        marginTop: -30,
-        shadowOpacity: 0.36,
-        shadowRadius: 6.68,
-        elevation: 11,
-        backgroundColor: Colors.white,
-        width: 261,
-        borderRadius: 15,
-        display: 'flex',
-        // justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1,
-        position: 'relative'
-    },
-    form: {
-        paddingHorizontal: 20,
-        color: Colors.black,
-        borderBottomColor: Colors.black,
-        borderBottomWidth: 1,
-        marginBottom: 30,
-        width: 150,
-        textAlign: 'center',
-
-    },
-    inputContainer: {
-        paddingTop: 40,
-        marginBottom: -30
-    }
 })
 
 export default Login
