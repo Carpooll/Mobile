@@ -1,320 +1,300 @@
-import React from 'react'
-import Colors from '../../res/Colors'
-import { Text, View, StatusBar, StyleSheet, ImageBackground, TouchableOpacity, TextInput, Image } from 'react-native'
-import Fonts from "../../res/Fonts"
+import React from 'react';
+import Colors from '../../res/Colors';
+import {
+  Text,
+  View,
+  StatusBar,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  Dimensions,
+} from 'react-native';
+import Fonts from '../../res/Fonts';
 // import Background from "../../assets/background.jpeg"
 
 const Background = {
-
-    uri: `https://images.pexels.com/photos/3876465/pexels-photo-3876465.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260`,
-
+  uri: `https://images.pexels.com/photos/3876465/pexels-photo-3876465.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260`,
 };
 class Login extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <StatusBar backgroundColor="transparent" translucent={true} />
 
-    render() {
-        return (
+        <ImageBackground source={Background} style={styles.image}>
+          <View style={styles.layerColor}>
+            <Text style={styles.title}>Welcome</Text>
 
-            <View style={styles.container}>
-                <StatusBar backgroundColor="transparent" translucent={true} />
-
-                <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={{ uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png' }}></Image>
-                </View>
-
-                <ImageBackground source={Background} style={styles.image}>
-
-                    <View style={styles.layerColor}>
-                        <Text style={styles.title}>Welcome
-                        </Text>
-
-                        <View style={styles.login}>
-
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.form}
-                                    placeholder='Student ID'
-                                    placeholderTextColor={Colors.black}
-                                // onChangeText={text => { esq no sabemos si se usa unu
-                                //     this.setState(prevState =>{
-                                //         let form = Object.assign({}, prevState.form);
-                                //         form.name = text;
-                                //         return {form};
-                                //     })
-                                // }}
-                                />
-                                <TextInput
-                                    style={styles.form}
-                                    placeholder='Password'
-                                    placeholderTextColor={Colors.black}
-                                // onChangeText={text => {
-                                //     this.setState(prevState =>{
-                                //         let form = Object.assign({}, prevState.form);
-                                //         form.name = text;
-                                //         return {form};
-                                //     })
-                                // }}
-                                />
-                            </View>
-
-                            <TouchableOpacity style={styles.buttonDark} onPress={this.handlePress}>
-
-                                <Text style={styles.buttonDarkText}>LOGIN</Text>
-
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.signup}>
-                            <Text style={styles.signupText}>Don't have an account?</Text>
-                            <TouchableOpacity style={styles.buttonLight} onPress={this.handlePress}>
-
-                                <Text style={styles.buttonLightText}>SIGN UP</Text>
-
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
-                </ImageBackground>
+            <View>
+              <View style={styles.logoContainer}>
+                <Image
+                  style={styles.logo}
+                  source={{
+                    uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
+                  }}></Image>
+              </View>
             </View>
-        )
-    }
+
+            <View style={styles.login}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.form}
+                  placeholder="Student ID"
+                  placeholderTextColor={Colors.black}
+                  // onChangeText={text => { esq no sabemos si se usa unu
+                  //     this.setState(prevState =>{
+                  //         let form = Object.assign({}, prevState.form);
+                  //         form.name = text;
+                  //         return {form};
+                  //     })
+                  // }}
+                />
+                <TextInput
+                  style={styles.form}
+                  placeholder="Password"
+                  placeholderTextColor={Colors.black}
+                  // onChangeText={text => {
+                  //     this.setState(prevState =>{
+                  //         let form = Object.assign({}, prevState.form);
+                  //         form.name = text;
+                  //         return {form};
+                  //     })
+                  // }}
+                />
+              </View>
+
+              <TouchableOpacity
+                style={styles.buttonDark}
+                onPress={this.handlePress}>
+                <Text style={styles.buttonDarkText}>LOGIN</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.signup}>
+              <Text style={styles.signupText}>Don't have an account?</Text>
+              <TouchableOpacity
+                style={styles.buttonLight}
+                onPress={this.handlePress}>
+                <Text style={styles.buttonLightText}>SIGN UP</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
 
-    container: {
+    flexDirection: 'column',
 
-        flex: 1,
+    justifyContent: 'center',
+  },
 
-        flexDirection: "column",
+  image: {
+    flex: 1,
 
-        justifyContent: "center",
+    resizeMode: 'cover',
 
+    justifyContent: 'center',
+  },
+
+  logoContainer: {
+    alignSelf: 'center',
+    marginTop: -100,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 12.0,
+    elevation: 20,
+
+    backgroundColor: Colors.white,
+
+    width: 110,
+    height: 110,
+    resizeMode: 'cover',
+    borderRadius: 90,
+    position: 'absolute',
+
+    zIndex: 2,
+  },
+
+  logo: {
+    width: 105,
+    height: 105,
+    justifyContent: 'center',
+    alignSelf: 'center',
+
+    zIndex: 2,
+  },
+
+  layerColor: {
+    flex: 2,
+
+    justifyContent: 'center',
+
+    alignItems: 'center',
+  },
+
+  title: {
+    margin: 30,
+
+    marginBottom: 120,
+
+    fontSize: 80,
+
+    fontWeight: 'bold',
+
+    color: Colors.white,
+
+    fontSize: Fonts.mainTitle,
+
+    color: Colors.white,
+  },
+
+  login: {
+    shadowColor: '#000',
+
+    shadowOffset: {
+      width: 0,
+      height: 5,
     },
 
-    image: {
+    height: 250,
 
-        flex: 1,
+    marginTop: -30,
 
-        resizeMode: 'cover',
+    shadowOpacity: 0.36,
 
-        justifyContent: 'center',
+    shadowRadius: 6.68,
 
-    },
+    elevation: 11,
 
-    logoContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+    backgroundColor: Colors.white,
 
-        marginLeft: 30,
-        marginTop: 45,
+    width: 261,
 
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+    borderRadius: 15,
 
-        elevation: 24,
-        backgroundColor: Colors.white,
-        width: 110,
-        height: 110,
-        resizeMode: 'cover',
-        borderRadius: 100,
-        position: 'absolute',
-        top: 25,
-        left: '28%',
-        zIndex: 2,
-    },
-    
-    logo: {
-        
-        width: 105,
-        height: 105,
+    display: 'flex',
 
-        zIndex: 2,
-       
-    },
+    // justifyContent: 'center',
 
+    alignItems: 'center',
 
-    layerColor: {
+    zIndex: 1,
 
-        flex: 2,
+    position: 'relative',
+  },
 
-        justifyContent: 'center',
+  inputContainer: {
+    paddingTop: 40,
 
-        alignItems: 'center',
+    marginBottom: -30,
+  },
 
-    },
+  form: {
+    paddingHorizontal: 20,
 
-    title: {
+    color: Colors.black,
 
-        margin: 30,
+    borderBottomColor: Colors.black,
 
-        marginBottom: 60,
+    borderBottomWidth: 1,
 
-        fontSize: 80,
+    marginBottom: 30,
 
-        fontWeight: 'bold',
+    width: 150,
 
-        color: Colors.white,
+    textAlign: 'center',
+  },
 
-        fontSize: Fonts.mainTitle,
+  signup: {
+    display: 'flex',
 
-        color: Colors.white
+    justifyContent: 'center',
 
-    },
+    alignItems: 'center',
 
-    login: {
+    marginTop: 40,
+  },
 
-        shadowColor: "#000",
+  signupText: {
+    marginTop: 80,
 
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
+    color: Colors.white,
+  },
 
-        height: 250,
+  buttonLight: {
+    width: 193,
 
-        marginTop: -30,
+    padding: 15,
 
-        shadowOpacity: 0.36,
+    marginTop: 10,
 
-        shadowRadius: 6.68,
+    borderRadius: 15,
 
-        elevation: 11,
+    backgroundColor: Colors.white,
 
-        backgroundColor: Colors.white,
+    borderColor: Colors.black,
 
-        width: 261,
+    borderWidth: 2.5,
+  },
 
-        borderRadius: 15,
+  buttonLightText: {
+    textAlign: 'center',
 
-        display: 'flex',
+    fontSize: 18,
 
-        // justifyContent: 'center',
+    fontWeight: 'bold',
 
-        alignItems: 'center',
+    paddingHorizontal: 25,
 
-        zIndex: 1,
+    color: Colors.black,
+  },
+  buttonDark: {
+    width: 193,
 
-        position: 'relative'
+    padding: 15,
 
-    },
+    marginTop: 220,
 
-    inputContainer: {
+    // marginBottom: 0,
 
-        paddingTop: 40,
+    borderRadius: 15,
 
-        marginBottom: -30
-    },
+    backgroundColor: Colors.black,
 
-    form: {
+    borderColor: Colors.black,
 
-        paddingHorizontal: 20,
+    borderWidth: 1,
 
-        color: Colors.black,
+    justifyContent: 'center',
 
-        borderBottomColor: Colors.black,
+    zIndex: 5,
 
-        borderBottomWidth: 1,
+    position: 'absolute',
+  },
 
-        marginBottom: 30,
+  buttonDarkText: {
+    textAlign: 'center',
 
-        width: 150,
+    fontSize: 18,
 
-        textAlign: 'center',
+    fontWeight: 'bold',
 
-    },
+    paddingHorizontal: 25,
 
-    signup: {
+    color: Colors.white,
+  },
+});
 
-        display: 'flex',
-
-        justifyContent: 'center',
-
-        alignItems: 'center'
-    },
-
-
-    signupText: {
-        marginTop: 80,
-
-        color: Colors.white
-    },
-
-    buttonLight: {
-
-        width: 193,
-
-        padding: 15,
-
-        marginTop: 10,
-
-        borderRadius: 15,
-
-        backgroundColor: Colors.white,
-
-        borderColor: Colors.black,
-
-        borderWidth: 2.5,
-
-    },
-
-    buttonLightText: {
-
-        textAlign: 'center',
-
-        fontSize: 18,
-
-        fontWeight: 'bold',
-
-        paddingHorizontal: 25,
-
-        color: Colors.black,
-
-    },
-    buttonDark: {
-
-        width: 193,
-
-        padding: 15,
-
-        marginTop: 220,
-
-        // marginBottom: 0,
-
-        borderRadius: 15,
-
-        backgroundColor: Colors.black,
-
-        borderColor: Colors.black,
-
-        borderWidth: 1,
-
-        justifyContent: 'center',
-
-        zIndex: 5,
-
-        position: 'absolute'
-    },
-
-    buttonDarkText: {
-
-        textAlign: 'center',
-
-        fontSize: 18,
-
-        fontWeight: 'bold',
-
-        paddingHorizontal: 25,
-
-        color: Colors.white,
-
-    },
-
-})
-
-export default Login
+export default Login;
