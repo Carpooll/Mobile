@@ -4,6 +4,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import Colors from "../../res/Colors"
 import Layout from "./Layout"
+import SignupCar from '../Signup/SignupCar'
 
 const Stack = createStackNavigator()
 
@@ -18,9 +19,11 @@ const BadgesStack = () =>{
                 headerTintColor: Colors.white,
             }}>
             <Stack.Screen 
-                name="Landing" 
+                name="Layout" 
                 component={Layout} 
+                options={{headerShown: false}}
             />
+            <Stack.Screen name="SignupCar" component={SignupCar}/>
         </Stack.Navigator>
     );
 }
