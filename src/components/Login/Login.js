@@ -20,8 +20,7 @@ const Background = {
 class Login extends React.Component {
   render() {
     return (
-        <ScrollView>
-
+    <ScrollView>
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
 
@@ -88,7 +87,7 @@ class Login extends React.Component {
               </TouchableOpacity>
             </View>
       </View>
-</ScrollView>
+    </ScrollView>
     );
   }
 }
@@ -109,12 +108,10 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
-    borderRadius: 200, // border borderRadius same as width and height
-    overflow: 'hidden',
-    marginTop: -150,
-    paddingTop: 205, 
-    paddingBottom: 130,
-    marginBottom: -75,
+    borderBottomLeftRadius: 200,
+    borderBottomRightRadius: 200,
+    overflow: 'hidden', 
+    paddingBottom: '42%',
   
     // height: 100, // same width and height for the container
     // width: 200,
@@ -124,8 +121,8 @@ const styles = StyleSheet.create({
   },
 
   logoContainer: {
-    alignSelf: 'center',
-    marginTop: -100,
+    alignSelf:'center',
+    
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -139,7 +136,6 @@ const styles = StyleSheet.create({
 
     width: 110,
     height: 110,
-    resizeMode: 'cover',
     borderRadius: 90,
     position: 'absolute',
 
@@ -152,21 +148,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
 
-    zIndex: 2,
+    zIndex: 4,
   },
 
   layerColor: {
     flex: 2,
-
-    justifyContent: 'center',
-
     alignItems: 'center',
   },
 
   title: {
-    margin: 30,
+    margin: '15%',
 
-    marginBottom: 120,
+    marginBottom: '30%',
 
     fontSize: 80,
 
@@ -181,15 +174,14 @@ const styles = StyleSheet.create({
 
   login: {
     shadowColor: '#000',
-
+    
     shadowOffset: {
       width: 0,
       height: 5,
     },
 
-    height: 250,
-
-    marginTop: -30,
+    marginTop: '-20%',
+    height: '80%',    
 
     shadowOpacity: 0.36,
 
@@ -199,7 +191,7 @@ const styles = StyleSheet.create({
 
     backgroundColor: Colors.white,
 
-    width: 261,
+    width: '75%',
 
     borderRadius: 15,
 
@@ -215,21 +207,18 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    paddingTop: 40,
 
-    marginBottom: -30,
+    marginTop: '18%',
   },
 
   form: {
-    paddingHorizontal: 20,
-
     color: Colors.black,
 
     borderBottomColor: Colors.black,
 
     borderBottomWidth: 1,
 
-    marginBottom: 30,
+    marginBottom: '6%',
 
     width: 150,
 
@@ -243,8 +232,7 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
 
-    marginTop: 10,
-    marginBottom: 50,
+    marginTop: '5%',
   },
 
   signupText: {
@@ -254,11 +242,11 @@ const styles = StyleSheet.create({
   },
 
   buttonLight: {
-    width: 193,
+    width: '50%',
 
-    padding: 15,
+    padding: '3%',
 
-    marginTop: 10,
+    marginTop: '3%',
 
     borderRadius: 15,
 
@@ -276,16 +264,12 @@ const styles = StyleSheet.create({
 
     fontWeight: 'bold',
 
-    paddingHorizontal: 25,
-
     color: Colors.black,
   },
   buttonDark: {
-    width: 193,
-
-    padding: 15,
-
-    marginTop: 220,
+    width: '60%',
+    height: '0%',
+    marginTop: '75%',
 
     // marginBottom: 0,
 
@@ -310,8 +294,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
 
     fontWeight: 'bold',
-
-    paddingHorizontal: 25,
 
     color: Colors.white,
   },
