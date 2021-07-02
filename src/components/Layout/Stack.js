@@ -4,6 +4,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import Colors from "../../res/Colors"
 import Layout from "./Layout"
+import SignupPayment from '../Signup/SignupPayment'
 
 const Stack = createStackNavigator()
 
@@ -19,8 +20,10 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Landing" 
-                component={Layout} 
+                component={SignupPayment} 
+
             />
+
         </Stack.Navigator>
     );
 }
