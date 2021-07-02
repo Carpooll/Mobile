@@ -96,8 +96,8 @@ class SignupCar extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.blue,
-    paddingTop: '50%',
-    paddingBottom: '50%',
+    paddingTop: '60%',
+    paddingBottom: '40%',
   },
 
   logoContainer: {
