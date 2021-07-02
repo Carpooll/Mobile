@@ -138,9 +138,8 @@ const styles = StyleSheet.create({
     elevation: 20,
 
     backgroundColor: Colors.white,
-
-    width: 110,
-    height: 232,
+    width: 110, //100
+    height: 240,  //240
     borderRadius: 90,
     position: 'absolute',
 
@@ -148,8 +147,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 105,
-    height: 105,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignSelf: 'center',
 
@@ -185,7 +184,7 @@ const styles = StyleSheet.create({
       height: 5,
     },
 
-    marginTop: '-40%',
+    marginTop: '-37%',
     height: '80%',
 
     shadowOpacity: 0.36,
@@ -277,9 +276,9 @@ const styles = StyleSheet.create({
   buttonDark: {
     width: '60%',
     height: '18%',
-    marginTop: '90%',
+    marginTop: '91%',
 
-    marginBottom: '-90%',
+    marginBottom: '-97%',
 
     borderRadius: 15,
 
