@@ -20,7 +20,7 @@ const Background = {
 class Login extends React.Component {
   render() {
     return (
-        <ScrollView>
+        <ScrollView style={styles.containerScroll}>
 
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -94,6 +94,11 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
+containerScroll: {
+  height: "100%",
+  backgroundColor: Colors.white,
+},
+
     container: {
         flex: 1,
         
@@ -101,7 +106,6 @@ const styles = StyleSheet.create({
 
     justifyContent: 'center',
 
-    backgroundColor: Colors.white,
   
   },
 
