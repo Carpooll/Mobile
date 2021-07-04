@@ -49,9 +49,9 @@ class SignUpAdrress extends React.Component {
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
 var iconSize  =  height*.10
-var borderTop = height*.08
+var borderTop = height*.10
 var FormWidth = width*.80
-var FormHeight = height*.60
+var FormHeight = height*.70
 const Styles = StyleSheet.create({
     Container: {
         backgroundColor:Colors.blue,
@@ -134,7 +134,7 @@ const Styles = StyleSheet.create({
     
         height:FormHeight*.1,
         
-        marginTop:(FormHeight+borderTop)*1.05,
+        marginTop:FormHeight+borderTop,
         
         width:FormWidth*.6,
 
