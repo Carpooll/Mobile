@@ -29,41 +29,41 @@ class EditProfileDriver extends React.Component {
                 </View> 
                 <View style={Styles.FormContainer}>   
                     <View style={Styles.inputContainer}>
-                        <Text style={Styles.subtitle}>Datos Personales</Text>
-                        <TextInput style={Styles.input}>6140000000</TextInput>
-                        <Text style={Styles.grayText}>Telefono</Text>
+                        <Text style={Styles.subtitle}>Personal data</Text>
+                        <TextInput style={Styles.input} placeholder='Cellphone' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Cellphone</Text>
 
-                        <Text style={Styles.subtitle}>Direccion</Text>
+                        <Text style={Styles.subtitle}>Address</Text>
                         <TextInput style={Styles.input} placeholder='Street' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Calle</Text>
+                        <Text style={Styles.grayText}>Street</Text>
                         <TextInput style={Styles.input} placeholder='Suburbal' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Colonia</Text>
+                        <Text style={Styles.grayText}>Suburbal</Text>
                         <TextInput style={Styles.input} placeholder='Internal Number' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Numero interno</Text>
+                        <Text style={Styles.grayText}>Internal Number</Text>
                         <TextInput style={Styles.input} placeholder='External Number' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Numero Extrno</Text>
+                        <Text style={Styles.grayText}>External Number</Text>
                         <TextInput style={Styles.input} placeholder='Postal Code' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Codigo Postal</Text>
+                        <Text style={Styles.grayText}>Postal code</Text>
 
                         <Text style={Styles.subtitle}>Payment</Text>
-                        <TextInput style={Styles.input} placeholder='name' placeholderTextColor={Colors.black}>Brayan Prieto</TextInput>
-                        <Text style={Styles.grayText}>Nombre</Text>
-                        <TextInput style={Styles.input} placeholder='card number' placeholderTextColor={Colors.black}>************1203</TextInput>
-                        <Text style={Styles.grayText}>Numero De Tarjeta</Text>
-                        <TextInput style={Styles.input} placeholder='Expiration date' placeholderTextColor={Colors.black}>11/22</TextInput>
-                        <Text style={Styles.grayText}>Fecha de Expiracion</Text>
-                        <TextInput style={Styles.input} placeholder='CVV' placeholderTextColor={Colors.black}>***</TextInput>
+                        <TextInput style={Styles.input} placeholder='Name' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Name</Text>
+                        <TextInput style={Styles.input} placeholder='Card number' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Card number</Text>
+                        <TextInput style={Styles.input} placeholder='Expiration date' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Expiration date</Text>
+                        <TextInput style={Styles.input} placeholder='CVV' placeholderTextColor={Colors.black}></TextInput>
                         <Text style={Styles.grayText}>CVV</Text>
 
                         <Text style={Styles.subtitle}>Car data</Text>
-                        <TextInput style={Styles.input} placeholder='name' placeholderTextColor={Colors.black}>Brayan Prieto</TextInput>
-                        <Text style={Styles.grayText}>Nombre</Text>
-                        <TextInput style={Styles.input} placeholder='card number' placeholderTextColor={Colors.black}>************1203</TextInput>
-                        <Text style={Styles.grayText}>Numero De Tarjeta</Text>
-                        <TextInput style={Styles.input} placeholder='Expiration date' placeholderTextColor={Colors.black}>11/22</TextInput>
-                        <Text style={Styles.grayText}>Fecha de Expiracion</Text>
-                        <TextInput style={Styles.input} placeholder='CVV' placeholderTextColor={Colors.black}>***</TextInput>
-                        <Text style={Styles.grayText}>CVV</Text>
+                        <TextInput style={Styles.input} placeholder='Color' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Color</Text>
+                        <TextInput style={Styles.input} placeholder='Model' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Model</Text>
+                        <TextInput style={Styles.input} placeholder='Insurance policy' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Insurance policy</Text>
+                        <TextInput style={Styles.input} placeholder='Plates' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Plates</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={Styles.darkButton}>
