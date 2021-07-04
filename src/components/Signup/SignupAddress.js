@@ -14,8 +14,6 @@ import {
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 
-
-
 class SignUpAdrress extends React.Component {
 
     render(){
@@ -48,7 +46,7 @@ class SignUpAdrress extends React.Component {
 }
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
-var iconSize  =  height*.10
+var iconSize  =  height*.20
 var borderTop = height*.10
 var FormWidth = width*.80
 var FormHeight = height*.70
@@ -134,7 +132,7 @@ const Styles = StyleSheet.create({
     
         height:FormHeight*.1,
         
-        marginTop:FormHeight+borderTop,
+        marginTop:(borderTop + iconSize/2)+FormHeight*.95 ,
         
         width:FormWidth*.6,
 
