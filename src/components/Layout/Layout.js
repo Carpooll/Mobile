@@ -1,7 +1,15 @@
 /* Navbar */
 
-import React from 'react'
-import {StyleSheet, Text} from 'react-native'
+// FOLLOWING: https://reactnavigation.org/docs/tab-based-navigation
+
+import * as React from 'react';
+import { 
+    Text, 
+    View, 
+    StyleSheet 
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 class Layout extends React.Component{
 
