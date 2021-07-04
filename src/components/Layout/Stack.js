@@ -11,15 +11,11 @@ const BadgesStack = () =>{
     return(
         <Stack.Navigator
             screenOptions={{
-                headerStyle:{
-                    backgroundColor: Colors.black,
-                    shadowColor: Colors.black,
-                },
-                headerTintColor: Colors.white,
             }}>
             <Stack.Screen 
-                name="Landing" 
-                component={Layout} 
+                name="Navbar"
+                component={Layout}
+                options={{headerShown: false}}
             />
         </Stack.Navigator>
     );
