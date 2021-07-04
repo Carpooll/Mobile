@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Colors from "../../res/Colors"
 import Layout from "./Layout"
 import Login from '../Login/Login'
+import SignUpAdrress from '../Signup/SignupAddress'
 
 const Stack = createStackNavigator()
 
@@ -15,7 +16,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={Login}
+                component={SignUpAdrress}
                 options={{headerShown: false}}
             />
         </Stack.Navigator>
