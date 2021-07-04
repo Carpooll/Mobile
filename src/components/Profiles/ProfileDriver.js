@@ -16,7 +16,7 @@ import Colors from '../../res/Colors';
 
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
-class SignUpAdrress extends React.Component {
+class ProfileDriver extends React.Component {
 
     render(){
         return (
