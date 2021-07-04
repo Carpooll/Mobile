@@ -46,7 +46,7 @@ class SignUpAdrress extends React.Component {
 }
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
-var iconSize  =  height*.20
+var iconSize  =  height*.15
 var borderTop = height*.10
 var FormWidth = width*.80
 var FormHeight = height*.70
@@ -100,6 +100,8 @@ const Styles = StyleSheet.create({
         alignSelf: 'center',
 
         fontSize: 80,
+
+        fontSize: Fonts.mainTitle,
     
         fontWeight: 'bold',
     
@@ -114,6 +116,8 @@ const Styles = StyleSheet.create({
         borderBottomColor: Colors.black,
     
         borderBottomWidth: 1,
+
+        fontSize: Fonts.text,
         
         paddingBottom: 0,
 
@@ -137,10 +141,10 @@ const Styles = StyleSheet.create({
         width:FormWidth*.6,
 
         borderRadius: 15,
-    
-        backgroundColor: Colors.black,
 
-        color: Colors.white,
+        fontSize:Fonts.miniButtons,
+
+        backgroundColor: Colors.black,
 
         justifyContent: 'center',
     
@@ -149,6 +153,7 @@ const Styles = StyleSheet.create({
         position: 'absolute',
     },
     darkButtonText:{
+        alignSelf: 'center',
         color: Colors.white
     }
 })
