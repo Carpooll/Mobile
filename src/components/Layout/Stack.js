@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Colors from "../../res/Colors"
 import Layout from "./Layout"
 import Login from '../Login/Login'
-import EditProfilePassenger from '../Edit/EditProfilePassenger'
+import EditProfileDriver from '../Edit/EditProfileDriver'
 const Stack = createStackNavigator()
 
 const BadgesStack = () =>{
@@ -15,7 +15,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={EditProfilePassenger}
+                component={EditProfileDriver}
                 options={{headerShown: false}}
             />
         </Stack.Navigator>
