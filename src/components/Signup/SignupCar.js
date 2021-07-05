@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.blue,
     paddingTop: '60%',
-    paddingBottom: '40%',
+    paddingBottom: '42.1%',
   },
 
   logoContainer: {

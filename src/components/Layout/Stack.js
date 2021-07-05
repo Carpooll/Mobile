@@ -18,7 +18,7 @@ const BadgesStack = () =>{
             <Stack.Screen 
 
                 name="Welcome"
-                component={Login}
+                component={SignupCar}
                 options={{headerShown: false}}
             />
             <Stack.Screen name="SignupCar" component={SignupCar}/>
