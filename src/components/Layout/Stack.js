@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Colors from "../../res/Colors"
 import Layout from "./Layout"
 import SignupCar from '../Signup/SignupCar'
+import Login from '../Login/Login'
+
 
 const Stack = createStackNavigator()
 
@@ -12,15 +14,11 @@ const BadgesStack = () =>{
     return(
         <Stack.Navigator
             screenOptions={{
-                headerStyle:{
-                    backgroundColor: Colors.black,
-                    shadowColor: Colors.black,
-                },
-                headerTintColor: Colors.white,
             }}>
             <Stack.Screen 
-                name="Layout" 
-                component={Layout} 
+
+                name="Welcome"
+                component={Login}
                 options={{headerShown: false}}
             />
             <Stack.Screen name="SignupCar" component={SignupCar}/>
