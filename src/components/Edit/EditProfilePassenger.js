@@ -73,7 +73,7 @@ var width = Dimensions.get('window').width
 var iconSize  =  height*.15
 var borderTop = height*.12
 var FormWidth = width*.80
-var FormHeight = height*1.15
+var FormHeight = height*.50
 const Styles = StyleSheet.create({
     Container: {
         backgroundColor:Colors.blue,
