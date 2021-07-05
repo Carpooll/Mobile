@@ -118,7 +118,7 @@ class DetailsPrivate extends React.Component {
     container: {
       backgroundColor: Colors.blue,
       paddingTop: '60%',
-      paddingBottom: '40%',
+      paddingBottom: '42.1%',
     },
   
     imagesContainer: {
