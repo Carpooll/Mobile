@@ -9,18 +9,35 @@ import {
   Text
 } from 'react-native'
 
-function HomeScreen(){
+function Notifications(){
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
+      <Text>Notifications!</Text>
     </View>
   );
 }
 
-function Settings(){
+
+function Balance(){
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings</Text>
+      <Text>Balance</Text>
+    </View>
+  );
+}
+
+function Profile(){
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Profile</Text>
+    </View>
+  );
+}
+
+function HomeScreen(){
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home!</Text>
     </View>
   );
 }
@@ -31,8 +48,10 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator>
+      <Tab.Screen name="Notifications" component={Notifications} />
+      <Tab.Screen name="Balance" component={Balance} />
+      <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
 }
