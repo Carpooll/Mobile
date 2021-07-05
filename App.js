@@ -8,8 +8,9 @@ import {
   Text
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Colors from './src/res/Colors';
+
+// ICONS: https://oblador.github.io/react-native-vector-icons/
 
 function Notifications() {
   return (
