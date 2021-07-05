@@ -23,6 +23,7 @@ const Background = {
 class Login extends React.Component {
   render() {
     return (
+
         <ScrollView style={styles.container}>
 
       <View >
@@ -97,10 +98,12 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
+
   container: {
   
     height: windowHeight,
     backgroundColor: Colors.white,
+
   
   },
 
