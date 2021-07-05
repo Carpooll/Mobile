@@ -19,6 +19,7 @@ import Colors from '../../res/Colors';
 class HomeDriver extends React.Component {
 
     render(){
+        const { item } = this.props
         return (
             <ScrollView style={Styles.Container}>
                 <StatusBar backgroundColor="transparent" translucent={true}/>
@@ -38,9 +39,9 @@ class HomeDriver extends React.Component {
                         <TouchableOpacity style={Styles.darkButton}>
                             <Text style={Styles.darkButtonText}>DELETE</Text>
                         </TouchableOpacity>
-                        {/* <TouchableOpacity style={Styles.blueButton}>
+                        <TouchableOpacity style={Styles.blueButton}>
                             <Text style={Styles.blueButtonText}>SEE</Text>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
 
                     </View>
                 </View>
@@ -54,9 +55,7 @@ var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
 
 var iconSize  =  height*.15
-var borderTop = height*.10
 var FormWidth = width*.80
-var FormHeight = height*.70
 
 const Styles = StyleSheet.create({
     Container: {
@@ -67,10 +66,8 @@ const Styles = StyleSheet.create({
     infoContainer: {
 
         display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
 
-        marginTop: height*0.08,
+        marginTop: height*0.065,
         height: 110,
         width: FormWidth,
         alignSelf: 'center',
@@ -83,7 +80,6 @@ const Styles = StyleSheet.create({
     },
     image: {
 
-        // alignSelf: 'center',
         height:iconSize,
         width:iconSize,
         borderRadius: iconSize/2,
@@ -94,8 +90,8 @@ const Styles = StyleSheet.create({
         height:iconSize,
         width:iconSize,
 
-        marginTop: height*0.02, //READY 
-        marginLeft: height*0.02,//READY 
+        marginTop: height*0.02,
+        marginLeft: height*0.02,
         
         backgroundColor:Colors.white,
         
@@ -119,7 +115,7 @@ const Styles = StyleSheet.create({
         display: 'flex',
 
         marginTop: height*0.03,
-        marginLeft: height*0.20,
+        marginLeft: height*0.21,
 
         color: Colors.button,
         fontSize: 20,
@@ -127,21 +123,18 @@ const Styles = StyleSheet.create({
 
     buttons:{
         width: 165,
-        height: 20,
+        height: 40,
 
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: 'flex-end',
     },  
 
     darkButton:{
 
-        alignSelf: 'flex-start',
         height: 20,
-        width: 79,
+        width: 75,
         
-        marginTop: 590, //590
+        marginLeft: height*0.2,
         
-
         borderRadius: 15,
 
         fontSize:Fonts.miniButtons,
@@ -162,13 +155,11 @@ const Styles = StyleSheet.create({
 
     blueButton:{
 
-        alignSelf: 'center',
-        height:FormHeight*.1,
-        width:FormWidth*.6,
-
-        marginTop: 590, //590
-        marginLeft: 100,
-
+        height: 20,
+        width: 75,
+        
+        marginLeft: height*0.34, //200
+        
         borderRadius: 15,
 
         fontSize:Fonts.miniButtons,
@@ -176,7 +167,7 @@ const Styles = StyleSheet.create({
 
         justifyContent: 'center',
     
-        zIndex: 5,
+        zIndex: 2,
     
         position: 'absolute',
     },
