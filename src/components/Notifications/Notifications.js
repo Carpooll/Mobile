@@ -28,7 +28,7 @@ class Notifications extends React.Component {
                         <Pressable>
                             <Image
                                 style={Styles.erase}
-                                source={require('../../assets/erase.png')}
+                                source={{uri: 'https://i.imgur.com/cE56vBT.png',}}
                             />
                         </Pressable>
                     </View>
@@ -61,7 +61,7 @@ const Styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-        marginTop: height*0.02,
+        marginTop: height*0.08,
         height: 80,
         width: FormWidth,
         alignSelf: 'center',
