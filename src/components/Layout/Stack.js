@@ -4,6 +4,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import Colors from "../../res/Colors"
 import Layout from "./Layout"
+import Notifications from '../Notifications/Notifications'
 import ProfileDriver from "../Profiles/ProfileDriver"
 import HomeDriver from "../Home/HomeDriver"
 import SignupCar from '../Signup/SignupCar'
@@ -21,8 +22,8 @@ const BadgesStack = () =>{
             screenOptions={{
             }}>
             <Stack.Screen 
-                name="Welcome"
-                component={EditProfilePassenger}
+                name="Landing" 
+                component={Notifications}
                 options={{headerShown: false}}
             />
             <Stack.Screen name="SignupCar" component={SignupCar}/>
