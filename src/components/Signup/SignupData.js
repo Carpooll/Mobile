@@ -28,7 +28,7 @@ class SignUpAdrress extends React.Component {
                         }}/>
                 </View> 
                 <View style={Styles.FormContainer}>   
-                    <Text style={Styles.title}> Personal data</Text>
+                    <Text style={Styles.title}>Personal data</Text>
                     <View style={Styles.inputContainer}>
                         <TextInput style={Styles.input} placeholder="Student ID" placeholderTextColor={Colors.black}/>
                         <TextInput style={Styles.input} placeholder='Name' placeholderTextColor={Colors.black}/>
@@ -49,7 +49,7 @@ var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
 var iconSize  =  height*.15
 var borderTop = height*.10
-var FormWidth = width*.80
+var FormWidth = width*.75
 var FormHeight = height*.70
 const Styles = StyleSheet.create({
     Container: {
