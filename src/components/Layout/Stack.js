@@ -16,6 +16,7 @@ import EditProfileDriver from '../Edit/EditProfileDriver'
 import EditProfilePassenger from "../Edit/EditProfilePassenger"
 import DriverDetailsPrivate from '../Details/DetailsPrivate'
 import HomePassenger1 from '../Home/HomePassenger'
+import PassengerPublicProfile from '../Profiles/ProfilePassenger'
 import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
 
 const Stack = createStackNavigator()
@@ -27,7 +28,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={PassengerPrivate}
+                component={PassengerPublicProfile}
                 options={{headerShown: false}}
             />
             <Stack.Screen name="SignupCar" component={SignupCar}/>
