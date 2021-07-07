@@ -17,6 +17,8 @@ import EditProfilePassenger from "../Edit/EditProfilePassenger"
 import DriverDetailsPrivate from '../Details/DetailsPrivate'
 import HomePassenger1 from '../Home/HomePassenger'
 import PassengerPublicProfile from '../Profiles/ProfilePassenger'
+import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
+
 const Stack = createStackNavigator()
 
 const BadgesStack = () =>{
