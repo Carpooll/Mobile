@@ -7,6 +7,12 @@ import Page from '../test/Page'
 
 const Tabs = createBottomTabNavigator()
 
+// ICONS:
+// notifications: https://i.imgur.com/c4ndYby.png
+// balance: https://i.imgur.com/EZFEd1v.png
+// account: https://i.imgur.com/lAdvcUO.png
+// home: https://i.imgur.com/E8BiIPd.png
+
 const TabNavigator = () => {
     return (
         <Tabs.Navigator
@@ -19,6 +25,42 @@ const TabNavigator = () => {
                 }
             }}>
             {/* Each screen corresponds to an icon on the navbar */}
+            <Tabs.Screen
+                name="Notifications"
+                component={Page}
+                options={{
+                    tabBarIcon: ({ size, color }) => (
+                        <Image
+                            style={{ tintColor: color, width: size, height: size }}
+                            source={{ uri: 'https://i.imgur.com/c4ndYby.png' }}
+                        />
+                    )
+                }}
+            />
+            <Tabs.Screen
+                name="Balance"
+                component={Page}
+                options={{
+                    tabBarIcon: ({ size, color }) => (
+                        <Image
+                            style={{ tintColor: color, width: size, height: size }}
+                            source={{ uri: 'https://i.imgur.com/EZFEd1v.png' }}
+                        />
+                    )
+                }}
+            />
+            <Tabs.Screen
+                name="Account"
+                component={Page}
+                options={{
+                    tabBarIcon: ({ size, color }) => (
+                        <Image
+                            style={{ tintColor: color, width: size, height: size }}
+                            source={{ uri: 'https://i.imgur.com/lAdvcUO.png' }}
+                        />
+                    )
+                }}
+            />
             <Tabs.Screen
                 name="Home"
                 component={Page}
