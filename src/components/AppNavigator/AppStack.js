@@ -4,6 +4,10 @@ import TabNavigator from "./TabNavigator.js"
 import Layout from "../Layout/Layout"
 import Colors from "../../res/Colors"
 
+// Tests here, erase later
+import Landing from "../test/Landing"
+import Page from "../test/Page"
+
 const Stack = createStackNavigator()
 
 const AppStack = () => {
@@ -16,15 +20,11 @@ const AppStack = () => {
                     shadowColor: Colors.white
                 },
                 headerTintColor: Colors.white
-            }}
-        >
-            <Stack.Screen 
-                name="Landing" 
-                component={Layout}
-                options={{headerShown:false}}
-            />
-            {/* v Add here the rest of the screens once they are ready v */}
-            <Stack.Screen name="BadgesTabNavigator" component={TabNavigator}/>
+        }}>
+            {/* Add the rest of the screens here once they are ready */}
+            <Stack.Screen name="Landing" component={Landing}/>
+            <Stack.Screen name="TabNavigator" component={TabNavigator}/>
+            <Stack.Screen name="Page" component={Page}/>
         </Stack.Navigator>
     );
 }
