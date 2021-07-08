@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import TabNavigator from "../Layout/TabNavigator.js"
+import TabNavigator from "./TabNavigator.js"
 import Layout from "../Layout/Layout"
 import Colors from "../../res/Colors"
 
