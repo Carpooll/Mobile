@@ -3,6 +3,7 @@ import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Stack from '../Layout/Stack'
 import Colors from '../../res/Colors'
+import Page from '../test/Page'
 
 const Tabs = createBottomTabNavigator()
 
@@ -18,9 +19,9 @@ const TabNavigator = () => {
                 }
             }}>
             {/* Each screen corresponds to an icon on the navbar */}
-            <Tab.Screen
-                name="Layout"
-                component={Stack}
+            <Tabs.Screen
+                name="Home"
+                component={Page}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
