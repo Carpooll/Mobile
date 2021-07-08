@@ -17,10 +17,6 @@ const BadgesStack = () =>{
                 },
                 headerTintColor: Colors.white,
             }}>
-            <Stack.Screen 
-                name="Landing" 
-                component={Layout} 
-            />
         </Stack.Navigator>
     );
 }
