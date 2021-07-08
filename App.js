@@ -1,12 +1,12 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import Stack from './src/components/Layout/Stack'
+import AppStack from './src/components/AppNavigator/AppStack'
 
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack />
+      <AppStack />
     </NavigationContainer>
   )
 };
