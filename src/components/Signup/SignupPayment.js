@@ -96,8 +96,8 @@ class SignupPayment extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.blue,
-    paddingTop: '60%',
-    paddingBottom: '42.1%',
+    paddingTop: '48%',
+    paddingBottom: '54.1%',
   },
 
   logoContainer: {
