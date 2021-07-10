@@ -50,7 +50,7 @@ var width = Dimensions.get('window').width
 var iconSize  =  height*.15
 var borderTop = height*.10
 var FormWidth = width*.69
-var FormHeight = height*.70
+var FormHeight = height*.76
 const Styles = StyleSheet.create({
     Container: {
         backgroundColor:Colors.blue,
@@ -70,29 +70,33 @@ const Styles = StyleSheet.create({
         marginBottom: height*.9-(borderTop + FormHeight)
     },
     logo: {
+        width: 105,
+        height: 105,
+        justifyContent: 'center',
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
 
     },
     logoContainer: {
-        marginTop: 75,
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
-        backgroundColor:Colors.white,
-        position: 'absolute',
-        borderRadius: iconSize/2,
-        zIndex:2,
-        shadowColor: "#000",
+        marginTop: 80,
+        shadowColor: '#000',
         shadowOffset: {
-            width: 0,
-            height: 10,
+          width: 0,
+          height: 12,
         },
-        shadowOpacity: 0.51,
-        shadowRadius: 13.16,
-
+        shadowOpacity: 0.5,
+        shadowRadius: 12.0,
         elevation: 20,
+    
+        backgroundColor: Colors.white,
+    
+        width: 110,
+        height: 110,
+        resizeMode: 'cover',
+        borderRadius: 90,
+        position: 'absolute',
+    
+        zIndex: 2,
     },
     title:{
 
@@ -116,11 +120,11 @@ const Styles = StyleSheet.create({
 
         fontSize: Fonts.text,
         
-        paddingBottom: 0,
+        paddingBottom: 8,
 
         marginBottom: 25,
 
-        width: '65%',
+        width: 180,
     
         textAlign: 'center',
     },
