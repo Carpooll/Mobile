@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
     elevation: 11,
     backgroundColor: Colors.white,
-    width: 261,
+    width: 265,
     borderRadius: 15,
     alignSelf: 'center'
   },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.black,
     borderBottomWidth: 1,
     marginBottom: 30,
-    width: 150,
+    width: 180,
     textAlign: 'center',
     alignSelf: 'center'
   },

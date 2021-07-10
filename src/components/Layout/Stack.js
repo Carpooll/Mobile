@@ -30,7 +30,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={SignupPayment}
+                component={HomeDriver}
                 options={{headerShown: false}}
             />
 
