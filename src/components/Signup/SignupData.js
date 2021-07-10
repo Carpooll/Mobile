@@ -14,7 +14,7 @@ import {
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 
-class SignUpAdrress extends React.Component {
+class SignUpData extends React.Component {
 
     render(){
         return (
@@ -159,4 +159,4 @@ const Styles = StyleSheet.create({
     }
 })
 
-export default SignUpAdrress
+export default SignUpData

@@ -30,7 +30,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={SignUpData}
+                component={SignUpAdrress}
                 options={{headerShown: false}}
             />
 
