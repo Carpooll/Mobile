@@ -117,8 +117,8 @@ class DetailsPrivate extends React.Component {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: Colors.blue,
-      paddingTop: '60%',
-      paddingBottom: '42.1%',
+      paddingTop: '48%',
+      paddingBottom: '54.1%',
     },
   
     imagesContainer: {
@@ -144,8 +144,9 @@ class DetailsPrivate extends React.Component {
     },
   
     profileImage: {
-      width: 120,
-      height: 110,
+      marginTop: 10,
+      width: 105,
+      height: 105,
       justifyContent: 'center',
       alignSelf: 'center',
       borderRadius: 100,
@@ -219,7 +220,7 @@ class DetailsPrivate extends React.Component {
       shadowRadius: 6.68,
       elevation: 11,
       backgroundColor: Colors.white,
-      width: 261,
+      width: 265,
       borderRadius: 15,
       alignSelf: 'center'
     },
@@ -235,7 +236,7 @@ class DetailsPrivate extends React.Component {
       borderBottomColor: Colors.black,
       borderBottomWidth: 1,
       marginBottom: 30,
-      width: 150,
+      width: 180,
       textAlign: 'center',
       alignSelf: 'center'
     },

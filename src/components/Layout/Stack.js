@@ -6,20 +6,20 @@ import Colors from "../../res/Colors"
 import Layout from "./Layout"
 
 // Screens
-import Login from '../Login/Login'
-import SignUpData from '../Signup/SignupData'
-import SignUpAdrress from '../Signup/SignupAddress'
-import SignupPayment from '../Signup/SignupPayment'
-import SignupCar from '../Signup/SignupCar'
+import Login from '../Login/Login' //finished
+import SignUpData from '../Signup/SignupData' //finished
+import SignUpAdrress from '../Signup/SignupAddress' //finished
+import SignupPayment from '../Signup/SignupPayment' //finished
+import SignupCar from '../Signup/SignupCar' //finished
 import HomeDriver from "../Home/HomeDriver"
-import HomePassenger1 from '../Home/HomePassenger'
+import HomePassenger1 from '../Home/HomePassenger' //finished
 import EditProfileDriver from '../Edit/EditProfileDriver'
 import EditProfilePassenger from "../Edit/EditProfilePassenger"
-import DriverDetailsPrivate from '../Details/DetailsPrivate'
+import DriverDetailsPrivate from '../Details/DetailsPrivate' //finished
 import ProfileDriver from "../Profiles/ProfileDriver"
 import PassengerPublicProfile from '../Profiles/ProfilePassenger'
 import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
-import Notifications from '../Notifications/Notifications'
+import Notifications from '../Notifications/Notifications' //finished
 
 const Stack = createStackNavigator()
 
@@ -30,7 +30,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={HomeDriver}
+                component={DriverDetailsPrivate}
                 options={{headerShown: false}}
             />
 
