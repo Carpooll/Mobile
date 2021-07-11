@@ -52,8 +52,8 @@ class PassengerPublicProfile extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.blue,
-        paddingTop: '55%',
-        paddingBottom: '40%',
+        paddingTop: '48%',
+        paddingBottom: '54.1%',
     },
 
     imagesContainer: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
 
     profileImage: {
-        width: 120,
+        width: 110,
         height: 110,
         justifyContent: 'center',
         alignSelf: 'center',

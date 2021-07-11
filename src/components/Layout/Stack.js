@@ -16,9 +16,9 @@ import HomePassenger1 from '../Home/HomePassenger' //finished
 import EditProfileDriver from '../Edit/EditProfileDriver'//finished
 import EditProfilePassenger from "../Edit/EditProfilePassenger" //finished
 import DriverDetailsPrivate from '../Details/DetailsPrivate' //finished
-import ProfileDriver from "../Profiles/ProfileDriver"
+import ProfileDriver from "../Profiles/ProfileDriver" //finished
 import PassengerPublicProfile from '../Profiles/ProfilePassenger'
-import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
+import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'//finished
 import Notifications from '../Notifications/Notifications' //finished
 
 const Stack = createStackNavigator()
@@ -30,7 +30,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={ProfileDriver}
+                component={PassengerPublicProfile}
                 options={{headerShown: false}}
             />
 
