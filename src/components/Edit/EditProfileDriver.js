@@ -81,9 +81,9 @@ class EditProfileDriver extends React.Component {
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
 var iconSize  =  height*.15
-var borderTop = height*.12
-var FormWidth = width*.80
-var FormHeight = height*1.5
+var borderTop = height*.10
+var FormWidth = width*.69
+var FormHeight = height*1.37
 const Styles = StyleSheet.create({
     Container: {
         backgroundColor:Colors.blue,
@@ -103,28 +103,31 @@ const Styles = StyleSheet.create({
     },
     logo: {
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
+        width: 105,
+        height: 105,
 
     },
     logoContainer: {
-        marginTop: borderTop,
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
-        backgroundColor:Colors.white,
-        position: 'absolute',
-        borderRadius: iconSize/2,
-        zIndex:2,
-        shadowColor: "#000",
+        marginTop: 80,
+        shadowColor: '#000',
         shadowOffset: {
-            width: 0,
-            height: 10,
+          width: 0,
+          height: 12,
         },
-        shadowOpacity: 0.51,
-        shadowRadius: 13.16,
-
+        shadowOpacity: 0.5,
+        shadowRadius: 12.0,
         elevation: 20,
+    
+        backgroundColor: Colors.white,
+    
+        width: 110,
+        height: 110,
+        resizeMode: 'cover',
+        borderRadius: 90,
+        position: 'absolute',
+    
+
     },
     title:{
 
@@ -139,7 +142,7 @@ const Styles = StyleSheet.create({
       },
     subtitle: {
 
-        marginTop:FormHeight*.05,
+        marginTop:FormHeight*.035,
 
         alignSelf: 'center',
 
@@ -163,7 +166,7 @@ const Styles = StyleSheet.create({
         
         paddingBottom: 0,
 
-        width: '50%',
+        width: 180,
     
         textAlign: 'center',
     },
@@ -178,7 +181,7 @@ const Styles = StyleSheet.create({
         
         marginTop:((borderTop + iconSize/2)+FormHeight*.975) ,
         
-        width:FormWidth*.6,
+        width: 193,
 
         borderRadius: 15,
 

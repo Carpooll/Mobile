@@ -30,7 +30,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={HomeDriver}
+                component={EditProfileDriver}
                 options={{headerShown: false}}
             />
 
