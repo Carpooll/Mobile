@@ -11,9 +11,9 @@ import SignUpData from '../Signup/SignupData' //finished
 import SignUpAdrress from '../Signup/SignupAddress' //finished
 import SignupPayment from '../Signup/SignupPayment' //finished
 import SignupCar from '../Signup/SignupCar' //finished
-import HomeDriver from "../Home/HomeDriver"
+import HomeDriver from "../Home/HomeDriver"//finished
 import HomePassenger1 from '../Home/HomePassenger' //finished
-import EditProfileDriver from '../Edit/EditProfileDriver'
+import EditProfileDriver from '../Edit/EditProfileDriver'//finished
 import EditProfilePassenger from "../Edit/EditProfilePassenger"
 import DriverDetailsPrivate from '../Details/DetailsPrivate' //finished
 import ProfileDriver from "../Profiles/ProfileDriver"
