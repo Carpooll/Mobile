@@ -53,10 +53,10 @@ class ProfileDriver extends React.Component {
                             }}/>
                         </View>
                 </View>
-
                 <TouchableOpacity style={Styles.darkButton}>
                     <Text style={Styles.darkButtonText}>EDIT</Text>
                 </TouchableOpacity>
+
 
             </ScrollView>
         )
@@ -65,11 +65,10 @@ class ProfileDriver extends React.Component {
 
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
-
 var iconSize  =  height*.15
 var borderTop = height*.10
-var FormWidth = width*.80
-var FormHeight = height*.70
+var FormWidth = width*.69
+var FormHeight = height*.7
 
 const Styles = StyleSheet.create({
     Container: {
@@ -82,9 +81,8 @@ const Styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-
-        marginTop:borderTop + iconSize/2,
-        height: height*.85,
+        marginTop: 140,
+        height: height*.7,
         width: FormWidth,
         alignSelf: 'center',
         padding:'auto',
@@ -92,7 +90,6 @@ const Styles = StyleSheet.create({
         backgroundColor:Colors.white,
         borderRadius: 15,
         position: 'relative',
-        marginBottom: height*.9-(borderTop + FormHeight)
 
     },
     image: {
@@ -124,9 +121,7 @@ const Styles = StyleSheet.create({
  
     userName: {
         display: 'flex',
-
         marginTop: 0,
-
         color: Colors.black,
         fontSize: 20,
     },
@@ -188,7 +183,7 @@ const Styles = StyleSheet.create({
 
         alignSelf: 'center',
         height:FormHeight*.1,
-        marginTop: height*1, //590
+        marginTop: -25, //590
         width:FormWidth*.6,
 
         borderRadius: 15,
@@ -198,9 +193,7 @@ const Styles = StyleSheet.create({
 
         justifyContent: 'center',
     
-        zIndex: 5,
-    
-        position: 'absolute',
+        zIndex: 10,
     },
 
     darkButtonText:{
