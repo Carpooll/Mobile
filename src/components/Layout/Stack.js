@@ -17,7 +17,7 @@ import EditProfileDriver from '../Edit/EditProfileDriver'//finished
 import EditProfilePassenger from "../Edit/EditProfilePassenger" //finished
 import DriverDetailsPrivate from '../Details/DetailsPrivate' //finished
 import ProfileDriver from "../Profiles/ProfileDriver" //finished
-import PassengerPublicProfile from '../Profiles/ProfilePassenger'
+import PassengerPublicProfile from '../Profiles/ProfilePassenger' //finished
 import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'//finished
 import Notifications from '../Notifications/Notifications' //finished
 
