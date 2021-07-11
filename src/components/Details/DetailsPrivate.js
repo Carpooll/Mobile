@@ -181,7 +181,6 @@ class DetailsPrivate extends React.Component {
         color: Colors.black,
         textAlign: 'center',
         marginTop: '-22%',
-        fontWeight: 'bold',
     },
     textAddress:{
         fontSize: Fonts.text,
