@@ -3,10 +3,8 @@ import {
     Text,
     View,
     StatusBar,
-    ImageBackground,
     TouchableOpacity,
     StyleSheet,
-    TextInput,
     Image,
     ScrollView,
     Dimensions,
@@ -15,8 +13,27 @@ import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 
 class Selection extends React.Component {
-
+    state = {
+        driver:false,
+        passenger:false,
+    }
+    handlePassenger = () =>{
+        if (this.state.passenger == true){
+            this.setState({passenger:false})
+        }else{
+            this.setState({passenger:true, driver:false})
+        }
+        
+    }
+    handleDriver = () =>{
+        if (this.state.driver == true){
+            this.setState({driver:false})
+        }else{
+            this.setState({passenger:false, driver:true})
+        }
+    }
     render(){
+        const {driver, passenger} = this.state
         return (
             <ScrollView style={Styles.Container}>
                 <StatusBar backgroundColor="transparent" translucent={true}/>
@@ -30,20 +47,30 @@ class Selection extends React.Component {
                 <View style={Styles.FormContainer}>   
                     <View style={Styles.inputContainer}>
                         <Text style={Styles.title}>Choose one option</Text>
-                        <TouchableOpacity >
-                        <Text style={Styles.selectedButton}>Driver</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity >
-                            <Text style={Styles.unselectedButton}>Driver</Text>
-                        </TouchableOpacity>
-                    </View>
+                        <View>
+                            <TouchableOpacity onPress={this.handlePassenger}>
+                                <Text style={
+                                    passenger
+                                    ? Styles.selectedButton
+                                    : Styles.unselectedButton
+                                }>Passenger</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.handleDriver}>
+                                <Text style={
+                                    driver
+                                    ? Styles.selectedButton
+                                    : Styles.unselectedButton
+                                }>Driver</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>                        
                 </View>
-                <TouchableOpacity style={Styles.darkButton}>
-                    <Text style={Styles.darkButtonText}>SAVE</Text>
+                <TouchableOpacity style={Styles.darkButton} >
+                    <Text style={Styles.darkButtonText}>Continue</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <Text style={Styles.linkText}>
-
+                            
                     </Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -59,36 +86,22 @@ var FormHeight = height*.7
 var DarkButton = FormHeight*.1
 const Styles = StyleSheet.create({
     selectedButton:{
+        color: Colors.black,
         marginTop:FormHeight*.12,
         backgroundColor:Colors.black,
-        height:FormHeight*.12,
-        width:FormWidth*.70,
         borderRadius:15,
         color:Colors.white,
+        fontSize: 30,
+        width:FormWidth*.70,
         textAlign: 'center',
-        paddingTop:FormHeight*.02,
-        fontSize:30,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 5,
     },
     unselectedButton: {
         color: Colors.black,
         marginTop:FormHeight*.12,
         borderBottomColor: Colors.black,
-    
         borderBottomWidth: 1,
-
         fontSize: 30,
-
-        width: FormWidth*.60,
-        
+        width:FormWidth*.70,
         textAlign: 'center',
     },
     Container: {
