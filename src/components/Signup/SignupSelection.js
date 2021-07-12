@@ -47,7 +47,6 @@ class Selection extends React.Component {
                 <View style={Styles.FormContainer}>   
                     <View style={Styles.inputContainer}>
                         <Text style={Styles.title}>Choose one option</Text>
-                        <View style={Styles.Divisor}/>
                         <TouchableOpacity onPress={this.handlePassenger}>
                             <Text style={
                                 passenger
@@ -63,10 +62,12 @@ class Selection extends React.Component {
                                 : Styles.unselectedButton
                             }>Driver</Text>
                         </TouchableOpacity>
-                    </View>                      
+                        
+                    </View>    
+                                      
                 </View>
                 <TouchableOpacity style={Styles.darkButton} >
-                    <Text style={Styles.darkButtonText}>Continue</Text>
+                    <Text style={Styles.darkButtonText}>NEXT</Text>
                 </TouchableOpacity>  
             </ScrollView>
         )
@@ -74,27 +75,40 @@ class Selection extends React.Component {
 }
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
-var iconSize  =  height*.15
+var iconSize  =  height*.20
 var borderTop = height*.15
 var FormWidth = width*.80
-var FormHeight = height*.70
-var DarkButton = FormHeight*.1
+var FormHeight = height*.60
+var DarkButton = FormHeight*.15
 const Styles = StyleSheet.create({
     selectedButton:{
         color: Colors.black,
         backgroundColor:Colors.black,
-        borderRadius:15,
+        borderRadius:10,
         color:Colors.white,
-        fontSize: 30,
+        fontSize: 26,
+        paddingTop: 10,
+        paddingBottom:10,
         width:FormWidth*.70,
         textAlign: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+
+        elevation: 10,
     },
     unselectedButton: {
         color: Colors.black,
         borderBottomColor: Colors.black,
         borderBottomWidth: 1,
-        fontSize: 30,
-        width:FormWidth*.70,
+        paddingTop: 10,
+        paddingBottom:10,
+        fontSize: 25,
+        width:FormWidth*.65,
         textAlign: 'center',
     },
     Divisor:{
@@ -107,7 +121,6 @@ const Styles = StyleSheet.create({
     },
     FormContainer: {
         marginTop:borderTop + iconSize/2,
-
         height:FormHeight,
         width: FormWidth,
         alignSelf: 'center',
@@ -146,9 +159,11 @@ const Styles = StyleSheet.create({
 
         alignSelf: 'center',
 
-        fontSize: Fonts.mainTitle,
+        fontSize: 25,
     
-        color: Colors.blue,
+        color: Colors.black,
+
+        marginBottom: DarkButton/2,
 
       },
     inputContainer:{
@@ -170,7 +185,7 @@ const Styles = StyleSheet.create({
     darkButtonText:{
         alignSelf: 'center',
         color: Colors.white,
-        fontSize: Fonts.button,
+        fontSize: 30,
         position: 'absolute'
     },
 })
