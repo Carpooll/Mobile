@@ -3,10 +3,8 @@ import {
     Text,
     View,
     StatusBar,
-    ImageBackground,
     TouchableOpacity,
     StyleSheet,
-    TextInput,
     Image,
     ScrollView,
     Dimensions,
@@ -14,9 +12,28 @@ import {
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 
-class SignupSelection extends React.Component {
-
+class Selection extends React.Component {
+    state = {
+        driver:false,
+        passenger:false,
+    }
+    handlePassenger = () =>{
+        if (this.state.passenger == true){
+            this.setState({passenger:false})
+        }else{
+            this.setState({passenger:true, driver:false})
+        }
+        
+    }
+    handleDriver = () =>{
+        if (this.state.driver == true){
+            this.setState({driver:false})
+        }else{
+            this.setState({passenger:false, driver:true})
+        }
+    }
     render(){
+        const {driver, passenger} = this.state
         return (
             <ScrollView style={Styles.Container}>
                 <StatusBar backgroundColor="transparent" translucent={true}/>
@@ -29,41 +46,28 @@ class SignupSelection extends React.Component {
                 </View> 
                 <View style={Styles.FormContainer}>   
                     <View style={Styles.inputContainer}>
-                        <Text style={Styles.subtitle}>Datos Personales</Text>
-                        <TextInput style={Styles.input}>6140000000</TextInput>
-                        <Text style={Styles.grayText}>Telefono</Text>
-
-                        <Text style={Styles.subtitle}>Direccion</Text>
-                        <TextInput style={Styles.input} placeholder='Street' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Calle</Text>
-                        <TextInput style={Styles.input} placeholder='Suburbal' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Colonia</Text>
-                        <TextInput style={Styles.input} placeholder='Internal Number' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Numero interno</Text>
-                        <TextInput style={Styles.input} placeholder='External Number' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Numero Extrno</Text>
-                        <TextInput style={Styles.input} placeholder='Postal Code' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Codigo Postal</Text>
-
-                        <Text style={Styles.subtitle}>Payment</Text>
-                        <TextInput style={Styles.input} placeholder='name' placeholderTextColor={Colors.black}>Brayan Prieto</TextInput>
-                        <Text style={Styles.grayText}>Nombre</Text>
-                        <TextInput style={Styles.input} placeholder='card number' placeholderTextColor={Colors.black}>************1203</TextInput>
-                        <Text style={Styles.grayText}>Numero De Tarjeta</Text>
-                        <TextInput style={Styles.input} placeholder='Expiration date' placeholderTextColor={Colors.black}>11/22</TextInput>
-                        <Text style={Styles.grayText}>Fecha de Expiracion</Text>
-                        <TextInput style={Styles.input} placeholder='CVV' placeholderTextColor={Colors.black}>***</TextInput>
-                        <Text style={Styles.grayText}>CVV</Text>
-                    </View>
+                        <Text style={Styles.title}>Choose one option</Text>
+                        <View style={Styles.Divisor}/>
+                        <TouchableOpacity onPress={this.handlePassenger}>
+                            <Text style={
+                                passenger
+                                ? Styles.selectedButton
+                                : Styles.unselectedButton
+                            }>Passenger</Text>
+                        </TouchableOpacity>
+                        <View style={Styles.Divisor}/>
+                        <TouchableOpacity onPress={this.handleDriver}>
+                            <Text style={
+                                driver
+                                ? Styles.selectedButton
+                                : Styles.unselectedButton
+                            }>Driver</Text>
+                        </TouchableOpacity>
+                    </View>                      
                 </View>
-                <TouchableOpacity style={Styles.darkButton}>
-                    <Text style={Styles.darkButtonText}>SAVE</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={Styles.linkText}>
-                        Delete Account.
-                    </Text>
-                </TouchableOpacity>
+                <TouchableOpacity style={Styles.darkButton} >
+                    <Text style={Styles.darkButtonText}>Continue</Text>
+                </TouchableOpacity>  
             </ScrollView>
         )
     }
@@ -71,26 +75,45 @@ class SignupSelection extends React.Component {
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
 var iconSize  =  height*.15
-var borderTop = height*.12
+var borderTop = height*.15
 var FormWidth = width*.80
-var FormHeight = height*.50
+var FormHeight = height*.70
+var DarkButton = FormHeight*.1
 const Styles = StyleSheet.create({
+    selectedButton:{
+        color: Colors.black,
+        backgroundColor:Colors.black,
+        borderRadius:15,
+        color:Colors.white,
+        fontSize: 30,
+        width:FormWidth*.70,
+        textAlign: 'center',
+    },
+    unselectedButton: {
+        color: Colors.black,
+        borderBottomColor: Colors.black,
+        borderBottomWidth: 1,
+        fontSize: 30,
+        width:FormWidth*.70,
+        textAlign: 'center',
+    },
+    Divisor:{
+        height:FormHeight*.15
+    },
+    
     Container: {
         backgroundColor:Colors.blue,
         position: 'relative',
-        zIndex:0
     },
     FormContainer: {
-
         marginTop:borderTop + iconSize/2,
-        marginBottom:-height*.4,
+
         height:FormHeight,
         width: FormWidth,
         alignSelf: 'center',
         backgroundColor:Colors.white,
         borderRadius:15,
         position: 'relative',
-
     },
     logo: {
         alignSelf: 'center',
@@ -128,80 +151,28 @@ const Styles = StyleSheet.create({
         color: Colors.blue,
 
       },
-    subtitle: {
-
-        marginTop:FormHeight*.05,
-
-        alignSelf: 'center',
-
-        fontSize: Fonts.subTitle,
-
-        fontSize: Fonts.mainTitle,
-    
-        color: Colors.blue,
-    
-        fontSize: Fonts.subTitle,
-    },
-    input: {
-
-        color: Colors.black,
-    
-        borderBottomColor: Colors.black,
-    
-        borderBottomWidth: 1,
-
-        fontSize: Fonts.text,
-        
-        paddingBottom: 0,
-
-        width: '50%',
-    
-        textAlign: 'center',
-    },
     inputContainer:{
         alignItems: 'center',
         marginTop:20,
     },
     darkButton:{
         alignSelf: 'center',
-    
-        height:FormHeight*.05,
-        
-        marginTop:((borderTop + iconSize/2)+FormHeight*.975) ,
-        
+        height:DarkButton,
         width:FormWidth*.6,
-
+        marginTop:-(DarkButton/2),
         borderRadius: 15,
-
         fontSize:Fonts.miniButtons,
-
         backgroundColor: Colors.black,
-
         justifyContent: 'center',
-    
         zIndex: 5,
-    
-        position: 'absolute',
+        position: 'relative',
     },
     darkButtonText:{
         alignSelf: 'center',
         color: Colors.white,
         fontSize: Fonts.button,
+        position: 'absolute'
     },
-    linkText:{
-        alignSelf: 'center',
-        color: Colors.white,
-        fontSize: Fonts.text,
-        marginTop:height*.45,
-        paddingBottom:height*.02
-        
-    },
-    grayText:{
-        paddingTop:0,
-        alignSelf: 'center',
-        color:'#A4A4A4',
-        fontSize:10,
-    }
 })
 
-export default SignupSelection
+export default Selection
