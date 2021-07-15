@@ -35,7 +35,7 @@ class PassengerPublicProfile extends React.Component {
                                 <Text style={styles.phone}>614-245-6505</Text>
                                
                             </View>
-                            <Text style={styles.title}>Adress:</Text>
+                            <Text style={styles.title}>Address:</Text>
                         </View>
                         <TouchableOpacity
                             style={styles.buttonDark}

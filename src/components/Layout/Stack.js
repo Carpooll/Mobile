@@ -29,7 +29,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={Login}
+                component={Notifications}
                 options={{headerShown: false}}
             />
 

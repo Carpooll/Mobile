@@ -169,7 +169,7 @@ class DetailsPrivate extends React.Component {
   
     },
     titleCar: {
-        marginTop: '57%',
+        marginTop: '65%',
         marginBottom: '4%',
         alignSelf: 'center',
         color: Colors.blue,

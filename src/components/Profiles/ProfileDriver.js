@@ -132,6 +132,7 @@ const Styles = StyleSheet.create({
     },
 
     userTitle: {
+        marginBottom:5,
         color: Colors.blue,
         fontSize: Fonts.button,
 
@@ -166,6 +167,7 @@ const Styles = StyleSheet.create({
     },
 
     profitTime:{
+        paddingTop:5,
         fontSize: 10,
         color: '#A4A4A4',
     },
