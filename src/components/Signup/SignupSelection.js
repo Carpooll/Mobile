@@ -132,16 +132,17 @@ const Styles = StyleSheet.create({
         zIndex: 2
     },
     logo: {
+        width: 105,
+        height: 105,
+        justifyContent: 'center',
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
 
     },
     logoContainer: {
         marginTop: borderTop,
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
+        width: 110,
+        height: 110,
         backgroundColor:Colors.white,
         position: 'absolute',
         borderRadius: iconSize/2,
@@ -156,7 +157,7 @@ const Styles = StyleSheet.create({
 
         elevation: 20,
 
-        zIndex: 1
+  
     },
     title:{
 
