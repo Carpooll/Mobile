@@ -27,14 +27,13 @@ const BadgesStack = () =>{
         <Stack.Navigator
             screenOptions={{
             }}>
+
             <Stack.Screen 
                 name="Welcome"
                 component={Selection}
                 options={{headerShown: false}}
             />
             <Stack.Screen name="SignupCar" component={SignupCar}/>
-
-        </Stack.Navigator>
     );
 }
 
