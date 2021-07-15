@@ -6,7 +6,6 @@ import {
     ImageBackground,
     TouchableOpacity,
     StyleSheet,
-    TextInput,
     Image,
     ScrollView,
     Dimensions,
@@ -14,9 +13,10 @@ import {
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 
+
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
-class ProfileDriver extends React.Component {
+class PassengerPrivate extends React.Component {
 
     render(){
         return (
@@ -31,12 +31,8 @@ class ProfileDriver extends React.Component {
                 </View> 
                 <View style={Styles.infoContainer}>   
                         <Text style={Styles.userName}>Brayan Prieto</Text>
-                        <Text style={Styles.userInfo}>35416654231</Text>
-                        <Text style={Styles.userInfo}>614-522-88-99</Text>
-
-                        <Text style={Styles.userTitle}>Car Info</Text>
-                        <Text style={Styles.userInfo}>Mercedez</Text>
-                        <Text style={Styles.userInfo}>Black</Text>
+                        <Text style={Styles.schoolId}>35416654231</Text>
+                        <Text style={Styles.phone}>614-522-88-99</Text>
 
                         <Text style={Styles.userTitle}>Your Profits</Text>
                         <View style={Styles.profitContainer}>
@@ -44,7 +40,7 @@ class ProfileDriver extends React.Component {
                         </View>
                         <Text style={Styles.profitTime}>This Week</Text>
 
-                        <Text style={Styles.userTitle}>Your Location</Text>
+                        <Text style={Styles.loc}>Location</Text>
                         <View style={Styles.mapContainer}>
                             <Image
                                 style={Styles.mapContainer}
@@ -84,7 +80,7 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
 
         marginTop:borderTop + iconSize/2,
-        height: height*.85,
+        height: height*.69,
         width: FormWidth,
         alignSelf: 'center',
         padding:'auto',
@@ -125,26 +121,32 @@ const Styles = StyleSheet.create({
     userName: {
         display: 'flex',
 
-        marginTop: 0,
+        marginTop: '-5%',
 
         color: Colors.black,
-        fontSize: 20,
+        fontSize: 25,
     },
-
-    userInfo: {
+    schoolId:{
+        marginTop: '3%',
         color: Colors.black,
-        fontSize: Fonts.miniButtons,
+        fontSize: 16,
+    },
+    phone:{
+        marginTop: '3%',
+        color: Colors.black,
+        fontSize: 16,
     },
 
     userTitle: {
         color: Colors.blue,
-        fontSize: Fonts.button,
-
+        fontSize: 20,
+       
         marginTop: 20,
     },
 
     profitContainer:{
-        
+        marginTop:'5%',
+        marginBottom:'2%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -154,20 +156,15 @@ const Styles = StyleSheet.create({
 
         backgroundColor: Colors.white,
 
-        borderColor: '#F1F1F1',
-        borderWidth: 2,
+        
         borderRadius: 7,
         zIndex:2,
 
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 5,
-            height: 0,
-        },
-        shadowOpacity: 0.35,
-        shadowRadius: 6,
-        
-        elevation: 10,
+        shadowColor: Colors.black,
+        shadowOpacity: 0.8,
+        elevation: 6,
+        shadowRadius: 15 ,
+        shadowOffset : { width: -5, height: -30},
     },
 
     profitTime:{
@@ -180,7 +177,7 @@ const Styles = StyleSheet.create({
         width: 100,
         borderRadius: 7,
         zIndex:2,
-
+        
         backgroundColor: Colors.blue
     },
 
@@ -188,9 +185,8 @@ const Styles = StyleSheet.create({
 
         alignSelf: 'center',
         height:FormHeight*.1,
-        marginTop: height*1, //590
+        marginTop:width*1.6, //590
         width:FormWidth*.6,
-
         borderRadius: 15,
 
         fontSize:Fonts.miniButtons,
@@ -207,7 +203,13 @@ const Styles = StyleSheet.create({
 
         alignSelf: 'center',
         color: Colors.white
+    },
+    loc:{
+        color: Colors.blue,
+        fontSize: 20,
+        marginTop: 20,
+        marginBottom: '3%'
     }
 })
 
-export default ProfileDriver
+export default PassengerPrivate

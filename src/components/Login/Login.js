@@ -10,9 +10,12 @@ import {
   TextInput,
   Image,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 // import Background from "../../assets/background.jpeg"
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Background = {
   uri: `https://images.pexels.com/photos/3876465/pexels-photo-3876465.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260`,
@@ -20,9 +23,10 @@ const Background = {
 class Login extends React.Component {
   render() {
     return (
-        <ScrollView>
 
-      <View style={styles.container}>
+        <ScrollView style={styles.container}>
+
+      <View >
         <StatusBar backgroundColor="transparent" translucent={true} />
 
        
@@ -94,14 +98,12 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        
-        flexDirection: 'column',
 
-    justifyContent: 'center',
-
+  container: {
+  
+    height: windowHeight,
     backgroundColor: Colors.white,
+
   
   },
 

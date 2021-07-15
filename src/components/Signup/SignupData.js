@@ -28,13 +28,14 @@ class SignUpAdrress extends React.Component {
                         }}/>
                 </View> 
                 <View style={Styles.FormContainer}>   
-                    <Text style={Styles.title}>Address</Text>
+                    <Text style={Styles.title}>Personal data</Text>
                     <View style={Styles.inputContainer}>
-                        <TextInput style={Styles.input} placeholder="Street" placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='Suburbal' placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='Postal Code' placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='Internal Number' placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='External Number' placeholderTextColor={Colors.black}/>
+                        <TextInput style={Styles.input} placeholder="Student ID" placeholderTextColor={Colors.black}/>
+                        <TextInput style={Styles.input} placeholder='Name' placeholderTextColor={Colors.black}/>
+                        <TextInput style={Styles.input} placeholder='Last name' placeholderTextColor={Colors.black}/>
+                        <TextInput style={Styles.input} placeholder='Phone number' placeholderTextColor={Colors.black}/>
+                        <TextInput style={Styles.input} placeholder='Password' placeholderTextColor={Colors.black}/>
+                        <TextInput style={Styles.input} placeholder='Password confirmation' placeholderTextColor={Colors.black}/>
                     </View>
                 </View>
                 <TouchableOpacity style={Styles.darkButton}>
@@ -99,15 +100,11 @@ const Styles = StyleSheet.create({
 
         alignSelf: 'center',
 
-        fontSize: 80,
-
         fontSize: Fonts.mainTitle,
-    
-        fontWeight: 'bold',
     
         color: Colors.blue,
-    
-        fontSize: Fonts.mainTitle,
+
+
       },
     input: {
 
