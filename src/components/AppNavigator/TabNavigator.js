@@ -3,7 +3,7 @@ import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Stack from '../Layout/Stack'
 import Colors from '../../res/Colors'
-import Page from '../test/Page'
+import Notifications from '../Notifications/Notifications'
 
 const Tabs = createBottomTabNavigator()
 
@@ -27,7 +27,7 @@ const TabNavigator = () => {
             {/* Each screen corresponds to an icon on the navbar */}
             <Tabs.Screen
                 name="Notifications"
-                component={Page}
+                component={Notifications}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
@@ -39,7 +39,7 @@ const TabNavigator = () => {
             />
             <Tabs.Screen
                 name="Balance"
-                component={Page}
+                component={Notifications}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
@@ -51,7 +51,7 @@ const TabNavigator = () => {
             />
             <Tabs.Screen
                 name="Account"
-                component={Page}
+                component={Notifications}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
@@ -63,7 +63,7 @@ const TabNavigator = () => {
             />
             <Tabs.Screen
                 name="Home"
-                component={Page}
+                component={Notifications}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image

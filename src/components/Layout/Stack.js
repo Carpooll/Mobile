@@ -5,18 +5,14 @@ import Colors from "../../res/Colors"
 import Layout from "./Layout"
 
 // Screens
-import Login from '../Login/Login' 
-import SignUpData from '../Signup/SignupData' 
-import SignUpAdrress from '../Signup/SignupAddress' 
-import SignupPayment from '../Signup/SignupPayment' 
-import SignupCar from '../Signup/SignupCar' 
+import Login from '../Login/Login'
 import HomeDriver from "../Home/HomeDriver"
 import HomePassenger1 from '../Home/HomePassenger' 
-import SignupCar from '../Signup/SignupCar'
-import Login from '../Login/Login'
 import Selection from "../Signup/SignupSelection"
 import SignUpData from '../Signup/SignupData'
 import SignUpAdrress from '../Signup/SignupAddress'
+import SignupPayment from '../Signup/SignupPayment' 
+import SignupCar from '../Signup/SignupCar'
 import EditProfileDriver from '../Edit/EditProfileDriver'
 import EditProfilePassenger from "../Edit/EditProfilePassenger" 
 import DriverDetailsPrivate from '../Details/DetailsPrivate' 
