@@ -12,6 +12,11 @@ import SignupPayment from '../Signup/SignupPayment'
 import SignupCar from '../Signup/SignupCar' 
 import HomeDriver from "../Home/HomeDriver"
 import HomePassenger1 from '../Home/HomePassenger' 
+import SignupCar from '../Signup/SignupCar'
+import Login from '../Login/Login'
+import Selection from "../Signup/SignupSelection"
+import SignUpData from '../Signup/SignupData'
+import SignUpAdrress from '../Signup/SignupAddress'
 import EditProfileDriver from '../Edit/EditProfileDriver'
 import EditProfilePassenger from "../Edit/EditProfilePassenger" 
 import DriverDetailsPrivate from '../Details/DetailsPrivate' 
@@ -29,7 +34,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={Notifications}
+                component={Login}
                 options={{headerShown: false}}
             />
 
