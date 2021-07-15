@@ -1,182 +1,174 @@
-import React from 'react'
+import React from 'react';
 import {
-    Text,
-    View,
-    StatusBar,
-    ImageBackground,
-    TouchableOpacity,
-    StyleSheet,
-    TextInput,
-    Image,
-    ScrollView,
-    Dimensions,
-  } from 'react-native';
-import Fonts from '../../res/Fonts'
+  Text,
+  View,
+  StatusBar,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
 class HomeDriver extends React.Component {
+  render() {
+    const {item} = this.props;
+    return (
+      <ScrollView style={Styles.Container}>
+        <StatusBar backgroundColor="transparent" translucent={true} />
+        <View style={Styles.marginTopCard}>
+          <View style={Styles.infoContainer}>
+            <View style={Styles.imageContainer}>
+              <Image
+                style={Styles.image}
+                source={{
+                  uri: 'https://images.unsplash.com/photo-1624759314986-43bee161a691?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDMzfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                }}
+              />
+            </View>
+            <Text style={Styles.userName}>Brayan Prieto</Text>
 
-    render(){
-        const { item } = this.props
-        return (
-            <ScrollView style={Styles.Container}>
-                <StatusBar backgroundColor="transparent" translucent={true}/>
-                
-                <View style={Styles.infoContainer}>   
-                    <View style={Styles.imageContainer}>
-                            <Image
-                                style={Styles.image}
-                                source={{
-                                uri: 'https://images.unsplash.com/photo-1624759314986-43bee161a691?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDMzfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-                            }}/>
-                    </View> 
-                    <Text style={Styles.userName}>Brayan Prieto</Text>
-
-                    <View style={Styles.buttons}>
-
-                        <TouchableOpacity style={Styles.darkButton}>
-                            <Text style={Styles.darkButtonText}>DELETE</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={Styles.blueButton}>
-                            <Text style={Styles.blueButtonText}>SEE</Text>
-                        </TouchableOpacity>
-
-                    </View>
-                </View>
-
-            </ScrollView>
-        )
-    }
+            <View style={Styles.buttons}>
+              <TouchableOpacity style={Styles.darkButton}>
+                <Text style={Styles.darkButtonText}>DELETE</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={Styles.blueButton}>
+                <Text style={Styles.blueButtonText}>SEE</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
 var height = Dimensions.get('window').height;
-var width = Dimensions.get('window').width
+var width = Dimensions.get('window').width;
 
-var iconSize  =  height*.15
-var FormWidth = width*.80
+var iconSize = height * 0.12;
+var FormWidth = width * 0.8;
 
 const Styles = StyleSheet.create({
-    Container: {
-        backgroundColor:Colors.blue,
-        position: 'relative',
-        zIndex:0
+  Container: {
+    backgroundColor: Colors.blue,
+    position: 'relative',
+    zIndex: 0,
+  },
+
+  marginTopCard: {
+    marginTop: 80,
+  },
+
+  infoContainer: {
+    display: 'flex',
+    height: 110,
+    width: FormWidth,
+    alignSelf: 'center',
+    padding: 'auto',
+    backgroundColor: Colors.white,
+    borderRadius: 15,
+    position: 'relative',
+    marginBottom: 50,
+  },
+  image: {
+    height: iconSize,
+    width: iconSize,
+    borderRadius: iconSize / 2,
+  },
+  imageContainer: {
+    height: iconSize,
+    width: iconSize,
+
+    marginTop: 10,
+    marginLeft: 20,
+
+    backgroundColor: Colors.white,
+
+    position: 'absolute',
+
+    borderRadius: iconSize / 2,
+
+    zIndex: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    infoContainer: {
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
 
-        display: 'flex',
+    elevation: 20,
+  },
 
-        marginTop: height*0.065,
-        height: 110,
-        width: FormWidth,
-        alignSelf: 'center',
-        padding:'auto',
+  userName: {
+    display: 'flex',
 
-        backgroundColor:Colors.white,
-        borderRadius: 15,
-        position: 'relative',
+    marginTop: height * 0.03,
+    marginLeft: 135,
 
-    },
-    image: {
+    color: Colors.button,
+    fontSize: 20,
+  },
 
-        height:iconSize,
-        width:iconSize,
-        borderRadius: iconSize/2,
+  buttons: {
+    width: 165,
+    height: 40,
 
-    },
-    imageContainer: {
+    justifyContent: 'center',
+  },
 
-        height:iconSize,
-        width:iconSize,
+  darkButton: {
+    height: 20,
+    width: 75,
 
-        marginTop: height*0.02,
-        marginLeft: height*0.02,
-        
-        backgroundColor:Colors.white,
-        
-        position: 'absolute',
+    marginLeft: 135,
 
-        borderRadius: iconSize/2,
+    borderRadius: 15,
 
-        zIndex:2,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 10,
-        },
-        shadowOpacity: 0.51,
-        shadowRadius: 13.16,
+    fontSize: Fonts.miniButtons,
+    backgroundColor: Colors.black,
 
-        elevation: 20,
-    },
- 
-    userName: {
-        display: 'flex',
+    justifyContent: 'center',
 
-        marginTop: height*0.03,
-        marginLeft: height*0.21,
+    zIndex: 2,
 
-        color: Colors.button,
-        fontSize: 20,
-    },
+    position: 'absolute',
+  },
 
-    buttons:{
-        width: 165,
-        height: 40,
+  darkButtonText: {
+    alignSelf: 'center',
+    color: Colors.white,
+  },
 
-        justifyContent: 'flex-end',
-    },  
+  blueButton: {
+    height: 20,
+    width: 75,
 
-    darkButton:{
+    marginLeft: 225,
 
-        height: 20,
-        width: 75,
-        
-        marginLeft: height*0.2,
-        
-        borderRadius: 15,
+    borderRadius: 15,
 
-        fontSize:Fonts.miniButtons,
-        backgroundColor: Colors.black,
+    fontSize: Fonts.miniButtons,
+    backgroundColor: Colors.blue,
 
-        justifyContent: 'center',
-    
-        zIndex: 2,
-    
-        position: 'absolute',
-    },
+    justifyContent: 'center',
 
-    darkButtonText:{
+    zIndex: 2,
 
-        alignSelf: 'center',
-        color: Colors.white
-    },
+    position: 'absolute',
+  },
 
-    blueButton:{
+  blueButtonText: {
+    alignSelf: 'center',
+    color: Colors.white,
+  },
+});
 
-        height: 20,
-        width: 75,
-        
-        marginLeft: height*0.34, //200
-        
-        borderRadius: 15,
-
-        fontSize:Fonts.miniButtons,
-        backgroundColor: Colors.blue,
-
-        justifyContent: 'center',
-    
-        zIndex: 2,
-    
-        position: 'absolute',
-    },
-
-    blueButtonText:{
-
-        alignSelf: 'center',
-        color: Colors.white
-    }
-})
-
-export default HomeDriver
+export default HomeDriver;

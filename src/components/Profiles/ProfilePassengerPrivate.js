@@ -61,11 +61,10 @@ class PassengerPrivate extends React.Component {
 
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
-
 var iconSize  =  height*.15
 var borderTop = height*.10
-var FormWidth = width*.80
-var FormHeight = height*.70
+var FormWidth = width*.69
+var FormHeight = height*.7
 
 const Styles = StyleSheet.create({
     Container: {
@@ -78,9 +77,8 @@ const Styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-
-        marginTop:borderTop + iconSize/2,
-        height: height*.69,
+        marginTop: 135,
+        height: height*.7,
         width: FormWidth,
         alignSelf: 'center',
         padding:'auto',
@@ -88,7 +86,6 @@ const Styles = StyleSheet.create({
         backgroundColor:Colors.white,
         borderRadius: 15,
         position: 'relative',
-        marginBottom: height*.9-(borderTop + FormHeight)
 
     },
     image: {
@@ -120,21 +117,19 @@ const Styles = StyleSheet.create({
  
     userName: {
         display: 'flex',
-
-        marginTop: '-5%',
-
+        marginTop: 0,
         color: Colors.black,
-        fontSize: 25,
+        fontSize: 20,
     },
     schoolId:{
-        marginTop: '3%',
+        marginTop: 10,
         color: Colors.black,
-        fontSize: 16,
+        fontSize: Fonts.miniButtons,
     },
     phone:{
-        marginTop: '3%',
+        marginTop: 10,
         color: Colors.black,
-        fontSize: 16,
+        fontSize: Fonts.miniButtons,
     },
 
     userTitle: {
@@ -185,7 +180,7 @@ const Styles = StyleSheet.create({
 
         alignSelf: 'center',
         height:FormHeight*.1,
-        marginTop:width*1.6, //590
+        marginTop: -25, //590
         width:FormWidth*.6,
         borderRadius: 15,
 
@@ -196,7 +191,6 @@ const Styles = StyleSheet.create({
     
         zIndex: 5,
     
-        position: 'absolute',
     },
 
     darkButtonText:{
