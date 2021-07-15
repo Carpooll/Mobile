@@ -75,11 +75,10 @@ class Selection extends React.Component {
 }
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
-var iconSize  =  height*.20
-var borderTop = height*.15
-var FormWidth = width*.80
-var FormHeight = height*.60
-var DarkButton = FormHeight*.15
+var iconSize  =  height*.15
+var borderTop = height*.10
+var FormWidth = width*.69
+var FormHeight = height*.5
 const Styles = StyleSheet.create({
     selectedButton:{
         color: Colors.black,
@@ -92,6 +91,7 @@ const Styles = StyleSheet.create({
         width:FormWidth*.70,
         textAlign: 'center',
         shadowColor: "#000",
+        fontSize: Fonts.button,
         shadowOffset: {
             width: 0,
             height: 5,
@@ -110,6 +110,7 @@ const Styles = StyleSheet.create({
         fontSize: 25,
         width:FormWidth*.65,
         textAlign: 'center',
+        fontSize: Fonts.button,
     },
     Divisor:{
         height:FormHeight*.15
@@ -118,6 +119,7 @@ const Styles = StyleSheet.create({
     Container: {
         backgroundColor:Colors.blue,
         position: 'relative',
+        zIndex: 1
     },
     FormContainer: {
         marginTop:borderTop + iconSize/2,
@@ -127,6 +129,7 @@ const Styles = StyleSheet.create({
         backgroundColor:Colors.white,
         borderRadius:15,
         position: 'relative',
+        zIndex: 2
     },
     logo: {
         alignSelf: 'center',
@@ -152,6 +155,8 @@ const Styles = StyleSheet.create({
         shadowRadius: 13.16,
 
         elevation: 20,
+
+        zIndex: 1
     },
     title:{
 
@@ -159,11 +164,11 @@ const Styles = StyleSheet.create({
 
         alignSelf: 'center',
 
-        fontSize: 25,
+        fontSize: 22,
     
         color: Colors.black,
 
-        marginBottom: DarkButton/2,
+        marginBottom: 40,
 
       },
     inputContainer:{
@@ -171,23 +176,25 @@ const Styles = StyleSheet.create({
         marginTop:20,
     },
     darkButton:{
-        alignSelf: 'center',
-        height:DarkButton,
-        width:FormWidth*.6,
-        marginTop:-(DarkButton/2),
+        width: 193,
+        padding: 15,
+        marginTop: -30,
         borderRadius: 15,
-        fontSize:Fonts.miniButtons,
         backgroundColor: Colors.black,
-        justifyContent: 'center',
+        borderColor: Colors.black,
+        borderWidth: 1,
+        alignSelf: 'center',
         zIndex: 5,
-        position: 'relative',
+
+    
+       
     },
     darkButtonText:{
-        alignSelf: 'center',
+        textAlign: 'center',
+        fontSize: Fonts.button,
+        paddingHorizontal: 25,
         color: Colors.white,
-        fontSize: 30,
-        position: 'absolute'
-    },
+    }
 })
 
 export default Selection
