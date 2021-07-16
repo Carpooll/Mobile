@@ -3,8 +3,9 @@ import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Stack from '../Layout/Stack'
 import Colors from '../../res/Colors'
+import { createStackNavigator } from '@react-navigation/stack';
 
-// Screens
+// SCREENS
 import Notifications from '../Notifications/Notifications'
 // Profiles
 import ProfileDriver from '../Profiles/ProfileDriver'
@@ -13,21 +14,67 @@ import PassengerPublicProfile from '../Profiles/ProfilePassenger'
 import HomeDriver from '../Home/HomeDriver'
 import HomePassenger from '../Home/HomePassenger'
 import HomePassenger2 from '../Home/HomePassenger2'
+// Edit
+import EditProfileDriver from '../Edit/EditProfileDriver'
 
 const Tabs = createBottomTabNavigator()
+
+// Stack to redirect to screens between tab navigator (HOME)
+const HomeStack = createStackNavigator();
+function HomeStackScreen() {
+    return (
+        <HomeStack.Navigator
+            tabBarOptions={{
+                // showLabel: false,
+                tintColor: Colors.blueLight,
+                activeTintColor: Colors.blue,
+                style: {
+                    backgroundColor: Colors.white
+                }
+            }}
+        >
+            <HomeStack.Screen name="HomeDriver" component={HomeDriver} options={{ headerShown: false }} />
+            <HomeStack.Screen name="PassengerPublicProfile" component={PassengerPublicProfile} options={{ headerShown: false }} />
+
+        </HomeStack.Navigator>
+    )
+}
+
+// Stack to redirect to screens between tab navigator (PROFILE)
+const ProfileStack = createStackNavigator()
+function ProfileStackScreen() {
+    return (
+        <ProfileStack.Navigator
+            tabBarOptions={{
+                // showLabel: false,
+                headerShown: false,
+                tintColor: Colors.blueLight,
+                activeTintColor: Colors.blue,
+                style: {
+                    backgroundColor: Colors.white
+                }
+            }}
+        >
+            <ProfileStack.Screen name="ProfileDriver" component={ProfileDriver} options={{ headerShown: false }} />
+            <HomeStack.Screen name="EditProfileDriver" component={EditProfileDriver} options={{ headerShown: false }} />
+        </ProfileStack.Navigator>
+    )
+}
 
 
 const TabNavigator = () => {
     return (
         <Tabs.Navigator
             tabBarOptions={{
-                showLabel: false,
+                // showLabel: false,
+                headerShown: false,
                 tintColor: Colors.blueLight,
                 activeTintColor: Colors.blue,
                 style: {
                     backgroundColor: Colors.white
                 }
             }}>
+
             {/* Each screen corresponds to an icon on the navbar */}
             <Tabs.Screen
                 name="Notifications"
@@ -42,8 +89,8 @@ const TabNavigator = () => {
                 }}
             />
             <Tabs.Screen
-                name="Account"
-                component={ProfileDriver}
+                name="Profile"
+                component={ProfileStackScreen}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
@@ -55,7 +102,7 @@ const TabNavigator = () => {
             />
             <Tabs.Screen
                 name="Home"
-                component={HomeDriver}
+                component={HomeStackScreen}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
