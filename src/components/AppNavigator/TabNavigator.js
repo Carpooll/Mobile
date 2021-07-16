@@ -3,15 +3,19 @@ import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Stack from '../Layout/Stack'
 import Colors from '../../res/Colors'
+
+// Screens
 import Notifications from '../Notifications/Notifications'
+// Profiles
+import ProfileDriver from '../Profiles/ProfileDriver'
+import PassengerPublicProfile from '../Profiles/ProfilePassenger'
+// Home
+import HomeDriver from '../Home/HomeDriver'
+import HomePassenger from '../Home/HomePassenger'
+import HomePassenger2 from '../Home/HomePassenger2'
 
 const Tabs = createBottomTabNavigator()
 
-// ICONS:
-// notifications: https://i.imgur.com/c4ndYby.png
-// balance: https://i.imgur.com/EZFEd1v.png
-// account: https://i.imgur.com/lAdvcUO.png
-// home: https://i.imgur.com/E8BiIPd.png
 
 const TabNavigator = () => {
     return (
@@ -38,20 +42,8 @@ const TabNavigator = () => {
                 }}
             />
             <Tabs.Screen
-                name="Balance"
-                component={Notifications}
-                options={{
-                    tabBarIcon: ({ size, color }) => (
-                        <Image
-                            style={{ tintColor: color, width: size, height: size }}
-                            source={{ uri: 'https://i.imgur.com/EZFEd1v.png' }}
-                        />
-                    )
-                }}
-            />
-            <Tabs.Screen
                 name="Account"
-                component={Notifications}
+                component={ProfileDriver}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
@@ -63,7 +55,7 @@ const TabNavigator = () => {
             />
             <Tabs.Screen
                 name="Home"
-                component={Notifications}
+                component={HomeDriver}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
