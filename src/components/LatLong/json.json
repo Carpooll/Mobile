@@ -1,0 +1,30 @@
+{"address_components": [
+    { 
+        "long_name": "Circuito Praderas de Gobi",
+         "short_name": "Cto. Praderas de Gobi", 
+         "types": [Array]
+    }
+    , 
+    {
+        "long_name": "Chihuahua", 
+        "short_name": "Chihuahua", 
+        "types": [Array]
+    }, 
+    {
+        "long_name": "Chihuahua", 
+        "short_name": "Chih.", 
+        "types": [Array]
+    }, 
+    {
+        "long_name": "México", 
+        "short_name": "MX",
+         "types": [Array]
+    }
+], 
+"formatted_address": "Cto. Praderas de Gobi, Chihuahua, Chih., México", 
+"geometry": {
+    "bounds": {"northeast": [Object], "southwest": [Object]},
+    "location": {"lat": 28.6565504, "lng": -105.9618525}, 
+    "location_type": "GEOMETRIC_CENTER", "viewport": {"northeast": [Object], "southwest": [Object]}}, 
+    "place_id": "ChIJrWZjEvpP6oYRLWaY8om8_9A", "types": ["route"]
+    }
