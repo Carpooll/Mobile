@@ -1,6 +1,5 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import Layout from "../Layout/Layout"
 import Colors from "../../res/Colors"
 
 import TabNavigator from "./TabNavigator.js"
@@ -14,13 +13,7 @@ import SignUpData from '../Signup/Signup'                   // Step 2 x
 import SignUpAddress from '../Signup/SignupAddress'         // Step 3 x
 import SignupPayment from '../Signup/SignupPayment'         // Step 4 (driver only) x
 import SignupCar from '../Signup/SignupCar'                 // Step 5 (driver only)
-import EditProfileDriver from '../Edit/EditProfileDriver'
-import EditProfilePassenger from "../Edit/EditProfilePassenger" 
-import DriverDetailsPrivate from '../Details/DetailsPrivate' 
-import ProfileDriver from "../Profiles/ProfileDriver" 
 import PassengerPublicProfile from '../Profiles/ProfilePassenger' 
-import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
-import Notifications from '../Notifications/Notifications' 
 
 const Stack = createStackNavigator()
 
