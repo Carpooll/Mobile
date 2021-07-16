@@ -3,8 +3,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import Geolocation from 'react-native-geolocation-service';
 
-Geocoder.init('AIzaSyAkyORWI5UQi7YxxYeGZisyktvuTk-spLs');
-Geocoder.init('AIzaSyAkyORWI5UQi7YxxYeGZisyktvuTk-spLs', {language: 'es'});
+Geocoder.init('KEY_API');
+Geocoder.init('KEY_API', {language: 'es'});
 
 export default class Location extends Component {
   constructor() {
@@ -14,12 +14,12 @@ export default class Location extends Component {
       latitude: 0,
       longitude: 0,
       error: null,
-      Address: 'Praderas de gobi',
+      Address: 'Km 3.5 Carretera Chihuahua a Aldama Colinas de León, 31313 Chihuahua, Chih.',
     };
   }
 
   async componentDidMount() {
-    /*     Geolocation.getCurrentPosition(
+    /*      Geolocation.getCurrentPosition(
       position => {
         this.setState({
           latitude: position.coords.latitude,
@@ -51,7 +51,8 @@ export default class Location extends Component {
         timeout: 10000,
         maximumAge: 100000,
       },
-    ); */
+    );  */
+
     Geolocation.getCurrentPosition(
       position => {
         Geocoder.from(this.state.Address)
@@ -59,12 +60,13 @@ export default class Location extends Component {
           .then(json => {
             results = json.results[0];
 
-            console.log(JSON.stringify(results.geometry.location.lat));
-
+            latitud = JSON.stringify(results.geometry.location.lat)
+            longitud = JSON.stringify(results.geometry.location.lng)
+            console.log(latitud)
+            console.log(longitud)
           })
           .catch(error => console.warn(error));
       },
-
       error => {
         this.setState({
           error: error.message,
