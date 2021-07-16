@@ -17,6 +17,11 @@ import Colors from '../../res/Colors';
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
 class HomeDriver extends React.Component {
+
+  handleUser = () => {
+    this.props.navigation.replace('PassengerPublicProfile')
+  }
+
   render() {
     const {item} = this.props;
     return (
@@ -38,7 +43,7 @@ class HomeDriver extends React.Component {
               <TouchableOpacity style={Styles.darkButton}>
                 <Text style={Styles.darkButtonText}>DELETE</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={Styles.blueButton}>
+              <TouchableOpacity style={Styles.blueButton} onPress={this.handleUser}>
                 <Text style={Styles.blueButtonText}>SEE</Text>
               </TouchableOpacity>
             </View>
