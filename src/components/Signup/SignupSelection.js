@@ -14,27 +14,29 @@ import Colors from '../../res/Colors';
 
 class Selection extends React.Component {
     state = {
-        driver: false,
-        passenger: false,
+        driver: undefined,
+        passenger: undefined,
     }
 
     handlePress = () => {
-        this.props.navigation.replace('SignUpData')
+        if(this.state.passenger || this.state.driver){
+            this.props.navigation.replace('SignUpData')
+        }
     };
 
-    handlePassenger = () => {
-        if (this.state.passenger == true) {
-            this.setState({ passenger: false })
-        } else {
-            this.setState({ passenger: true, driver: false })
+    handlePassenger = () =>{
+        if (this.state.passenger == true){
+            this.setState({passenger:false})
+        }else{
+            this.setState({passenger:true, driver:false})
         }
-
+        
     }
-    handleDriver = () => {
-        if (this.state.driver == true) {
-            this.setState({ driver: false })
-        } else {
-            this.setState({ passenger: false, driver: true })
+    handleDriver = () =>{
+        if (this.state.driver == true){ // If its clicked when its true, it becomes false (unpress botton)
+            this.setState({driver:false})
+        }else{
+            this.setState({passenger:false, driver:true})
         }
     }
 
@@ -52,7 +54,9 @@ class Selection extends React.Component {
                 </View>
                 <View style={Styles.FormContainer}>
                     <View style={Styles.inputContainer}>
+
                         <Text style={Styles.title}>Choose one option</Text>
+
                         <TouchableOpacity onPress={this.handlePassenger}>
                             <Text style={
                                 passenger
@@ -60,7 +64,9 @@ class Selection extends React.Component {
                                     : Styles.unselectedButton
                             }>Passenger</Text>
                         </TouchableOpacity>
+
                         <View style={Styles.Divisor} />
+
                         <TouchableOpacity onPress={this.handleDriver}>
                             <Text style={
                                 driver

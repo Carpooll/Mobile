@@ -18,7 +18,7 @@ import SignUpSelection from './SignupAddress';
 class SignUpAdrress extends React.Component {
 
     state = {
-        driver: false,
+        driver: undefined
     }
 
     handlePress = () => {
@@ -28,7 +28,6 @@ class SignUpAdrress extends React.Component {
         else {  // if its not go back to login
             this.props.navigation.replace('Login')
         }
-
     };
 
     render() {
@@ -66,6 +65,7 @@ var iconSize = height * .15
 var borderTop = height * .10
 var FormWidth = width * .69
 var FormHeight = height * .68
+
 const Styles = StyleSheet.create({
     Container: {
         backgroundColor: Colors.blue,
