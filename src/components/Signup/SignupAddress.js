@@ -13,11 +13,22 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
+import SignUpSelection from './SignupAddress';
 
 class SignUpAdrress extends React.Component {
 
+    state = {
+        driver: false,
+    }
+
     handlePress = () => {
-        this.props.navigation.replace('SignupPayment')
+        if (this.state.driver) { // If its driver continue to sign up payment
+            this.props.navigation.replace('SignupPayment')
+        }
+        else {  // if its not go back to login
+            this.props.navigation.replace('Login')
+        }
+
     };
 
     render() {
@@ -48,6 +59,7 @@ class SignUpAdrress extends React.Component {
         )
     }
 }
+
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
 var iconSize = height * .15
