@@ -89,7 +89,7 @@ class SignupPayment extends React.Component {
             <TouchableOpacity
               style={styles.buttonDark}
               onPress={this.handlePress}>
-              <Text style={styles.buttonDarkText}>Sign up</Text>
+              <Text style={styles.buttonDarkText}>NEXT</Text>
             </TouchableOpacity>
           </View>
         </View>
