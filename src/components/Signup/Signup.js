@@ -17,7 +17,7 @@ import Colors from '../../res/Colors';
 class SignUpData extends React.Component {
 
     handlePress = () =>{
-        this.props.navigation.replace('SignUpAddress')
+        this.props.navigation.navigate('SignUpAddress')
     }
 
     render(){

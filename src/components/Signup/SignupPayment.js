@@ -16,7 +16,7 @@ import Fonts from '../../res/Fonts';
 class SignupPayment extends React.Component {
 
   handlePress = () => {
-    this.props.navigation.replace('SignupCar')
+    this.props.navigation.navigate('SignupCar')
   }
 
   render() {

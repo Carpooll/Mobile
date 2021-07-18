@@ -14,7 +14,7 @@ import Fonts from '../../res/Fonts';
 class PassengerPublicProfile extends React.Component {
 
     handlePress = () => {
-        this.props.navigation.replace('HomeDriver')
+        this.props.navigation.navigate('HomeDriver')
     }
 
     render() {

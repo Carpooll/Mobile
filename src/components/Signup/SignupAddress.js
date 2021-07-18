@@ -23,10 +23,10 @@ class SignUpAdrress extends React.Component {
 
     handlePress = () => {
         if (this.state.driver) { // If its driver continue to sign up payment
-            this.props.navigation.replace('SignupPayment')
+            this.props.navigation.navigate('SignupPayment')
         }
         else {  // if its not go back to login
-            this.props.navigation.replace('Login')
+            this.props.navigation.navigate('Login')
         }
     };
 

@@ -19,7 +19,7 @@ import Colors from '../../res/Colors';
 class ProfileDriver extends React.Component {
 
     handlePress = () => {
-        this.props.navigation.replace('EditProfileDriver')
+        this.props.navigation.navigate('EditProfileDriver')
     }
 
     render(){

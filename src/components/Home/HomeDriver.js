@@ -16,8 +16,8 @@ import Colors from '../../res/Colors';
 
 class HomeDriver extends React.Component {
 
-  handleUser = () => {
-    this.props.navigation.replace('PassengerPublicProfile')
+  handlePress = () => {
+    this.props.navigation.navigate('PassengerPublicProfile')
   }
 
   render() {
@@ -42,7 +42,7 @@ class HomeDriver extends React.Component {
               <TouchableOpacity style={Styles.darkButton}>
                 <Text style={Styles.darkButtonText}>DELETE</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={Styles.blueButton} onPress={this.handleUser}>
+              <TouchableOpacity style={Styles.blueButton} onPress={this.handlePress}>
                 <Text style={Styles.blueButtonText}>SEE</Text>
               </TouchableOpacity>
             </View>

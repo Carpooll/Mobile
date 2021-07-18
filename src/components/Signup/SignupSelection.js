@@ -20,7 +20,7 @@ class Selection extends React.Component {
 
     handlePress = () => {
         if(this.state.passenger || this.state.driver){
-            this.props.navigation.replace('SignUpData')
+            this.props.navigation.navigate('SignUpData')
         }
     };
 
