@@ -15,6 +15,11 @@ import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 
 class HomePassenger extends React.Component {
+
+  // handlePress = () =>{ // Esto lleva a ver el perfil publico del driver q no encontre
+  //   this.props.navigation.navigate('')
+  // }
+
   render() {
     return (
       <ScrollView style={Styles.Container}>
@@ -36,7 +41,7 @@ class HomePassenger extends React.Component {
               <Text style={Styles.nameDriver}>Personal data</Text>
               <Text style={Styles.priceDriver}>$1000</Text>
             </View>
-            <TouchableOpacity style={Styles.darkButton}>
+            <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
               <Text style={Styles.darkButtonText}>VIEW</Text>
             </TouchableOpacity>
 

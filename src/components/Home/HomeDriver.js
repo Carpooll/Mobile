@@ -14,8 +14,6 @@ import {
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 
-// NEEDS TO CHANGE TO DYNAMIC DATA
-
 class HomeDriver extends React.Component {
 
   handleUser = () => {
@@ -23,7 +21,7 @@ class HomeDriver extends React.Component {
   }
 
   render() {
-    const {item} = this.props;
+    const { item } = this.props;
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -39,6 +37,7 @@ class HomeDriver extends React.Component {
             </View>
             <Text style={Styles.userName}>Brayan Prieto</Text>
 
+            {/* Add an alert here */}
             <View style={Styles.buttons}>
               <TouchableOpacity style={Styles.darkButton}>
                 <Text style={Styles.darkButtonText}>DELETE</Text>
