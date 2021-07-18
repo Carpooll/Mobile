@@ -23,13 +23,14 @@ const Background = {
 class Login extends React.Component {
 
   handleLogin = () => {
-    this.props.navigation.replace('TabNavigator')
+    // this.props.navigation.navigate('TabNavigatorDriver')
+    this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
   }
 
   handleSignUp = () => {
     this.props.navigation.replace('SignUpSelection')
   };
-  
+
   render() {
     return (
 
@@ -84,7 +85,7 @@ class Login extends React.Component {
                 <TouchableOpacity
                   style={styles.buttonDark}
                   onPress={this.handleLogin}
-                  >
+                >
                   <Text style={styles.buttonDarkText}>LOGIN</Text>
                 </TouchableOpacity>
               </View>
