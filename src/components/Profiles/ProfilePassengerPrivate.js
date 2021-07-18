@@ -18,6 +18,10 @@ import Colors from '../../res/Colors';
 
 class PassengerPrivate extends React.Component {
 
+    handlePress = () => {
+        this.props.navigation.navigate('EditProfilePassenger')
+    }
+
     render(){
         return (
             <ScrollView style={Styles.Container}>
@@ -50,7 +54,7 @@ class PassengerPrivate extends React.Component {
                         </View>
                 </View>
 
-                <TouchableOpacity style={Styles.darkButton}>
+                <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
                     <Text style={Styles.darkButtonText}>EDIT</Text>
                 </TouchableOpacity>
 
