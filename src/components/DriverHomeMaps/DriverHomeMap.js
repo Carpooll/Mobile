@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const Images = [
   {uri: 'https://i.imgur.com/sNam9iJ.jpg'},
@@ -72,7 +72,7 @@ class screens extends Component {
     },
   };
 
-  componentWillUnmount() {
+  componentWillMount() {
     this.index = 0;
     this.animation = new Animated.Value(0);
   }
@@ -128,6 +128,7 @@ class screens extends Component {
     return (
       <View style={styles.container}>
         <MapView
+          provider={PROVIDER_GOOGLE}
           ref={map => (this.map = map)}
           initialRegion={this.state.region}
           style={styles.container}>
