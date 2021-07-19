@@ -9,14 +9,14 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import Colors from '../../res/Colors'
 
 const Images = [
-  {uri: 'https://i.imgur.com/sNam9iJ.jpg'},
-  {uri: 'https://i.imgur.com/N7rlQYt.jpg'},
-  {uri: 'https://i.imgur.com/UDrH0wm.jpg'},
-  {uri: 'https://i.imgur.com/Ka8kNST.jpg'},
+  {uri: 'https://images.pexels.com/photos/7275394/pexels-photo-7275394.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
+  {uri: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
+  {uri: 'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
+  {uri: 'https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
 ];
 
 const {width, height} = Dimensions.get('window');
@@ -25,6 +25,9 @@ const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
 class screens extends Component {
+
+  animation = new Animated.Value(0)
+
   state = {
     markers: [
       {
@@ -32,8 +35,7 @@ class screens extends Component {
           latitude: 45.524548,
           longitude: -122.6749817,
         },
-        title: 'Best Place',
-        description: 'This is the best place in Portland',
+        title: 'Trina',
         image: Images[0],
       },
       {
@@ -41,8 +43,7 @@ class screens extends Component {
           latitude: 45.524698,
           longitude: -122.6655507,
         },
-        title: 'Second Best Place',
-        description: 'This is the second best place in Portland',
+        title: 'Armando',
         image: Images[1],
       },
       {
@@ -50,8 +51,7 @@ class screens extends Component {
           latitude: 45.5230786,
           longitude: -122.6701034,
         },
-        title: 'Third Best Place',
-        description: 'This is the third best place in Portland',
+        title: 'Ximena',
         image: Images[2],
       },
       {
@@ -59,10 +59,11 @@ class screens extends Component {
           latitude: 45.521016,
           longitude: -122.6561917,
         },
-        title: 'Fourth Best Place',
-        description: 'This is the fourth best place in Portland',
+        title: 'Michell',
         image: Images[3],
       },
+      
+      
     ],
     region: {
       latitude: 45.52220671242907,
@@ -74,35 +75,6 @@ class screens extends Component {
 
   componentWillMount() {
     this.index = 0;
-    this.animation = new Animated.Value(0);
-  }
-
-  componentDidMount() {
-      this.animation.addListener(({ value }) => {
-          let index = Math.floor(value/CARD_WIDTH +.3)
-          if (index => this.state.markers.length){
-              index = this.state.markers.length-1
-          }
-          if(index <= 0){
-              index=0
-          }
-
-          clearTimeout(this.regionTimeout)
-          this.regionTimeout = setTimeout(() => {
-              if(this.index != index){
-                  this.index = index
-                  const { coordinate } = this.state.markers[index]
-                  this.map.animateToRegion(
-                      {
-                          ...coordinate,
-                          latitudeDelta:this.state.region.latitudeDelta,
-                          longitudeDelta: this.state.region.longitudeDelta,
-                      },
-                      350
-                  );
-              }
-          }, 10);
-      })
   }
 
   render() {
@@ -147,7 +119,7 @@ class screens extends Component {
             return (
               <MapView.Marker key={index} coordinate={marker.coordinate}>
                 <Animated.View style={[styles.markerWrap, opacityStyle]}>
-                  <Animated.View style={[styles.ring, scaleStyle]} />
+                  <Animated.View style={scaleStyle} />
                   <View style={styles.marker} />
                 </Animated.View>
               </MapView.Marker>
@@ -172,7 +144,10 @@ class screens extends Component {
               },
             ],
             {useNativeDriver: true},
-          )}>
+          )}
+          style={styles.scrollView}
+          contentContainerStyle={styles.endPadding}
+          >
           {this.state.markers.map((marker, index) => {
             return (
               <View key={index} style={styles.card}>
@@ -186,10 +161,7 @@ class screens extends Component {
                     {' '}
                     {marker.title}
                   </Text>
-                  <Text numberOfLines={1} style={styles.cardDescription}>
-                    {' '}
-                    {marker.description}
-                  </Text>
+                  
                 </View>
               </View>
             );
@@ -198,12 +170,41 @@ class screens extends Component {
       </View>
     );
   }
+
+  componentDidMount() {
+    this.animation.addListener(({value}) => {
+      let index = Math.floor(value / CARD_WIDTH + 0.3);
+      if (index >= this.state.markers.length) {
+        index = this.state.markers.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      clearTimeout(this.regionTimeout);
+      this.regionTimeout = setTimeout(() => {
+        if (this.index != index) {
+          this.index = index;
+          const {coordinate} = this.state.markers[index];
+          this.map.animateToRegion(
+            {
+              ...coordinate,
+              latitudeDelta: this.state.region.latitudeDelta,
+              longitudeDelta: this.state.region.longitudeDelta,
+            },
+            350,
+          );
+        }
+      }, 10);
+    });
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+ 
   scrollView: {
     position: 'absolute',
     bottom: 30,
@@ -211,12 +212,12 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: 10,
   },
-  endPadding: {
-    paddingRight: width - CARD_WIDTH,
-  },
+  endPadding: {	
+      paddingRight: width - CARD_WIDTH,
+  
+    },
   card: {
-    padding: 10,
-    elevation: 2,
+    elevation: 4,
     backgroundColor: '#FFF',
     marginHorizontal: 10,
     shadowColor: '#000',
@@ -226,6 +227,8 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
     overflow: 'hidden',
+    borderRadius: 5,
+    marginTop: 50,
   },
   cardImage: {
     flex: 3,
@@ -237,9 +240,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardtitle: {
-    fontSize: 12,
-    marginTop: 5,
+    fontSize: 15,
+    marginTop: 10,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   cardDescription: {
     fontSize: 12,
@@ -250,19 +254,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   marker: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: 'rgba(130,4,150, 0.9)',
-  },
-  ring: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: 'rgba(130,4,150, 0.3)',
-    position: 'absolute',
-    borderWidth: 1,
-    borderColor: 'rgba(130,4,150, 0.5)',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: Colors.blue,
+    padding: 5,
+    borderRadius:10,
   },
 });
 
