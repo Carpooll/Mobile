@@ -41,7 +41,7 @@ class UserSession {
 
   signup = async body => {
     try {
-      let request = await fetch(`http://127.0.0.1:8000/users/signup/`, {
+      let request = await fetch(`http://backend-heroku-link`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
