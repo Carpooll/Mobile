@@ -39,7 +39,7 @@ class Login extends React.Component {
       let response = await UserSession.instance.login(this.state.form);
 
       if (typeof response == 'object') {
-        console.log(response);
+        //console.log(response);
         if (response['405']) {
           var message = 'Your account is not verified';
         } else {
@@ -78,7 +78,6 @@ class Login extends React.Component {
                     }}></Image>
                 </View>
               </View>
-
               <View style={styles.login}>
                 <Text style={styles.errorText}>
                   {error ? (
