@@ -11,9 +11,11 @@ import Notifications from '../Notifications/Notifications'
 import ProfileDriver from '../Profiles/ProfileDriver'
 import PassengerPublicProfile from '../Profiles/ProfilePassenger'
 // Home
-import HomeDriver from '../Home/HomeDriver'
+//import HomeDriver from '../Home/HomeDriver'
+import screens from '../DriverHomeMaps/DriverHomeMap'
 // Edit
 import EditProfileDriver from '../Edit/EditProfileDriver'
+
 
 const Tabs = createBottomTabNavigator()
 
@@ -31,9 +33,8 @@ function HomeStackScreen() {
                 }
             }}
         >
-            <HomeStack.Screen name="HomeDriver" component={HomeDriver} options={{ headerShown: false }} />
+            <HomeStack.Screen name="HomeDriver" component={screens} options={{ headerShown: false }} />
             <HomeStack.Screen name="PassengerPublicProfile" component={PassengerPublicProfile} options={{ headerShown: false }} />
-
         </HomeStack.Navigator>
     )
 }
