@@ -1,4 +1,4 @@
-/* FIGMA: Driver info (siendo ya passenger) */
+/* FIGMA: Driver info public) */
 
 import React from 'react';
 import Colors from '../../res/Colors';
