@@ -16,9 +16,9 @@ import Colors from '../../res/Colors';
 
 class HomePassenger extends React.Component {
 
-  // handlePress = () =>{ // Esto lleva a ver el perfil publico del driver q no encontre
-  //   this.props.navigation.navigate('')
-  // }
+   handlePress = () =>{ // Esto lleva a ver el perfil publico del driver q no encontre
+     this.props.navigation.navigate('DetailsPublic')
+   }
 
   render() {
     return (
