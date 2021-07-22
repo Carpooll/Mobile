@@ -37,11 +37,10 @@ class PassengerPrivate extends React.Component {
                     <Text style={Styles.schoolId}>35416654231</Text>
                     <Text style={Styles.phone}>614-522-88-99</Text>
 
-                    <Text style={Styles.userTitle}>Your Profits</Text>
+                    <Text style={Styles.userTitle}>Your current balance</Text>
                     <View style={Styles.profitContainer}>
                         <Text style={Styles.userInfo}>$ 350.00</Text>
                     </View>
-                    <Text style={Styles.profitTime}>This Week</Text>
 
                     <Text style={Styles.loc}>Location</Text>
                     <View style={Styles.mapContainer}>
