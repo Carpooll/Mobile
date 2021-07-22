@@ -14,6 +14,11 @@ import Fonts from '../../res/Fonts';
 
 
 class SignupPayment extends React.Component {
+
+  handlePress = () => {
+    this.props.navigation.navigate('SignupCar')
+  }
+
   render() {
     return (
       <ScrollView>
@@ -84,7 +89,7 @@ class SignupPayment extends React.Component {
             <TouchableOpacity
               style={styles.buttonDark}
               onPress={this.handlePress}>
-              <Text style={styles.buttonDarkText}>Sign up</Text>
+              <Text style={styles.buttonDarkText}>NEXT</Text>
             </TouchableOpacity>
           </View>
         </View>

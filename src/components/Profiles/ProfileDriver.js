@@ -18,6 +18,10 @@ import Colors from '../../res/Colors';
 
 class ProfileDriver extends React.Component {
 
+    handlePress = () => {
+        this.props.navigation.navigate('EditProfileDriver')
+    }
+
     render(){
         return (
             <ScrollView style={Styles.Container}>
@@ -53,7 +57,7 @@ class ProfileDriver extends React.Component {
                             }}/>
                         </View>
                 </View>
-                <TouchableOpacity style={Styles.darkButton}>
+                <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
                     <Text style={Styles.darkButtonText}>EDIT</Text>
                 </TouchableOpacity>
 

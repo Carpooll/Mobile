@@ -12,12 +12,8 @@ import ProfileDriver from '../Profiles/ProfileDriver'
 import PassengerPublicProfile from '../Profiles/ProfilePassenger'
 // Home
 import HomeDriver from '../Home/HomeDriver'
-import HomePassenger from '../Home/HomePassenger' // PASSENGER: To find a driver
-import HomePassenger2 from '../Home/HomePassenger2' // PASSENGER: When he has a driver
 // Edit
 import EditProfileDriver from '../Edit/EditProfileDriver'
-
-// This is old tabnav. May get deleted later but kept to test
 
 const Tabs = createBottomTabNavigator()
 

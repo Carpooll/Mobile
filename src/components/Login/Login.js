@@ -21,78 +21,87 @@ const Background = {
   uri: `https://images.pexels.com/photos/3876465/pexels-photo-3876465.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260`,
 };
 class Login extends React.Component {
+
+  handleLogin = () => {
+    // this.props.navigation.navigate('TabNavigatorDriver')
+    this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
+  }
+
+  handleSignUp = () => {
+    this.props.navigation.navigate('SignUpData')
+  };
+
   render() {
     return (
 
-        <ScrollView style={styles.container}>
+      <ScrollView style={styles.container}>
 
-      <View >
-        <StatusBar backgroundColor="transparent" translucent={true} />
+        <View >
+          <StatusBar backgroundColor="transparent" translucent={true} />
 
-       
+          <ImageBackground source={Background} style={styles.image}>
+            <View style={styles.layerColor}>
+              <Text style={styles.title}>Welcome</Text>
 
-        <ImageBackground source={Background} style={styles.image}>
-          <View style={styles.layerColor}>
-            <Text style={styles.title}>Welcome</Text>
-
-            <View>
-              <View style={styles.logoContainer}>
-                <Image
-                  style={styles.logo}
-                  source={{
+              <View>
+                <View style={styles.logoContainer}>
+                  <Image
+                    style={styles.logo}
+                    source={{
                       uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
                     }}></Image>
+                </View>
               </View>
-            </View>
 
-            <View style={styles.login}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.form}
-                  placeholder="Student ID"
-                  placeholderTextColor={Colors.black}
+              <View style={styles.login}>
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.form}
+                    placeholder="Student ID"
+                    placeholderTextColor={Colors.black}
                   // onChangeText={text => { esq no sabemos si se usa unu
                   //     this.setState(prevState =>{
-                      //         let form = Object.assign({}, prevState.form);
-                      //         form.name = text;
-                      //         return {form};
-                      //     })
-                      // }}
-                      />
-                <TextInput
-                secureTextEntry={true}
-                style={styles.form}
-                placeholder="Password"
-                placeholderTextColor={Colors.black}
-                // onChangeText={text => {
-                    //     this.setState(prevState =>{
-                        //         let form = Object.assign({}, prevState.form);
-                        //         form.name = text;
-                        //         return {form};
-                        //     })
-                        // }}
-                        />
+                  //         let form = Object.assign({}, prevState.form);
+                  //         form.name = text;
+                  //         return {form};
+                  //     })
+                  // }}
+                  />
+                  <TextInput
+                    secureTextEntry={true}
+                    style={styles.form}
+                    placeholder="Password"
+                    placeholderTextColor={Colors.black}
+                  // onChangeText={text => {
+                  //     this.setState(prevState =>{
+                  //         let form = Object.assign({}, prevState.form);
+                  //         form.name = text;
+                  //         return {form};
+                  //     })
+                  // }}
+                  />
+                </View>
+
+                <TouchableOpacity
+                  style={styles.buttonDark}
+                  onPress={this.handleLogin}
+                >
+                  <Text style={styles.buttonDarkText}>LOGIN</Text>
+                </TouchableOpacity>
               </View>
 
-              <TouchableOpacity
-                style={styles.buttonDark}
-                onPress={this.handlePress}>
-                <Text style={styles.buttonDarkText}>LOGIN</Text>
-              </TouchableOpacity>
             </View>
-
+          </ImageBackground>
+          <View style={styles.signup}>
+            <Text style={styles.signupText}>Don't have an account?</Text>
+            <TouchableOpacity
+              style={styles.buttonLight}
+              onPress={this.handleSignUp}>
+              <Text style={styles.buttonLightText}>SIGN UP</Text>
+            </TouchableOpacity>
           </View>
-        </ImageBackground>
-            <View style={styles.signup}>
-              <Text style={styles.signupText}>Don't have an account?</Text>
-              <TouchableOpacity
-                style={styles.buttonLight}
-                onPress={this.handlePress}>
-                <Text style={styles.buttonLightText}>SIGN UP</Text>
-              </TouchableOpacity>
-            </View>
-      </View>
-</ScrollView>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -100,11 +109,9 @@ class Login extends React.Component {
 const styles = StyleSheet.create({
 
   container: {
-  
     height: windowHeight,
     backgroundColor: Colors.white,
 
-  
   },
 
   image: {
@@ -114,10 +121,10 @@ const styles = StyleSheet.create({
     borderRadius: 200, // border borderRadius same as width and height
     overflow: 'hidden',
     marginTop: -150,
-    paddingTop: 205, 
+    paddingTop: 205,
     paddingBottom: 130,
     marginBottom: -75,
-  
+
     // height: 100, // same width and height for the container
     // width: 200,
     // position: 'absolute', // position it in circle

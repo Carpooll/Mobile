@@ -8,15 +8,25 @@ import {
     Image,
     ScrollView,
     Dimensions,
-  } from 'react-native';
+} from 'react-native';
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 
 class Selection extends React.Component {
     state = {
-        driver:false,
-        passenger:false,
+        driver: undefined,
+        passenger: undefined,
     }
+
+    handlePress = () => {
+        if(this.state.passenger){
+            this.props.navigation.navigate('Login')
+        }
+        else if(this.state.driver){
+            this.props.navigation.navigate('SignupPayment')
+        }
+    };
+
     handlePassenger = () =>{
         if (this.state.passenger == true){
             this.setState({passenger:false})
@@ -32,63 +42,68 @@ class Selection extends React.Component {
             this.setState({passenger:false, driver:true})
         }
     }
-    render(){
-        const {driver, passenger} = this.state
+
+    render() {
+        const { driver, passenger } = this.state
         return (
             <ScrollView style={Styles.Container}>
-                <StatusBar backgroundColor="transparent" translucent={true}/>
+                <StatusBar backgroundColor="transparent" translucent={true} />
                 <View style={Styles.logoContainer}>
-                        <Image
-                            style={Styles.logo}
-                            source={{
+                    <Image
+                        style={Styles.logo}
+                        source={{
                             uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
-                        }}/>
-                </View> 
-                <View style={Styles.FormContainer}>   
+                        }} />
+                </View>
+                <View style={Styles.FormContainer}>
                     <View style={Styles.inputContainer}>
+
                         <Text style={Styles.title}>Choose one option</Text>
+
                         <TouchableOpacity onPress={this.handlePassenger}>
                             <Text style={
                                 passenger
-                                ? Styles.selectedButton
-                                : Styles.unselectedButton
+                                    ? Styles.selectedButton
+                                    : Styles.unselectedButton
                             }>Passenger</Text>
                         </TouchableOpacity>
-                        <View style={Styles.Divisor}/>
+
+                        <View style={Styles.Divisor} />
+
                         <TouchableOpacity onPress={this.handleDriver}>
                             <Text style={
                                 driver
-                                ? Styles.selectedButton
-                                : Styles.unselectedButton
+                                    ? Styles.selectedButton
+                                    : Styles.unselectedButton
                             }>Driver</Text>
                         </TouchableOpacity>
-                        
-                    </View>    
-                                      
+
+                    </View>
+
                 </View>
-                <TouchableOpacity style={Styles.darkButton} >
+                <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
                     <Text style={Styles.darkButtonText}>NEXT</Text>
-                </TouchableOpacity>  
+                </TouchableOpacity>
             </ScrollView>
         )
     }
 }
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
-var iconSize  =  height*.15
-var borderTop = height*.10
-var FormWidth = width*.69
-var FormHeight = height*.5
+var iconSize = height * .15
+var borderTop = height * .10
+var FormWidth = width * .69
+var FormHeight = height * .5
 const Styles = StyleSheet.create({
-    selectedButton:{
+    selectedButton: {
         color: Colors.black,
-        backgroundColor:Colors.black,
-        borderRadius:10,
-        color:Colors.white,
+        backgroundColor: Colors.black,
+        borderRadius: 10,
+        color: Colors.white,
         fontSize: 26,
         paddingTop: 10,
-        paddingBottom:10,
-        width:FormWidth*.70,
+        paddingBottom: 10,
+        width: FormWidth * .70,
         textAlign: 'center',
         shadowColor: "#000",
         fontSize: Fonts.button,
@@ -106,28 +121,28 @@ const Styles = StyleSheet.create({
         borderBottomColor: Colors.black,
         borderBottomWidth: 1,
         paddingTop: 10,
-        paddingBottom:10,
+        paddingBottom: 10,
         fontSize: 25,
-        width:FormWidth*.65,
+        width: FormWidth * .65,
         textAlign: 'center',
         fontSize: Fonts.button,
     },
-    Divisor:{
-        height:FormHeight*.15
+    Divisor: {
+        height: FormHeight * .15
     },
-    
+
     Container: {
-        backgroundColor:Colors.blue,
+        backgroundColor: Colors.blue,
         position: 'relative',
         zIndex: 1
     },
     FormContainer: {
-        marginTop:borderTop + iconSize/2,
-        height:FormHeight,
+        marginTop: borderTop + iconSize / 2,
+        height: FormHeight,
         width: FormWidth,
         alignSelf: 'center',
-        backgroundColor:Colors.white,
-        borderRadius:15,
+        backgroundColor: Colors.white,
+        borderRadius: 15,
         position: 'relative',
         zIndex: 2
     },
@@ -143,10 +158,10 @@ const Styles = StyleSheet.create({
         alignSelf: 'center',
         width: 110,
         height: 110,
-        backgroundColor:Colors.white,
+        backgroundColor: Colors.white,
         position: 'absolute',
-        borderRadius: iconSize/2,
-        zIndex:2,
+        borderRadius: iconSize / 2,
+        zIndex: 2,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -157,26 +172,26 @@ const Styles = StyleSheet.create({
 
         elevation: 20,
 
-  
-    },
-    title:{
 
-        marginTop:iconSize/2,
+    },
+    title: {
+
+        marginTop: iconSize / 2,
 
         alignSelf: 'center',
 
         fontSize: 22,
-    
+
         color: Colors.black,
 
         marginBottom: 40,
 
-      },
-    inputContainer:{
-        alignItems: 'center',
-        marginTop:20,
     },
-    darkButton:{
+    inputContainer: {
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    darkButton: {
         width: 193,
         padding: 15,
         marginTop: -30,
@@ -187,10 +202,10 @@ const Styles = StyleSheet.create({
         alignSelf: 'center',
         zIndex: 5,
 
-    
-       
+
+
     },
-    darkButtonText:{
+    darkButtonText: {
         textAlign: 'center',
         fontSize: Fonts.button,
         paddingHorizontal: 25,

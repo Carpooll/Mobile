@@ -16,6 +16,10 @@ import Colors from '../../res/Colors';
 
 class SignUpData extends React.Component {
 
+    handlePress = () =>{
+        this.props.navigation.navigate('SignUpAddress')
+    }
+
     render(){
         return (
             <ScrollView style={Styles.Container}>
@@ -38,7 +42,10 @@ class SignUpData extends React.Component {
                         <TextInput style={Styles.input} placeholder='Password confirmation' placeholderTextColor={Colors.black}/>
                     </View>
                 </View>
-                <TouchableOpacity style={Styles.darkButton}>
+                <TouchableOpacity 
+                    style={Styles.darkButton}
+                    onPress={this.handlePress}
+                >
                     <Text style={Styles.darkButtonText}>NEXT</Text>
                 </TouchableOpacity>
             </ScrollView>

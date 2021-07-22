@@ -8,16 +8,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 // SCREENS
 import Notifications from '../Notifications/Notifications'
 // Profiles
-import ProfileDriver from '../Profiles/ProfileDriver'
-import PassengerPublicProfile from '../Profiles/ProfilePassenger'
+import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
 // Home
-import HomeDriver from '../Home/HomeDriver'
-import HomePassenger from '../Home/HomePassenger' // PASSENGER: To find a driver
-import HomePassenger2 from '../Home/HomePassenger2' // PASSENGER: When he has a driver
+import HomePassenger from '../Home/HomePassenger' // when there's no driver
+// import HomePassenger2 from '../Home/HomePassenger2' // when there's driver. No tiene nada jsjs
+import DetailsPrivate from '../Details/DetailsPrivate' // request a ride (when there's driver)
 // Edit
-import EditProfileDriver from '../Edit/EditProfileDriver'
-
-// This is old tabnav. May get deleted later but kept to test
+import EditProfilePassenger from '../Edit/EditProfilePassenger'
 
 const Tabs = createBottomTabNavigator()
 
@@ -35,8 +32,9 @@ function HomeStackScreen() {
                 }
             }}
         >
-            <HomeStack.Screen name="HomeDriver" component={HomeDriver} options={{ headerShown: false }} />
-            <HomeStack.Screen name="PassengerPublicProfile" component={PassengerPublicProfile} options={{ headerShown: false }} />
+            <HomeStack.Screen name="HomePassenger" component={HomePassenger} options={{ headerShown: false }} />
+            {/* <HomeStack.Screen name="HomePassenger2" component={HomePassenger2} options={{ headerShown: false }} /> */}
+            <HomeStack.Screen name="DetailsPrivate" component={DetailsPrivate} options={{ headerShown: false }} />
 
         </HomeStack.Navigator>
     )
@@ -57,8 +55,8 @@ function ProfileStackScreen() {
                 }
             }}
         >
-            <ProfileStack.Screen name="ProfileDriver" component={ProfileDriver} options={{ headerShown: false }} />
-            <HomeStack.Screen name="EditProfileDriver" component={EditProfileDriver} options={{ headerShown: false }} />
+            <ProfileStack.Screen name="PassengerPrivate" component={PassengerPrivate} options={{ headerShown: false }} />
+            <HomeStack.Screen name="EditProfilePassenger" component={EditProfilePassenger} options={{ headerShown: false }} />
         </ProfileStack.Navigator>
     )
 }

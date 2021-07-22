@@ -14,6 +14,11 @@ import Fonts from '../../res/Fonts';
 
 
 class SignupCar extends React.Component {
+
+  handlePress = () => {
+    this.props.navigation.navigate('Login')
+  }
+
   render() {
     return (
       <ScrollView>
