@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
+import ModalDelete from '../Generics/Modal';
 
 class EditProfilePassenger extends React.Component {
 
@@ -52,11 +53,7 @@ class EditProfilePassenger extends React.Component {
                 <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
                     <Text style={Styles.darkButtonText}>SAVE</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={Styles.linkText}>
-                        Delete Account.
-                    </Text>
-                </TouchableOpacity>
+                <ModalDelete></ModalDelete>
             </ScrollView>
         )
     }
