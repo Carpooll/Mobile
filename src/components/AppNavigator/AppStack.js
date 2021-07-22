@@ -11,9 +11,9 @@ import TabNavigatorPassenger from "./TabNavigatorPassenger.js"
 import Login from '../Login/Login'
 
 // Sign up 
-import SignupSelection from "../Signup/SignupSelection"     // Step 1 x
-import SignUpData from '../Signup/Signup'                   // Step 2 x
-import SignUpAddress from '../Signup/SignupAddress'         // Step 3 x
+import SignUpData from '../Signup/Signup'                   // Step 1 x
+import SignUpAddress from '../Signup/SignupAddress'         // Step 2 x
+import SignupSelection from "../Signup/SignupSelection"     // Step 3 x
 import SignupPayment from '../Signup/SignupPayment'         // Step 4 (driver only) x
 import SignupCar from '../Signup/SignupCar'                 // Step 5 (driver only)
 
@@ -33,9 +33,9 @@ const AppStack = () => {
 
             <Stack.Screen name="Login" component={Login}/>
 
-            <Stack.Screen name="SignUpSelection" component={SignupSelection}/>
             <Stack.Screen name="SignUpData" component={SignUpData}/>
             <Stack.Screen name="SignUpAddress" component={SignUpAddress}/>
+            <Stack.Screen name="SignUpSelection" component={SignupSelection}/>
             <Stack.Screen name="SignupPayment" component={SignupPayment}/>
             <Stack.Screen name="SignupCar" component={SignupCar}/>
 
