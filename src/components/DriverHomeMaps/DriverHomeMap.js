@@ -8,15 +8,25 @@ import {
   Animated,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import Colors from '../../res/Colors'
+import Colors from '../../res/Colors';
+import Fonts from '../../res/Fonts';
 
 const Images = [
-  {uri: 'https://images.pexels.com/photos/7275394/pexels-photo-7275394.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
-  {uri: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
-  {uri: 'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
-  {uri: 'https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'},
+  {
+    uri: 'https://images.pexels.com/photos/7275394/pexels-photo-7275394.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+  },
+  {
+    uri: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+  },
+  {
+    uri: 'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+  },
+  {
+    uri: 'https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+  },
 ];
 
 const {width, height} = Dimensions.get('window');
@@ -25,8 +35,7 @@ const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
 class screens extends Component {
-
-  animation = new Animated.Value(0)
+  animation = new Animated.Value(0);
 
   state = {
     markers: [
@@ -37,6 +46,7 @@ class screens extends Component {
         },
         title: 'Trina',
         image: Images[0],
+        phone:6142508855
       },
       {
         coordinate: {
@@ -45,6 +55,7 @@ class screens extends Component {
         },
         title: 'Armando',
         image: Images[1],
+        phone:6142508855
       },
       {
         coordinate: {
@@ -53,6 +64,7 @@ class screens extends Component {
         },
         title: 'Ximena',
         image: Images[2],
+        phone:6142508855
       },
       {
         coordinate: {
@@ -61,9 +73,8 @@ class screens extends Component {
         },
         title: 'Michell',
         image: Images[3],
+        phone:6142508855
       },
-      
-      
     ],
     region: {
       latitude: 45.52220671242907,
@@ -75,6 +86,10 @@ class screens extends Component {
 
   componentWillMount() {
     this.index = 0;
+  }
+
+  handlePress = () =>{
+    this.props.navigation.navigate('PassengerPublicProfile')
   }
 
   render() {
@@ -146,8 +161,7 @@ class screens extends Component {
             {useNativeDriver: true},
           )}
           style={styles.scrollView}
-          contentContainerStyle={styles.endPadding}
-          >
+          contentContainerStyle={styles.endPadding}>
           {this.state.markers.map((marker, index) => {
             return (
               <View key={index} style={styles.card}>
@@ -161,7 +175,17 @@ class screens extends Component {
                     {' '}
                     {marker.title}
                   </Text>
-                  
+                  <Text numberOfLines={1} style={styles.cardphone}>
+                    {' '}
+                    {marker.phone}
+                  </Text>
+                  <View style={styles.buttons}>
+                    <TouchableOpacity
+                      style={styles.blueButton}
+                      onPress={this.handlePress}>
+                      <Text style={styles.blueButtonText}>Delete</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             );
@@ -204,7 +228,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
- 
+
   scrollView: {
     position: 'absolute',
     bottom: 30,
@@ -212,10 +236,15 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: 10,
   },
-  endPadding: {	
-      paddingRight: width - CARD_WIDTH,
-  
-    },
+  endPadding: {
+    paddingRight: width - CARD_WIDTH,
+  },
+  buttons: {
+    width: 165,
+    height: 40,
+
+    justifyContent: 'center',
+  },
   card: {
     elevation: 4,
     backgroundColor: '#FFF',
@@ -224,17 +253,19 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.3,
     shadowOffset: {x: 2, y: -2},
-    height: CARD_HEIGHT,
+    height: CARD_HEIGHT+10,
     width: CARD_WIDTH,
     overflow: 'hidden',
     borderRadius: 5,
-    marginTop: 50,
   },
   cardImage: {
-    flex: 3,
     width: '100%',
-    height: '100%',
+    height: '65%',
     alignSelf: 'center',
+  },
+  cardphone:{
+    alignSelf:'center',
+    color:'#424242'
   },
   textContent: {
     flex: 1,
@@ -259,7 +290,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: Colors.blue,
     padding: 5,
-    borderRadius:10,
+    borderRadius: 10,
+  },
+
+  blueButton: {
+    height: 15,
+    width: 50,
+    marginLeft: 47,
+    borderRadius: 3,
+    backgroundColor: '#bdbdbd',
+    zIndex: 2,
+    marginBottom:13
+  },
+
+  blueButtonText: {
+    alignSelf: 'center',
+    color: '#e0e0e0',
+    fontSize: 12,
   },
 });
 
