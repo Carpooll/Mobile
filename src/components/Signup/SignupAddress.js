@@ -13,21 +13,11 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
-import SignUpSelection from './SignupAddress';
 
 class SignUpAdrress extends React.Component {
 
-    state = {
-        driver: undefined
-    }
-
     handlePress = () => {
-        if (this.state.driver) { // If its driver continue to sign up payment
-            this.props.navigation.navigate('SignupPayment')
-        }
-        else {  // if its not go back to login
-            this.props.navigation.navigate('Login')
-        }
+        this.props.navigation.navigate('SignUpSelection')
     };
 
     render() {

@@ -28,7 +28,7 @@ class Login extends React.Component {
   }
 
   handleSignUp = () => {
-    this.props.navigation.navigate('SignUpSelection')
+    this.props.navigation.navigate('SignUpData')
   };
 
   render() {

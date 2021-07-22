@@ -19,8 +19,11 @@ class Selection extends React.Component {
     }
 
     handlePress = () => {
-        if(this.state.passenger || this.state.driver){
-            this.props.navigation.navigate('SignUpData')
+        if(this.state.passenger){
+            this.props.navigation.navigate('Login')
+        }
+        else if(this.state.driver){
+            this.props.navigation.navigate('SignupPayment')
         }
     };
 
@@ -33,7 +36,7 @@ class Selection extends React.Component {
         
     }
     handleDriver = () =>{
-        if (this.state.driver == true){ // If its clicked when its true, it becomes false (unpress botton)
+        if (this.state.driver == true){
             this.setState({driver:false})
         }else{
             this.setState({passenger:false, driver:true})
