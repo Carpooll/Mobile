@@ -20,6 +20,7 @@ import ProfileDriver from "../Profiles/ProfileDriver"
 import PassengerPublicProfile from '../Profiles/ProfilePassenger' 
 import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
 import Notifications from '../Notifications/Notifications' 
+import screens from '../DriverHomeMaps/DriverHomeMap'
 
 const Stack = createStackNavigator()
 
@@ -30,7 +31,7 @@ const BadgesStack = () =>{
             }}>
             <Stack.Screen 
                 name="Welcome"
-                component={SignupSelection}
+                component={screens}
                 options={{headerShown: false}}
             />
 
