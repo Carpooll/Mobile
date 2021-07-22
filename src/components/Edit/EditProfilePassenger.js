@@ -36,7 +36,6 @@ class EditProfilePassenger extends React.Component {
                         <Text style={Styles.subtitle}>Personal Data</Text>
                         <TextInput style={Styles.input} placeholder='Cellphone' placeholderTextColor={Colors.black}></TextInput>
                         <Text style={Styles.grayText}>Cellphone</Text>
-
                         <Text style={Styles.subtitle}>Address</Text>
                         <TextInput style={Styles.input} placeholder='Street' placeholderTextColor={Colors.black}></TextInput>
                         <Text style={Styles.grayText}>Street</Text>
@@ -48,16 +47,6 @@ class EditProfilePassenger extends React.Component {
                         <Text style={Styles.grayText}>External Number</Text>
                         <TextInput style={Styles.input} placeholder='Postal Code' placeholderTextColor={Colors.black}></TextInput>
                         <Text style={Styles.grayText}>Postal Code</Text>
-
-                        <Text style={Styles.subtitle}>Payment</Text>
-                        <TextInput style={Styles.input} placeholder='Name' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Name</Text>
-                        <TextInput style={Styles.input} placeholder='Card number' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Card number</Text>
-                        <TextInput style={Styles.input} placeholder='Expiration date' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Expiration date</Text>
-                        <TextInput style={Styles.input} placeholder='CVV' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>CVV</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
@@ -87,7 +76,7 @@ const Styles = StyleSheet.create({
     FormContainer: {
 
         marginTop: borderTop + iconSize / 2,
-        height: FormHeight,
+        height: 550,
         width: FormWidth,
         alignSelf: 'center',
         backgroundColor: Colors.white,
@@ -177,7 +166,7 @@ const Styles = StyleSheet.create({
 
         height: 50,
 
-        marginTop: ((borderTop + iconSize / 2) + FormHeight * .975),
+        marginTop: 660,
 
         width: 193,
 
