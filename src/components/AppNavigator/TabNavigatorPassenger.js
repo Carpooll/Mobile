@@ -1,119 +1,134 @@
-import React from 'react'
-import { Image } from 'react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Stack from '../Layout/Stack'
-import Colors from '../../res/Colors'
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {Image} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Stack from '../Layout/Stack';
+import Colors from '../../res/Colors';
+import {createStackNavigator} from '@react-navigation/stack';
 
 // SCREENS
-import Notifications from '../Notifications/Notifications'
+import Notifications from '../Notifications/Notifications';
 // Profiles
-import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
+import PassengerPrivate from '../Profiles/ProfilePassengerPrivate';
 // Home
-import HomePassenger from '../Home/HomePassenger' // when there's no driver
+import HomePassenger from '../Home/HomePassenger'; // when there's no driver
 // import HomePassenger2 from '../Home/HomePassenger2' // when there's driver. No tiene nada jsjs
-import DetailsPrivate from '../Details/DetailsPrivate' // request a ride (when there's driver)
+import DetailsPrivate from '../Details/DetailsPrivate'; // request a ride (when there's driver)
 // Edit
-import EditProfilePassenger from '../Edit/EditProfilePassenger'
+import EditProfilePassenger from '../Edit/EditProfilePassenger';
 
-const Tabs = createBottomTabNavigator()
+import DetailsPublic from '../Details/DetailsDriver';
+
+const Tabs = createBottomTabNavigator();
 
 // Stack to redirect to screens between tab navigator (HOME)
 const HomeStack = createStackNavigator();
 function HomeStackScreen() {
-    return (
-        <HomeStack.Navigator
-            tabBarOptions={{
-                // showLabel: false,
-                tintColor: Colors.blueLight,
-                activeTintColor: Colors.blue,
-                style: {
-                    backgroundColor: Colors.white
-                }
-            }}
-        >
-            <HomeStack.Screen name="HomePassenger" component={HomePassenger} options={{ headerShown: false }} />
-            {/* <HomeStack.Screen name="HomePassenger2" component={HomePassenger2} options={{ headerShown: false }} /> */}
-            <HomeStack.Screen name="DetailsPrivate" component={DetailsPrivate} options={{ headerShown: false }} />
+  return (
+    <HomeStack.Navigator
+      tabBarOptions={{
+        // showLabel: false,
+        tintColor: Colors.blueLight,
+        activeTintColor: Colors.blue,
+        style: {
+          backgroundColor: Colors.white,
+        },
+      }}>
+      <HomeStack.Screen
+        name="HomePassenger"
+        component={HomePassenger}
+        options={{headerShown: false}}
+      />
+      {/* <HomeStack.Screen name="HomePassenger2" component={HomePassenger2} options={{ headerShown: false }} /> */}
+      <HomeStack.Screen
+        name="DetailsPrivate"
+        component={DetailsPrivate}
+        options={{headerShown: false}}
+      />
 
-        </HomeStack.Navigator>
-    )
+      <HomeStack.Screen name="DetailsPublic" component={DetailsPublic} options={{headerShown: false}}/>
+    </HomeStack.Navigator>
+  );
 }
 
 // Stack to redirect to screens between tab navigator (PROFILE)
-const ProfileStack = createStackNavigator()
+const ProfileStack = createStackNavigator();
 function ProfileStackScreen() {
-    return (
-        <ProfileStack.Navigator
-            tabBarOptions={{
-                // showLabel: false,
-                headerShown: false,
-                tintColor: Colors.blueLight,
-                activeTintColor: Colors.blue,
-                style: {
-                    backgroundColor: Colors.white
-                }
-            }}
-        >
-            <ProfileStack.Screen name="PassengerPrivate" component={PassengerPrivate} options={{ headerShown: false }} />
-            <HomeStack.Screen name="EditProfilePassenger" component={EditProfilePassenger} options={{ headerShown: false }} />
-        </ProfileStack.Navigator>
-    )
+  return (
+    <ProfileStack.Navigator
+      tabBarOptions={{
+        // showLabel: false,
+        headerShown: false,
+        tintColor: Colors.blueLight,
+        activeTintColor: Colors.blue,
+        style: {
+          backgroundColor: Colors.white,
+        },
+      }}>
+      <ProfileStack.Screen
+        name="PassengerPrivate"
+        component={PassengerPrivate}
+        options={{headerShown: false}}
+      />
+      <HomeStack.Screen
+        name="EditProfilePassenger"
+        component={EditProfilePassenger}
+        options={{headerShown: false}}
+      />
+    </ProfileStack.Navigator>
+  );
 }
-
 
 const TabNavigator = () => {
-    return (
-        <Tabs.Navigator
-            tabBarOptions={{
-                // showLabel: false,
-                headerShown: false,
-                tintColor: Colors.blueLight,
-                activeTintColor: Colors.blue,
-                style: {
-                    backgroundColor: Colors.white
-                }
-            }}>
+  return (
+    <Tabs.Navigator
+      tabBarOptions={{
+        // showLabel: false,
+        headerShown: false,
+        tintColor: Colors.blueLight,
+        activeTintColor: Colors.blue,
+        style: {
+          backgroundColor: Colors.white,
+        },
+      }}>
+      {/* Each screen corresponds to an icon on the navbar */}
+      <Tabs.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{
+          tabBarIcon: ({size, color}) => (
+            <Image
+              style={{tintColor: color, width: size, height: size}}
+              source={{uri: 'https://i.imgur.com/c4ndYby.png'}}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={ProfileStackScreen}
+        options={{
+          tabBarIcon: ({size, color}) => (
+            <Image
+              style={{tintColor: color, width: size, height: size}}
+              source={{uri: 'https://i.imgur.com/lAdvcUO.png'}}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Home"
+        component={HomeStackScreen}
+        options={{
+          tabBarIcon: ({size, color}) => (
+            <Image
+              style={{tintColor: color, width: size, height: size}}
+              source={{uri: 'https://i.imgur.com/E8BiIPd.png'}}
+            />
+          ),
+        }}
+      />
+    </Tabs.Navigator>
+  );
+};
 
-            {/* Each screen corresponds to an icon on the navbar */}
-            <Tabs.Screen
-                name="Notifications"
-                component={Notifications}
-                options={{
-                    tabBarIcon: ({ size, color }) => (
-                        <Image
-                            style={{ tintColor: color, width: size, height: size }}
-                            source={{ uri: 'https://i.imgur.com/c4ndYby.png' }}
-                        />
-                    )
-                }}
-            />
-            <Tabs.Screen
-                name="Profile"
-                component={ProfileStackScreen}
-                options={{
-                    tabBarIcon: ({ size, color }) => (
-                        <Image
-                            style={{ tintColor: color, width: size, height: size }}
-                            source={{ uri: 'https://i.imgur.com/lAdvcUO.png' }}
-                        />
-                    )
-                }}
-            />
-            <Tabs.Screen
-                name="Home"
-                component={HomeStackScreen}
-                options={{
-                    tabBarIcon: ({ size, color }) => (
-                        <Image
-                            style={{ tintColor: color, width: size, height: size }}
-                            source={{ uri: 'https://i.imgur.com/E8BiIPd.png' }}
-                        />
-                    )
-                }}
-            />
-        </Tabs.Navigator>
-    )
-}
-
-export default TabNavigator
+export default TabNavigator;
