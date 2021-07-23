@@ -1,161 +1,297 @@
-import React from 'react'
+import React from 'react';
 import {
-    Text,
-    View,
-    StatusBar,
-    ImageBackground,
-    TouchableOpacity,
-    StyleSheet,
-    TextInput,
-    Image,
-    ScrollView,
-    Dimensions,
-  } from 'react-native';
-import Fonts from '../../res/Fonts'
+  Text,
+  View,
+  StatusBar,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
+import * as vars from '../../Libs/Sessions';
 
 class SignUpAdrress extends React.Component {
+  state = {
+    errors: [],
+    form: {},
+  };
 
-    render(){
-        return (
-            <ScrollView style={Styles.Container}>
-                <StatusBar backgroundColor="transparent" translucent={true}/>
-                <View style={Styles.logoContainer}>
-                        <Image
-                            style={Styles.logo}
-                            source={{
-                            uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
-                        }}/>
-                </View> 
-                <View style={Styles.FormContainer}>   
-                    <Text style={Styles.title}>Address</Text>
-                    <View style={Styles.inputContainer}>
-                        <TextInput style={Styles.input} placeholder="Street" placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='Suburbal' placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='Postal Code' placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='Internal Number' placeholderTextColor={Colors.black}/>
-                        <TextInput style={Styles.input} placeholder='External Number' placeholderTextColor={Colors.black}/>
-                    </View>
-                </View>
-                <TouchableOpacity style={Styles.darkButton}>
-                    <Text style={Styles.darkButtonText}>NEXT</Text>
-                </TouchableOpacity>
-            </ScrollView>
-        )
-    }
+  handleSubmit = () => {
+    /*  try {
+      //this.setState({ user: undefined});
+      let response = await UserSession.instance.signupPassenger(
+        this.state.form,
+      );
+
+      if (typeof response == 'object') {
+        let errors = [];
+        let cont = 0;
+
+        for (let error in response) {
+          let key = error;
+          if (error == 'non_field_errors') {
+            error = 'password';
+          }
+
+          errors.push(
+            <View key={cont}>
+              <Text>{`${error} : ${response[key][0]}`}</Text>
+            </View>,
+          );
+          cont++;
+        }
+        this.setState({errors: errors});
+      } else {
+        this.setState({
+          errors: [],
+        });
+        if (response) {
+          //createTwoButtonAlert()
+          this.props.navigation.navigate('Login');
+        }
+      }
+    } catch (err) {
+      console.log('Sign up err', err);
+      throw Error(err);
+    } */
+    //console.log(vars.token);
+  };
+
+  render() {
+    return (
+      <ScrollView style={Styles.Container}>
+        <StatusBar backgroundColor="transparent" translucent={true} />
+        <View style={Styles.logoContainer}>
+          <Image
+            style={Styles.logo}
+            source={{
+              uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
+            }}
+          />
+        </View>
+        <View style={Styles.FormContainer}>
+          <Text style={Styles.title}>Personal Data</Text>
+          <View style={Styles.inputContainer}>
+            <TextInput
+              style={Styles.input}
+              placeholder="First name"
+              placeholderTextColor={Colors.black}
+              /* onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.firstname = text;
+                  return {form};
+                });
+              }} */
+            />
+            <TextInput
+              style={Styles.input}
+              placeholder="Last name"
+              placeholderTextColor={Colors.black}
+              /* onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.lastname = text;
+                  return {form};
+                });
+              }} */
+            />
+            <TextInput
+              style={Styles.input}
+              placeholder="Cellphone"
+              placeholderTextColor={Colors.black}
+              /* onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.cellphone = text;
+                  return {form};
+                });
+              }} */
+            />
+          </View>
+          <Text style={Styles.titleA}>Address</Text>
+          <TouchableOpacity
+            style={Styles.locationButton}
+            onPress={this.handleSubmit}>
+            <Text style={Styles.locationTitle}>
+              Use my current location
+            </Text>
+          </TouchableOpacity>
+          <View style={Styles.inputContainer}>
+            <TextInput
+              style={Styles.input}
+              placeholder="Street"
+              placeholderTextColor={Colors.black}
+            />
+            <TextInput
+              style={Styles.input}
+              placeholder="Suburbal"
+              placeholderTextColor={Colors.black}
+            />
+            <TextInput
+              style={Styles.input}
+              placeholder="Postal Code"
+              placeholderTextColor={Colors.black}
+            />
+            <TextInput
+              style={Styles.input}
+              placeholder="Internal Number"
+              placeholderTextColor={Colors.black}
+            />
+            <TextInput
+              style={Styles.input}
+              placeholder="External Number"
+              placeholderTextColor={Colors.black}
+            />
+          </View>
+        </View>
+        <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
+          <Text style={Styles.darkButtonText}>NEXT</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    );
+  }
 }
 var height = Dimensions.get('window').height;
-var width = Dimensions.get('window').width
-var iconSize  =  height*.15
-var borderTop = height*.10
-var FormWidth = width*.69
-var FormHeight = height*.68
+var width = Dimensions.get('window').width;
+var iconSize = height * 0.15;
+var borderTop = height * 0.1;
+var FormWidth = width * 0.69;
+var FormHeight = height * 0.68;
 const Styles = StyleSheet.create({
-    Container: {
-        backgroundColor:Colors.blue,
-        position: 'relative',
-        zIndex:0
+  Container: {
+    backgroundColor: Colors.blue,
+    position: 'relative',
+    zIndex: 0,
+  },
+  FormContainer: {
+    marginTop: borderTop + iconSize / 2,
+    height: FormHeight + 270,
+    width: FormWidth,
+    alignSelf: 'center',
+    padding: 'auto',
+    backgroundColor: Colors.white,
+    borderRadius: 15,
+    position: 'relative',
+    marginBottom: height * 0.9 - (borderTop + FormHeight),
+  },
+  logo: {
+    width: 105,
+    height: 105,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  logoContainer: {
+    alignSelf: 'center',
+    marginTop: 80,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
     },
-    FormContainer: {
+    shadowOpacity: 0.5,
+    shadowRadius: 12.0,
+    elevation: 20,
 
-        marginTop:borderTop + iconSize/2,
-        height:FormHeight,
-        width: FormWidth,
-        alignSelf: 'center',
-        padding:'auto',
-        backgroundColor:Colors.white,
-        borderRadius:15,
-        position: 'relative',
-        marginBottom: height*.9-(borderTop + FormHeight)
-    },
-    logo: {
-        width: 105,
-        height: 105,
-        justifyContent: 'center',
-        alignSelf: 'center',
+    backgroundColor: Colors.white,
 
-    },
-    logoContainer: {
-        alignSelf: 'center',
-        marginTop: 80,
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 12,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 12.0,
-        elevation: 20,
+    width: 110,
+    height: 110,
+    resizeMode: 'cover',
+    borderRadius: 90,
+    position: 'absolute',
+
+    zIndex: 2,
+  },
+  title: {
     
-        backgroundColor: Colors.white,
-    
-        width: 110,
-        height: 110,
-        resizeMode: 'cover',
-        borderRadius: 90,
-        position: 'absolute',
-    
-        zIndex: 2,
-    },
-    title:{
+    marginTop: 70,
 
-        marginTop:70,
+    alignSelf: 'center',
 
-        alignSelf: 'center',
+    fontSize: Fonts.button,
 
-        fontSize: Fonts.button,
-    
-        color: Colors.blue,
+    color: Colors.blue,
+  },
+  titleA: {
+    marginTop: 20,
 
+    alignSelf: 'center',
 
-      },
-    input: {
+    fontSize: Fonts.button,
 
-        color: Colors.black,
-    
-        borderBottomColor: Colors.black,
-    
-        borderBottomWidth: 1,
+    color: Colors.blue,
+  },
+  input: {
+    color: Colors.black,
 
-        fontSize: Fonts.text,
-        
-        paddingBottom: 8,
+    borderBottomColor: Colors.black,
 
-        marginBottom: 25,
+    borderBottomWidth: 1,
 
-        width: 180,
-    
-        textAlign: 'center',
-    },
-    inputContainer:{
-        alignItems: 'center',
-        marginTop:20,
-    },
-    darkButton:{
-        alignSelf: 'center',
-    
-        height:FormHeight*.1,
-        
-        marginTop:FormHeight+110,
-        
-        width: 193,
+    fontSize: Fonts.text,
 
-        borderRadius: 15,
+    paddingBottom: 8,
 
-        fontSize:Fonts.miniButtons,
+    marginBottom: 25,
 
-        backgroundColor: Colors.black,
+    width: 180,
 
-        justifyContent: 'center',
-    
-        zIndex: 5,
-    
-        position: 'absolute',
-    },
-    darkButtonText:{
-        alignSelf: 'center',
-        color: Colors.white
-    }
-})
+    textAlign: 'center',
+  },
+  inputContainer: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  darkButton: {
+    alignSelf: 'center',
 
-export default SignUpAdrress
+    height: FormHeight * 0.1,
+
+    marginTop: FormHeight + 380,
+
+    width: 193,
+
+    borderRadius: 15,
+
+    fontSize: Fonts.miniButtons,
+
+    backgroundColor: Colors.black,
+
+    justifyContent: 'center',
+
+    zIndex: 5,
+
+    position: 'absolute',
+  },
+  darkButtonText: {
+    alignSelf: 'center',
+    color: Colors.white,
+  },
+  locationTitle: {
+    alignSelf:'center',
+    marginTop: 10,
+    color: Colors.white,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.40)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+  },
+  locationButton: {
+      alignSelf:'center',
+    backgroundColor: '#8FBCCF',
+    borderRadius:10,
+    width:150,
+    height:40,    
+    marginTop: 20,
+    elevation: 4,
+    alignItems: 'center',
+  },
+});
+
+export default SignUpAdrress;
