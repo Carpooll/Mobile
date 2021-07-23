@@ -54,7 +54,8 @@ class Login extends React.Component {
       this.setState({error: err});
     }
     if (this.state.user) {
-      //this.props.navigation.replace('HomeDriver');
+      //poner la verificacion de si los campos son null o no 
+      this.props.navigation.replace('SignUpAdrress');
       console.log("You're logged in");
     }
   };
