@@ -13,6 +13,7 @@ import {
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
 import Fonts from '../../res/Fonts';
+import ModalDeletePass from '../Generics/ModalDeletePass';
 
 const Images = [
   {
@@ -180,11 +181,12 @@ class screens extends Component {
                     {marker.phone}
                   </Text>
                   <View style={styles.buttons}>
-                    <TouchableOpacity
+                    <ModalDeletePass></ModalDeletePass>
+                    {/* <TouchableOpacity
                       style={styles.blueButton}
                       onPress={this.handlePress}>
                       <Text style={styles.blueButtonText}>Delete</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                 </View>
               </View>
@@ -303,6 +305,11 @@ const styles = StyleSheet.create({
     marginBottom:13
   },
 
+  blueButtonText: {
+    alignSelf: 'center',
+    color: '#e0e0e0',
+    fontSize: 12,
+  },
   blueButtonText: {
     alignSelf: 'center',
     color: '#e0e0e0',
