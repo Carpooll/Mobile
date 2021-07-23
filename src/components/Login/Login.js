@@ -30,7 +30,8 @@ class Login extends React.Component {
   };
 
   handlePress = () => {
-    this.props.navigation.navigate('Signup');
+    //this.props.navigation.navigate('SignUpData');
+    this.props.navigation.navigate('Selection');
   };
 
   handleSubmit = async () => {
