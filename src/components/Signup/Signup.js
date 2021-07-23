@@ -38,7 +38,7 @@ class SignUpData extends React.Component {
 
   handleSubmit = async () => {
     try {
-      this.setState({loading: true, user: undefined});
+      this.setState({ user: undefined});
       let response = await UserSession.instance.signup(this.state.form);
 
       if (typeof response == 'object') {
@@ -58,14 +58,14 @@ class SignUpData extends React.Component {
           );
           cont++;
         }
-        this.setState({loading: false, user: undefined, errors: errors});
+        this.setState({ user: undefined, errors: errors});
       } else {
         this.setState({
-          loading: false,
           user: response,
           errors: [],
         });
         if (this.state.user) {
+          //GUARDAR EN VARIABLES EL NOMBRE, APELLIDO Y CEL
           createTwoButtonAlert()
           console.log(vars.is_driver);
           this.props.navigation.navigate('Login');
