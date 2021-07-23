@@ -10,10 +10,22 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Modal,
+  Alert
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 
 import UserSession from '../../Libs/Sessions';
+import * as vars from '../Signup/SignupSelection';
+
+const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Important",
+      "We sent you an email, please check it to verify your account.",
+      [
+        { text: "OK" }
+      ]
+    );
 
 class SignUpData extends React.Component {
   state = {
@@ -21,6 +33,8 @@ class SignUpData extends React.Component {
     user: undefined,
     form: {},
   };
+
+  
 
   handleSubmit = async () => {
     try {
@@ -52,7 +66,10 @@ class SignUpData extends React.Component {
           errors: [],
         });
         if (this.state.user) {
+          createTwoButtonAlert()
+          console.log(vars.is_driver);
           this.props.navigation.navigate('Login');
+          
         }
       }
     } catch (err) {
@@ -84,7 +101,6 @@ class SignUpData extends React.Component {
             <Text style={Styles.title}>Personal data</Text>
 
             <View style={Styles.inputContainer}>
-             
               <TextInput
                 style={Styles.input}
                 placeholder="Student ID"
@@ -176,8 +192,8 @@ const Styles = StyleSheet.create({
   },
 
   error: {
-      textAlign: 'justify',
-    marginLeft:50,
+    textAlign: 'justify',
+    marginLeft: 50,
     color: '#FF0000',
     fontWeight: 'bold',
   },
