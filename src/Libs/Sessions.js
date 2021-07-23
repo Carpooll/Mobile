@@ -1,4 +1,6 @@
 import Storage from './Storage';
+export var token='';
+export var id=0;
 
 class UserSession {
   static instance = new UserSession();
@@ -6,7 +8,7 @@ class UserSession {
   login = async body => {
     try {
       let request = await fetch(
-        `http://backend-heroku-link`,
+        ``,
         {
           method: 'POST',
           headers: {
@@ -18,7 +20,10 @@ class UserSession {
       let response = await request.json();
       try {
         let key = `token-${response.user.username}`;
+        token = response.token
+        id = response.user.id
         await Storage.instance.store(key, response.token);
+        console.log(id, token)
         return response.user.username;
       } catch (err) {
         return response;
@@ -41,7 +46,49 @@ class UserSession {
 
   signup = async body => {
     try {
-      let request = await fetch(`http://backend-heroku-link`, {
+      let request = await fetch(``, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+      let response = await request.json();
+      if (typeof response.username == 'string') {
+        return response.username;
+      } else {
+        return response;
+      }
+    } catch (err) {
+      console.log('signup err', err);
+      throw Error(err);
+    }
+  };
+  signupDriver = async body => {
+    try {
+      let request = await fetch(``, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+      let response = await request.json();
+      if (typeof response.username == 'string') {
+        return response.username;
+      } else {
+        return response;
+      }
+    } catch (err) {
+      console.log('signup err', err);
+      throw Error(err);
+    }
+  };
+  signupPassenger = async body => {
+    try {
+      let request = await fetch(``, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
