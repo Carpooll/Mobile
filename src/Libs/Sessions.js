@@ -1,6 +1,7 @@
 import Storage from './Storage';
-export var token='';
-export var id=0;
+export var token = '';
+export var id = 0;
+export var full_name='';
 
 class UserSession {
   static instance = new UserSession();
@@ -8,22 +9,26 @@ class UserSession {
   login = async body => {
     try {
       let request = await fetch(
-        ``,
+        `https://carpool-utch.herokuapp.com/users/login/`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(body),
-        }
+        },
       );
       let response = await request.json();
       try {
         let key = `token-${response.user.username}`;
-        token = response.token
-        id = response.user.id
+        token = response.token;
+        id = response.user.profile.id +1;
+        
+        full_name = response.first_name
+        
+
         await Storage.instance.store(key, response.token);
-        console.log(id, token)
+        console.log(id, token);
         return response.user.username;
       } catch (err) {
         return response;
@@ -46,14 +51,17 @@ class UserSession {
 
   signup = async body => {
     try {
-      let request = await fetch(``, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/users/signup/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
       let response = await request.json();
       if (typeof response.username == 'string') {
         return response.username;
@@ -93,6 +101,29 @@ class UserSession {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+      let response = await request.json();
+      if (typeof response.username == 'string') {
+        return response.username;
+      } else {
+        return response;
+      }
+    } catch (err) {
+      console.log('signup err', err);
+      throw Error(err);
+    }
+  };
+
+  signupData = async body => {
+    try {
+      let request = await fetch(`https://carpool-utch.herokuapp.com/profile/${id}/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          
+          Authorization: 'Token' + token
         },
         body: JSON.stringify(body),
       });
