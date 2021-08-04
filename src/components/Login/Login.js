@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import UserSession from '../../Libs/Sessions';
+import * as vars from '../../Libs/Sessions'
 
 // import Background from "../../assets/background.jpeg"
 const windowWidth = Dimensions.get('window').width;
@@ -30,8 +31,7 @@ class Login extends React.Component {
   };
 
   handlePress = () => {
-    //this.props.navigation.navigate('SignUpData');
-    this.props.navigation.navigate('Selection');
+    this.props.navigation.navigate('SignUpData');
   };
 
   handleSubmit = async () => {
@@ -54,9 +54,12 @@ class Login extends React.Component {
       this.setState({error: err});
     }
     if (this.state.user) {
-      //poner la verificacion de si los campos son null o no 
-      this.props.navigation.replace('SignUpAdrress');
-      console.log("You're logged in");
+      if(vars.full_name != null){
+        //hacer la verificacion de si es driver enviarlo al home del driver 
+        console.log('Home')
+      }else{
+        this.props.navigation.replace('SignUpAdrress');
+      }
     }
   };
 
