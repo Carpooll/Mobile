@@ -14,51 +14,29 @@ import {
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import * as vars from '../../Libs/Sessions';
+import UserSession from '../../Libs/Sessions';
 
 class SignUpAdrress extends React.Component {
   state = {
     errors: [],
-    form: {},
+    form: { 
+      profile: {}
+    },
   };
 
-  handleSubmit = () => {
-    /*  try {
+  handleSubmit = async () => {
+    try {
       //this.setState({ user: undefined});
-      let response = await UserSession.instance.signupPassenger(
-        this.state.form,
-      );
+      console.log(this.state.form)
+      let response = await UserSession.instance.signupData(this.state.form);
 
-      if (typeof response == 'object') {
-        let errors = [];
-        let cont = 0;
-
-        for (let error in response) {
-          let key = error;
-          if (error == 'non_field_errors') {
-            error = 'password';
-          }
-
-          errors.push(
-            <View key={cont}>
-              <Text>{`${error} : ${response[key][0]}`}</Text>
-            </View>,
-          );
-          cont++;
-        }
-        this.setState({errors: errors});
-      } else {
-        this.setState({
-          errors: [],
-        });
-        if (response) {
-          //createTwoButtonAlert()
-          this.props.navigation.navigate('Login');
-        }
-      }
+      console.log(response);
+      //createTwoButtonAlert()
+      this.props.navigation.navigate('Login');
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
-    } */
+    }
     //console.log(vars.token);
   };
 
@@ -81,72 +59,105 @@ class SignUpAdrress extends React.Component {
               style={Styles.input}
               placeholder="First name"
               placeholderTextColor={Colors.black}
-              /* onChangeText={text => {
+              onChangeText={text => {
                 this.setState(prevState => {
                   let form = Object.assign({}, prevState.form);
-                  form.firstname = text;
+                  form.first_name = text;
                   return {form};
                 });
-              }} */
+              }}
             />
             <TextInput
               style={Styles.input}
               placeholder="Last name"
               placeholderTextColor={Colors.black}
-              /* onChangeText={text => {
+              onChangeText={text => {
                 this.setState(prevState => {
                   let form = Object.assign({}, prevState.form);
-                  form.lastname = text;
+                  form.last_name = text;
                   return {form};
                 });
-              }} */
+              }}
             />
             <TextInput
               style={Styles.input}
               placeholder="Cellphone"
               placeholderTextColor={Colors.black}
-              /* onChangeText={text => {
+              onChangeText={text => {
                 this.setState(prevState => {
                   let form = Object.assign({}, prevState.form);
-                  form.cellphone = text;
+                  form.profile.phone = text;
                   return {form};
                 });
-              }} */
+              }}
             />
           </View>
           <Text style={Styles.titleA}>Address</Text>
           <TouchableOpacity
             style={Styles.locationButton}
             onPress={this.handleSubmit}>
-            <Text style={Styles.locationTitle}>
-              Use my current location
-            </Text>
+            <Text style={Styles.locationTitle}>Use my current location</Text>
           </TouchableOpacity>
           <View style={Styles.inputContainer}>
             <TextInput
               style={Styles.input}
               placeholder="Street"
               placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.street = text;
+                  return {form};
+                });
+              }}
             />
             <TextInput
               style={Styles.input}
               placeholder="Suburbal"
               placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.suburb = text;
+                  return {form};
+                });
+              }}
             />
             <TextInput
               style={Styles.input}
               placeholder="Postal Code"
               placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.postal_code = text;
+                  return {form};
+                });
+              }}
             />
             <TextInput
               style={Styles.input}
               placeholder="Internal Number"
               placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.internal_number = text;
+                  return {form};
+                });
+              }}
             />
             <TextInput
               style={Styles.input}
               placeholder="External Number"
               placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.external_number = text;
+                  return {form};
+                });
+              }}
             />
           </View>
         </View>
@@ -209,7 +220,6 @@ const Styles = StyleSheet.create({
     zIndex: 2,
   },
   title: {
-    
     marginTop: 70,
 
     alignSelf: 'center',
@@ -274,7 +284,7 @@ const Styles = StyleSheet.create({
     color: Colors.white,
   },
   locationTitle: {
-    alignSelf:'center',
+    alignSelf: 'center',
     marginTop: 10,
     color: Colors.white,
     textAlign: 'center',
@@ -283,11 +293,11 @@ const Styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   locationButton: {
-      alignSelf:'center',
+    alignSelf: 'center',
     backgroundColor: '#8FBCCF',
-    borderRadius:10,
-    width:150,
-    height:40,    
+    borderRadius: 10,
+    width: 150,
+    height: 40,
     marginTop: 20,
     elevation: 4,
     alignItems: 'center',
