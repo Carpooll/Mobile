@@ -11,7 +11,7 @@ import {
   ScrollView,
   Dimensions,
   Modal,
-  Alert
+  Alert,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 
@@ -19,29 +19,65 @@ import UserSession from '../../Libs/Sessions';
 import * as vars from '../Signup/SignupSelection';
 
 const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Important",
-      "We sent you an email, please check it to verify your account.",
-      [
-        { text: "OK" }
-      ]
-    );
+  Alert.alert(
+    'Important',
+    'We sent you an email, please check it to verify your account.',
+    [{text: 'OK'}],
+  );
+
+export var is_driver = 0;
 
 class SignUpData extends React.Component {
   state = {
     errors: [],
     user: undefined,
+    driver: false,
+    passenger: false,
     form: {},
   };
 
-  
+  handlePassenger = () => {
+    if (this.state.passenger == true) {
+      this.setState({passenger: false});
+    } else {
+      this.setState({passenger: true, driver: false});
+      console.log('passenger');
+      is_driver = 0;
+      this.setState(prevState => {
+        let form = Object.assign({}, prevState.form);
+        form.is_driver = is_driver;
+        return {form};
+      });
+    }
+  };
+
+  handleDriver = () => {
+    if (this.state.driver == true) {
+      this.setState({driver: false});
+    } else {
+      this.setState({passenger: false, driver: true});
+      console.log('driver');
+      is_driver = 1;
+      this.setState(prevState => {
+        let form = Object.assign({}, prevState.form);
+        form.is_driver = is_driver;
+        return {form};
+      });
+    }
+  };
 
   handleSubmit = async () => {
     try {
-      this.setState({ user: undefined});
-      let response = await UserSession.instance.signup(this.state.form);
-
-      if (typeof response == 'object') {
+      this.setState({user: undefined});
+      //console.log(this.state.form);
+      
+       var response = await UserSession.instance.signup(this.state.form);
+ 
+        // response == 'object'
+        //console.log(response)
+      if (response.email != null || response.is_driver != null ||response.password != null || response.password_confirmation != null || response.username != null || response.Error != null ) {
+        
+        //console.log(response)
         let errors = [];
         let cont = 0;
 
@@ -57,21 +93,20 @@ class SignUpData extends React.Component {
             </View>,
           );
           cont++;
+          this.setState({user: undefined, errors: errors});
         }
-        this.setState({ user: undefined, errors: errors});
-      } else {
+        console.log(errors)
+        
+        
+      }else{
         this.setState({
           user: response,
           errors: [],
         });
-        if (this.state.user) {
-          //GUARDAR EN VARIABLES EL NOMBRE, APELLIDO Y CEL
-          createTwoButtonAlert()
-          console.log(vars.is_driver);
+        createTwoButtonAlert();
           this.props.navigation.navigate('Login');
-          
-        }
       }
+      
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
@@ -79,7 +114,7 @@ class SignUpData extends React.Component {
   };
 
   render() {
-    const {errors} = this.state;
+    const {errors, passenger, driver} = this.state;
 
     return (
       <ScrollView style={Styles.Container}>
@@ -113,6 +148,7 @@ class SignUpData extends React.Component {
                   });
                 }}
               />
+
               <TextInput
                 style={Styles.input}
                 keyboardType="email-address"
@@ -152,6 +188,25 @@ class SignUpData extends React.Component {
                   });
                 }}
               />
+
+              <Text style={Styles.title2}>Choose one option</Text>
+              <TouchableOpacity onPress={this.handlePassenger}>
+                <Text
+                  style={
+                    passenger ? Styles.selectedButton : Styles.unselectedButton
+                  }>
+                  Passenger
+                </Text>
+              </TouchableOpacity>
+              <View style={Styles.Divisor} />
+              <TouchableOpacity onPress={this.handleDriver}>
+                <Text
+                  style={
+                    driver ? Styles.selectedButton2 : Styles.unselectedButton2
+                  }>
+                  Driver
+                </Text>
+              </TouchableOpacity>
             </View>
             {errors ? <View style={Styles.error}>{errors}</View> : null}
           </View>
@@ -179,9 +234,91 @@ const Styles = StyleSheet.create({
     position: 'relative',
     zIndex: 0,
   },
+  title2: {
+    marginTop: -5,
+    marginBottom: 15,
+
+    alignSelf: 'center',
+
+    fontSize: Fonts.button,
+
+    color: Colors.blue,
+  },
+
+  selectedButton: {
+    color: Colors.black,
+    backgroundColor: Colors.blue,
+    borderRadius: 10,
+    color: Colors.white,
+    fontSize: 26,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: FormWidth * 0.7,
+    textAlign: 'center',
+    shadowColor: '#000',
+    fontSize: Fonts.button,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 10,
+  },
+  selectedButton2: {
+    color: Colors.black,
+    backgroundColor: Colors.blue,
+    borderRadius: 10,
+    color: Colors.white,
+    fontSize: 26,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: FormWidth * 0.7,
+    textAlign: 'center',
+    shadowColor: '#000',
+    fontSize: Fonts.button,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 10,
+  },
+  Divisor: {
+    height: FormHeight * 0.15,
+  },
+
+  unselectedButton: {
+    color: Colors.black,
+    borderColor: Colors.black,
+    borderWidth: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontSize: 25,
+    width: FormWidth * 0.65,
+    textAlign: 'center',
+    fontSize: Fonts.button,
+    borderRadius: 10,
+  },
+  unselectedButton2: {
+    color: Colors.black,
+    borderColor: Colors.black,
+    borderWidth: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontSize: 25,
+    width: FormWidth * 0.65,
+    textAlign: 'center',
+    fontSize: Fonts.button,
+    borderRadius: 10,
+  },
+
   FormContainer: {
     marginTop: 45,
-    height: FormHeight,
+    height: FormHeight + 80,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -260,7 +397,7 @@ const Styles = StyleSheet.create({
 
     height: FormHeight * 0.1,
 
-    marginTop: FormHeight + 110,
+    marginTop: FormHeight + 190,
 
     width: 193,
 
