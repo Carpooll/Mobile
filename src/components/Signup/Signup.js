@@ -41,7 +41,7 @@ class SignUpData extends React.Component {
       this.setState({passenger: false});
     } else {
       this.setState({passenger: true, driver: false});
-      console.log('passenger');
+      //console.log('passenger');
       is_driver = 0;
       this.setState(prevState => {
         let form = Object.assign({}, prevState.form);
@@ -56,7 +56,7 @@ class SignUpData extends React.Component {
       this.setState({driver: false});
     } else {
       this.setState({passenger: false, driver: true});
-      console.log('driver');
+      //console.log('driver');
       is_driver = 1;
       this.setState(prevState => {
         let form = Object.assign({}, prevState.form);
