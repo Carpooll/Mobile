@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import UserSession from '../../Libs/Sessions';
-import * as vars from '../../Libs/Sessions'
+import * as vars from '../../Libs/Sessions';
 
 // import Background from "../../assets/background.jpeg"
 const windowWidth = Dimensions.get('window').width;
@@ -28,6 +28,24 @@ class Login extends React.Component {
     error: null,
     user: undefined,
     form: {},
+    user: {},
+    driver: vars.driver,
+  };
+
+  componentDidMount = () => {
+    this.getUserData();
+    //this.deleteTokens();
+  };
+
+  /* deleteTokens = async () => {
+    await UserSession.instance.logout();
+  }; */
+
+  getUserData = async () => {
+    let user = await UserSession.instance.getUser();
+    //console.log(user)
+    //console.log(this.state.driver)
+    this.setState({user: user});
   };
 
   handlePress = () => {
@@ -35,6 +53,7 @@ class Login extends React.Component {
   };
 
   handleSubmit = async () => {
+    const {user} = this.state;
     try {
       this.setState({error: null, user: undefined});
       let response = await UserSession.instance.login(this.state.form);
@@ -54,11 +73,16 @@ class Login extends React.Component {
       this.setState({error: err});
     }
     if (this.state.user) {
-      if(vars.full_name != null){
-        //hacer la verificacion de si es driver enviarlo al home del driver 
-        console.log('Home')
-      }else{
+      if (user.first_name == '' || user.first_name == null) {
         this.props.navigation.replace('SignUpAdrress');
+      } else {
+        if (vars.driver == true) {
+          this.props.navigation.replace('HomeDriver');
+        } else if (vars.driver == false) {
+          this.props.navigation.replace('HomePassenger');
+        } else {
+          console.log('error');
+        }
       }
     }
   };
@@ -148,9 +172,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginTop: 60,
-    
   },
-  error:{
+  error: {
     color: '#FF0000',
     fontWeight: 'bold',
   },
