@@ -185,7 +185,7 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight + 270,
+    height: FormHeight + 450,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -266,7 +266,7 @@ const Styles = StyleSheet.create({
 
     height: FormHeight * 0.1,
 
-    marginTop: FormHeight + 380,
+    marginTop: FormHeight + 500,
 
     width: 193,
 
