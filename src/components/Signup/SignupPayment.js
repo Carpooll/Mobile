@@ -9,10 +9,15 @@ import {
   TextInput,
   Image,
   ScrollView,
+  Alert
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import UserSession from '../../Libs/Sessions';
 
+const createTwoButtonAlert = () =>
+  Alert.alert('Important', 'Your data was succesfully registered', [
+    {text: 'OK'},
+  ]);
 
 class SignupPayment extends React.Component {
   state = {
@@ -22,8 +27,8 @@ class SignupPayment extends React.Component {
   handleSubmit = async () => {
     try {
       await UserSession.instance.SignupPayment(this.state.form);
+      createTwoButtonAlert();
       this.props.navigation.navigate('HomeDriver');
-      
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
@@ -40,60 +45,60 @@ class SignupPayment extends React.Component {
               <Image
                 style={styles.logo}
                 source={{
-                    uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
+                  uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
                 }}></Image>
             </View>
           </View>
           <View style={styles.formShadow}>
             <View style={styles.inputContainer}>
-            <Text style={styles.title}>Payment</Text>
+              <Text style={styles.title}>Payment</Text>
               <TextInput
                 style={styles.form}
                 placeholder="Card number"
                 placeholderTextColor={Colors.black}
-                 onChangeText={text => {
-                     this.setState(prevState =>{
-                         let form = Object.assign({}, prevState.form);
-                         form.card_number = text;
-                         return {form};
-                     })
-                 }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.card_number = text;
+                    return {form};
+                  });
+                }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="Name"
                 placeholderTextColor={Colors.black}
-                 onChangeText={text => {
-                     this.setState(prevState =>{
-                         let form = Object.assign({}, prevState.form);
-                         form.card_owner = text;
-                         return {form};
-                   })
-                 }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.card_owner = text;
+                    return {form};
+                  });
+                }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="Expiration date"
                 placeholderTextColor={Colors.black}
-                 onChangeText={text => {
-                     this.setState(prevState =>{
-                         let form = Object.assign({}, prevState.form);
-                         form.exp_date = text;
-                         return {form};
-                     })
-                 }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.exp_date = text;
+                    return {form};
+                  });
+                }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="CCV"
                 placeholderTextColor={Colors.black}
-                 onChangeText={text => {
-                     this.setState(prevState =>{
-                         let form = Object.assign({}, prevState.form);
-                         form.ccv = text;
-                         return {form};
-                     })
-                 }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.ccv = text;
+                    return {form};
+                  });
+                }}
               />
             </View>
 
@@ -154,7 +159,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: Colors.blue,
     fontSize: Fonts.button,
-
   },
 
   formShadow: {
@@ -172,12 +176,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     width: 265,
     borderRadius: 15,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   inputContainer: {
     paddingTop: 130,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   form: {
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     width: 180,
     textAlign: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   buttonDark: {

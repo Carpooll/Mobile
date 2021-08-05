@@ -29,7 +29,7 @@ class UserSession {
         await Storage.instance.store(key, JSON.stringify(response.user));
 
         key = `driver-${response.user.username}`;
-        driver = await Storage.instance.store(
+         await Storage.instance.store(
           key,
           JSON.stringify(response.driver),
         );

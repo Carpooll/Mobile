@@ -34,12 +34,14 @@ class Login extends React.Component {
 
   componentDidMount = () => {
     this.getUserData();
+    
     //this.deleteTokens();
   };
 
   /* deleteTokens = async () => {
     await UserSession.instance.logout();
   }; */
+
 
   getUserData = async () => {
     let user = await UserSession.instance.getUser();

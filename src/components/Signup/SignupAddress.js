@@ -10,31 +10,38 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Alert,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import * as vars from '../../Libs/Sessions';
 import UserSession from '../../Libs/Sessions';
 
+const createTwoButtonAlert = () =>
+  Alert.alert('Important', 'Your data was succesfully registered', [
+    {text: 'OK'},
+  ]);
+
 class SignUpAdrress extends React.Component {
   state = {
     errors: [],
-    form: { 
-      profile: {}
+    form: {
+      profile: {},
     },
     driver: vars.driver,
   };
 
   handleSubmit = async () => {
-    const {driver} = this.state
+    const {driver} = this.state;
     try {
       let response = await UserSession.instance.signupData(this.state.form);
-      if(response){
-        if(driver == true){
+      if (response) {
+        console.log(vars.driver)
+        if (driver == true) {
           this.props.navigation.navigate('SignupCar');
-        }else if(driver == false){
-          //createTwoButtonAlert()  
-          this.props.navigation.navigate('PassengerHome');
+        } else if (driver == false) {
+          createTwoButtonAlert();
+          this.props.navigation.navigate('HomePassenger');
         }
       }
     } catch (err) {
@@ -185,7 +192,7 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight + 450,
+    height: FormHeight + 350,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -211,50 +218,34 @@ const Styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 12.0,
     elevation: 20,
-
     backgroundColor: Colors.white,
-
     width: 110,
     height: 110,
     resizeMode: 'cover',
     borderRadius: 90,
     position: 'absolute',
-
     zIndex: 2,
   },
   title: {
     marginTop: 70,
-
     alignSelf: 'center',
-
     fontSize: Fonts.button,
-
     color: Colors.blue,
   },
   titleA: {
     marginTop: 20,
-
     alignSelf: 'center',
-
     fontSize: Fonts.button,
-
     color: Colors.blue,
   },
   input: {
     color: Colors.black,
-
     borderBottomColor: Colors.black,
-
     borderBottomWidth: 1,
-
     fontSize: Fonts.text,
-
     paddingBottom: 8,
-
     marginBottom: 25,
-
     width: 180,
-
     textAlign: 'center',
   },
   inputContainer: {
@@ -263,23 +254,14 @@ const Styles = StyleSheet.create({
   },
   darkButton: {
     alignSelf: 'center',
-
     height: FormHeight * 0.1,
-
-    marginTop: FormHeight + 500,
-
+    marginTop: FormHeight + 460,
     width: 193,
-
     borderRadius: 15,
-
     fontSize: Fonts.miniButtons,
-
     backgroundColor: Colors.black,
-
     justifyContent: 'center',
-
     zIndex: 5,
-
     position: 'absolute',
   },
   darkButtonText: {
@@ -300,9 +282,11 @@ const Styles = StyleSheet.create({
     backgroundColor: '#8FBCCF',
     borderRadius: 10,
     width: 150,
-    height: 40,
+    height: 60,
     marginTop: 20,
     elevation: 4,
+    borderWidth:2,
+    borderColor:'#A7C7E7',
     alignItems: 'center',
   },
 });

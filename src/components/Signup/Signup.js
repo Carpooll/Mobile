@@ -1,3 +1,5 @@
+/*  arreglar botones de passenger y driver */
+
 import React from 'react';
 import Colors from '../../res/Colors';
 import {
@@ -31,52 +33,45 @@ class SignUpData extends React.Component {
   state = {
     errors: [],
     user: undefined,
-    driver: false,
-    passenger: false,
     form: {},
+    passenger: false,
+    driver:false,
   };
 
   handlePassenger = () => {
-    if (this.state.passenger == true) {
-      this.setState({passenger: false});
-    } else {
-      this.setState({passenger: true, driver: false});
-      //console.log('passenger');
-      is_driver = 0;
-      this.setState(prevState => {
-        let form = Object.assign({}, prevState.form);
-        form.is_driver = is_driver;
-        return {form};
-      });
-    }
+    this.setState({passenger:true})
+    this.setState({driver:false})
+    const {form} = this.state
+    form.is_driver = 0
+    console.log(form)
+
   };
 
   handleDriver = () => {
-    if (this.state.driver == true) {
-      this.setState({driver: false});
-    } else {
-      this.setState({passenger: false, driver: true});
-      //console.log('driver');
-      is_driver = 1;
-      this.setState(prevState => {
-        let form = Object.assign({}, prevState.form);
-        form.is_driver = is_driver;
-        return {form};
-      });
-    }
+    this.setState({driver:true})
+    this.setState({passenger: false} )
+    const { form} = this.state
+    form.is_driver = 1
+    console.log(form)
   };
 
   handleSubmit = async () => {
     try {
       this.setState({user: undefined});
       //console.log(this.state.form);
-      
-       var response = await UserSession.instance.signup(this.state.form);
- 
-        // response == 'object'
-        //console.log(response)
-      if (response.email != null || response.is_driver != null ||response.password != null || response.password_confirmation != null || response.username != null || response.Error != null ) {
-        
+
+      var response = await UserSession.instance.signup(this.state.form);
+
+      // response == 'object'
+      //console.log(response)
+      if (
+        response.email != null ||
+        response.is_driver != null ||
+        response.password != null ||
+        response.password_confirmation != null ||
+        response.username != null ||
+        response.Error != null
+      ) {
         //console.log(response)
         let errors = [];
         let cont = 0;
@@ -95,18 +90,15 @@ class SignUpData extends React.Component {
           cont++;
           this.setState({user: undefined, errors: errors});
         }
-        console.log(errors)
-        
-        
-      }else{
+        console.log(errors);
+      } else {
         this.setState({
           user: response,
           errors: [],
         });
         createTwoButtonAlert();
-          this.props.navigation.navigate('Login');
+        this.props.navigation.navigate('Login');
       }
-      
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
@@ -190,7 +182,9 @@ class SignUpData extends React.Component {
               />
 
               <Text style={Styles.title2}>Choose one option</Text>
-              <TouchableOpacity onPress={this.handlePassenger}>
+              <TouchableOpacity
+                style={Styles.but_mr}
+                onPress={this.handlePassenger}>
                 <Text
                   style={
                     passenger ? Styles.selectedButton : Styles.unselectedButton
@@ -199,7 +193,9 @@ class SignUpData extends React.Component {
                 </Text>
               </TouchableOpacity>
               <View style={Styles.Divisor} />
-              <TouchableOpacity onPress={this.handleDriver}>
+              <TouchableOpacity
+                style={Styles.but_mr}
+                onPress={this.handleDriver}>
                 <Text
                   style={
                     driver ? Styles.selectedButton2 : Styles.unselectedButton2
@@ -207,8 +203,14 @@ class SignUpData extends React.Component {
                   Driver
                 </Text>
               </TouchableOpacity>
+              <View style={Styles.errs}>
+                {errors ? (
+                  <View style={Styles.errs}>
+                    <Text stley={Styles.errs}>{errors}</Text>
+                  </View>
+                ) : null}
+              </View>
             </View>
-            {errors ? <View style={Styles.error}>{errors}</View> : null}
           </View>
           <TouchableOpacity
             style={Styles.darkButton}
@@ -233,6 +235,16 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.blue,
     position: 'relative',
     zIndex: 0,
+  },
+  errs: {
+    marginTop: 45,
+    marginLeft:5,
+    
+    color: '#FF0000',
+    fontWeight: 'bold',
+  },
+  but_mr: {
+    marginBottom: -50,
   },
   title2: {
     marginTop: -5,
@@ -318,7 +330,7 @@ const Styles = StyleSheet.create({
 
   FormContainer: {
     marginTop: 45,
-    height: FormHeight + 80,
+    height: FormHeight + 200,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -328,12 +340,7 @@ const Styles = StyleSheet.create({
     marginBottom: height * 0.9 - (borderTop + FormHeight),
   },
 
-  error: {
-    textAlign: 'justify',
-    marginLeft: 50,
-    color: '#FF0000',
-    fontWeight: 'bold',
-  },
+  
   logo: {
     width: 105,
     height: 105,
@@ -397,7 +404,7 @@ const Styles = StyleSheet.create({
 
     height: FormHeight * 0.1,
 
-    marginTop: FormHeight + 190,
+    marginTop: FormHeight + 312,
 
     width: 193,
 
