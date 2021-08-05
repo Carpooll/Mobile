@@ -37,9 +37,6 @@ class Selection extends React.Component {
       is_driver = 1;
     }
   };
-  handleSubmit= () =>{
-    this.props.navigation.navigate('SignUpData');
-  }
   render() {
     const {driver, passenger} = this.state;
     return (
