@@ -1,9 +1,9 @@
 import Storage from './Storage';
 export var driver = false;
-export var name=""
+export var name = '';
 var id = '';
 var token = '';
-
+var username = '';
 
 class UserSession {
   static instance = new UserSession();
@@ -34,9 +34,10 @@ class UserSession {
           JSON.stringify(response.driver),
         );
 
-        id = response.user.profile+1;
+        id = response.user.profile + 1;
         token = response.token;
-        name=response.user.first_name
+        name = response.user.first_name;
+        username = response.user.username;
         //console.log(driver, name);
         return true;
       } catch (err) {
@@ -84,16 +85,19 @@ class UserSession {
   };
   signupCar = async body => {
     try {
-      let request = await fetch(`https://carpool-utch.herokuapp.com/driver/car/0/`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${token}`,
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/driver/car/0/`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${token}`,
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
       let response = await request.json();
-      console.log(response)
+      console.log(response);
       /* if (typeof response.username == 'string') {
         return response.username;
       } else {
@@ -104,20 +108,23 @@ class UserSession {
       throw Error(err);
     }
   };
-  
+
   SignupPayment = async body => {
     try {
-      id-=1
-      let request = await fetch(`https://carpool-utch.herokuapp.com/driver/payment/${id}/`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${token}`,
+      id -= 1;
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/driver/payment/${id}/`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${token}`,
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
       let response = await request.json();
-      console.log(response)
+      console.log(response);
       /* if (typeof response.username == 'string') {
         return response.username;
       } else {
@@ -177,5 +184,29 @@ class UserSession {
     }
   };
 }
+
+getBalance = async () => {
+  try {
+    let request = await fetch(
+      `https://carpool-arduino-backend.herokuapp.com/getUser/?user_id=${username}`,
+      {
+        method: 'GET',
+      },
+    );
+    let response = await request.json();
+    console.log("the balance is: ")
+    console.log(response);
+  } catch (err) {
+    console.log('signup err', err);
+    throw Error(err);
+  }
+  try {
+    //https://carpool-arduino-backend.herokuapp.com/
+    const key = `token-${username}`;
+    return await Storage.instance.get(key);
+  } catch (err) {
+    console.log('Get token error', err);
+  }
+};
 
 export default UserSession;
