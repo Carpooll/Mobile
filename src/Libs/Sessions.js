@@ -1,5 +1,5 @@
 import Storage from './Storage';
-export var driver = false;
+export var driver ;
 export var name=""
 var id = '';
 var token = '';
@@ -29,7 +29,7 @@ class UserSession {
         await Storage.instance.store(key, JSON.stringify(response.user));
 
         key = `driver-${response.user.username}`;
-        driver = await Storage.instance.store(
+         await Storage.instance.store(
           key,
           JSON.stringify(response.driver),
         );
@@ -37,7 +37,8 @@ class UserSession {
         id = response.user.profile+1;
         token = response.token;
         name=response.user.first_name
-        //console.log(driver, name);
+        driver = response.driver
+        //console.log(id);
         return true;
       } catch (err) {
         return response;
@@ -107,7 +108,8 @@ class UserSession {
   
   SignupPayment = async body => {
     try {
-      id-=1
+    id=id-1
+    //console.log(id)
       let request = await fetch(`https://carpool-utch.herokuapp.com/driver/payment/${id}/`, {
         method: 'PATCH',
         headers: {
