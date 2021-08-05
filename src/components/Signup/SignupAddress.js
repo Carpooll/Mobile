@@ -22,22 +22,25 @@ class SignUpAdrress extends React.Component {
     form: { 
       profile: {}
     },
+    driver: vars.driver,
   };
 
   handleSubmit = async () => {
+    const {driver} = this.state
     try {
-      //this.setState({ user: undefined});
-      console.log(this.state.form)
       let response = await UserSession.instance.signupData(this.state.form);
-
-      console.log(response);
-      //createTwoButtonAlert()
-      this.props.navigation.navigate('Login');
+      if(response){
+        if(driver == true){
+          this.props.navigation.navigate('SignupCar');
+        }else if(driver == false){
+          //createTwoButtonAlert()  
+          this.props.navigation.navigate('PassengerHome');
+        }
+      }
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
     }
-    //console.log(vars.token);
   };
 
   render() {
