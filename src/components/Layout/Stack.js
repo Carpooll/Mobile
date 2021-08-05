@@ -57,6 +57,18 @@ const BadgesStack = () => {
         component={Selection}
         options={{headerShown: false}}
       />
+
+      <Stack.Screen
+        name="HomeDriver"
+        component={HomeDriver}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="HomePassenger"
+        component={HomePassenger1}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
