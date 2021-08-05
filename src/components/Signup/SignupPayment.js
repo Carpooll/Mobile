@@ -11,9 +11,25 @@ import {
   ScrollView,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
+import UserSession from '../../Libs/Sessions';
 
 
 class SignupPayment extends React.Component {
+  state = {
+    form: {},
+  };
+
+  handleSubmit = async () => {
+    try {
+      await UserSession.instance.SignupPayment(this.state.form);
+      this.props.navigation.navigate('HomeDriver');
+      
+    } catch (err) {
+      console.log('Sign up err', err);
+      throw Error(err);
+    }
+  };
+
   render() {
     return (
       <ScrollView>
@@ -35,56 +51,56 @@ class SignupPayment extends React.Component {
                 style={styles.form}
                 placeholder="Card number"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => { esq no sabemos si se usa unu
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                 onChangeText={text => {
+                     this.setState(prevState =>{
+                         let form = Object.assign({}, prevState.form);
+                         form.card_number = text;
+                         return {form};
+                     })
+                 }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="Name"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => {
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                 onChangeText={text => {
+                     this.setState(prevState =>{
+                         let form = Object.assign({}, prevState.form);
+                         form.card_owner = text;
+                         return {form};
+                   })
+                 }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="Expiration date"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => {
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                 onChangeText={text => {
+                     this.setState(prevState =>{
+                         let form = Object.assign({}, prevState.form);
+                         form.exp_date = text;
+                         return {form};
+                     })
+                 }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="CCV"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => {
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                 onChangeText={text => {
+                     this.setState(prevState =>{
+                         let form = Object.assign({}, prevState.form);
+                         form.ccv = text;
+                         return {form};
+                     })
+                 }}
               />
             </View>
 
             <TouchableOpacity
               style={styles.buttonDark}
-              onPress={this.handlePress}>
-              <Text style={styles.buttonDarkText}>Sign up</Text>
+              onPress={this.handleSubmit}>
+              <Text style={styles.buttonDarkText}>Submit</Text>
             </TouchableOpacity>
           </View>
         </View>
