@@ -29,30 +29,30 @@ class EditProfilePassenger extends React.Component {
                 </View> 
                 <View style={Styles.FormContainer}>   
                     <View style={Styles.inputContainer}>
-                        <Text style={Styles.subtitle}>Datos Personales</Text>
-                        <TextInput style={Styles.input}>6140000000</TextInput>
-                        <Text style={Styles.grayText}>Telefono</Text>
+                        <Text style={Styles.subtitle}>Personal Data</Text>
+                        <TextInput style={Styles.input} placeholder='Cellphone' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Cellphone</Text>
 
-                        <Text style={Styles.subtitle}>Direccion</Text>
+                        <Text style={Styles.subtitle}>Address</Text>
                         <TextInput style={Styles.input} placeholder='Street' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Calle</Text>
+                        <Text style={Styles.grayText}>Street</Text>
                         <TextInput style={Styles.input} placeholder='Suburbal' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Colonia</Text>
+                        <Text style={Styles.grayText}>Suburbal</Text>
                         <TextInput style={Styles.input} placeholder='Internal Number' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Numero interno</Text>
+                        <Text style={Styles.grayText}>Internal Number</Text>
                         <TextInput style={Styles.input} placeholder='External Number' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Numero Extrno</Text>
+                        <Text style={Styles.grayText}>External Number</Text>
                         <TextInput style={Styles.input} placeholder='Postal Code' placeholderTextColor={Colors.black}></TextInput>
-                        <Text style={Styles.grayText}>Codigo Postal</Text>
+                        <Text style={Styles.grayText}>Postal Code</Text>
 
                         <Text style={Styles.subtitle}>Payment</Text>
-                        <TextInput style={Styles.input} placeholder='name' placeholderTextColor={Colors.black}>Brayan Prieto</TextInput>
-                        <Text style={Styles.grayText}>Nombre</Text>
-                        <TextInput style={Styles.input} placeholder='card number' placeholderTextColor={Colors.black}>************1203</TextInput>
-                        <Text style={Styles.grayText}>Numero De Tarjeta</Text>
-                        <TextInput style={Styles.input} placeholder='Expiration date' placeholderTextColor={Colors.black}>11/22</TextInput>
-                        <Text style={Styles.grayText}>Fecha de Expiracion</Text>
-                        <TextInput style={Styles.input} placeholder='CVV' placeholderTextColor={Colors.black}>***</TextInput>
+                        <TextInput style={Styles.input} placeholder='Name' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Name</Text>
+                        <TextInput style={Styles.input} placeholder='Card number' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Card number</Text>
+                        <TextInput style={Styles.input} placeholder='Expiration date' placeholderTextColor={Colors.black}></TextInput>
+                        <Text style={Styles.grayText}>Expiration date</Text>
+                        <TextInput style={Styles.input} placeholder='CVV' placeholderTextColor={Colors.black}></TextInput>
                         <Text style={Styles.grayText}>CVV</Text>
                     </View>
                 </View>
@@ -71,8 +71,8 @@ class EditProfilePassenger extends React.Component {
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width
 var iconSize  =  height*.15
-var borderTop = height*.12
-var FormWidth = width*.80
+var borderTop = height*.10
+var FormWidth = width*.69
 var FormHeight = height*1.15
 const Styles = StyleSheet.create({
     Container: {
@@ -83,7 +83,6 @@ const Styles = StyleSheet.create({
     FormContainer: {
 
         marginTop:borderTop + iconSize/2,
-        marginBottom:-height*.4,
         height:FormHeight,
         width: FormWidth,
         alignSelf: 'center',
@@ -94,28 +93,31 @@ const Styles = StyleSheet.create({
     },
     logo: {
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
+        width: 105,
+        height: 105,
 
     },
     logoContainer: {
-        marginTop: borderTop,
         alignSelf: 'center',
-        height:iconSize,
-        width:iconSize,
-        backgroundColor:Colors.white,
-        position: 'absolute',
-        borderRadius: iconSize/2,
-        zIndex:2,
-        shadowColor: "#000",
+        marginTop: 80,
+        shadowColor: '#000',
         shadowOffset: {
-            width: 0,
-            height: 10,
+          width: 0,
+          height: 12,
         },
-        shadowOpacity: 0.51,
-        shadowRadius: 13.16,
-
+        shadowOpacity: 0.5,
+        shadowRadius: 12.0,
         elevation: 20,
+    
+        backgroundColor: Colors.white,
+    
+        width: 110,
+        height: 110,
+        resizeMode: 'cover',
+        borderRadius: 90,
+        position: 'absolute',
+    
+
     },
     title:{
 
@@ -130,7 +132,7 @@ const Styles = StyleSheet.create({
       },
     subtitle: {
 
-        marginTop:FormHeight*.05,
+        marginTop:FormHeight*.035,
 
         alignSelf: 'center',
 
@@ -141,6 +143,8 @@ const Styles = StyleSheet.create({
         color: Colors.blue,
     
         fontSize: Fonts.subTitle,
+
+        marginBottom: -10
     },
     input: {
 
@@ -154,22 +158,24 @@ const Styles = StyleSheet.create({
         
         paddingBottom: 0,
 
-        width: '50%',
+        width: 180,
     
         textAlign: 'center',
+
+        marginTop: 10
     },
     inputContainer:{
         alignItems: 'center',
-        marginTop:20,
+        marginTop:40,
     },
     darkButton:{
         alignSelf: 'center',
     
-        height:FormHeight*.05,
+        height: 50,
         
         marginTop:((borderTop + iconSize/2)+FormHeight*.975) ,
         
-        width:FormWidth*.6,
+        width: 193,
 
         borderRadius: 15,
 
@@ -192,8 +198,8 @@ const Styles = StyleSheet.create({
         alignSelf: 'center',
         color: Colors.white,
         fontSize: Fonts.text,
-        marginTop:height*.45,
-        paddingBottom:height*.02
+        marginTop: 60,
+        paddingBottom: 50
         
     },
     grayText:{

@@ -35,7 +35,7 @@ class PassengerPublicProfile extends React.Component {
                                 <Text style={styles.phone}>614-245-6505</Text>
                                
                             </View>
-                            <Text style={styles.title}>Adress:</Text>
+                            <Text style={styles.title}>Address:</Text>
                         </View>
                         <TouchableOpacity
                             style={styles.buttonDark}
@@ -52,8 +52,8 @@ class PassengerPublicProfile extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.blue,
-        paddingTop: '55%',
-        paddingBottom: '40%',
+        paddingTop: '48%',
+        paddingBottom: '84.1%',
     },
 
     imagesContainer: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
 
     profileImage: {
-        width: 120,
+        width: 110,
         height: 110,
         justifyContent: 'center',
         alignSelf: 'center',
@@ -88,30 +88,24 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '180%',
         height: '100%',
-        marginTop: '200%',
+        marginTop: '160%',
         borderRadius: 15,
 
         
     },
 
     title: {
-        
-        marginBottom: '10%',
         alignSelf: 'center',
         color: Colors.blue,
-        fontSize: 24,
-        marginTop: "10%",
+        fontSize: Fonts.button,
+    
 
     },
     textName: {
-        fontSize: 20,
+        alignSelf: 'center',
+        marginTop: 0,
         color: Colors.black,
-        textAlign: 'center',
-        marginTop: '-25%',
-        fontWeight: 'bold',
-        borderBottomColor: Colors.black,
-        borderBottomWidth: 2,
-        width: 150,
+        fontSize: Fonts.button,
       
     },
     
@@ -123,7 +117,7 @@ const styles = StyleSheet.create({
             height: 5,
         },
 
-        height: 480,
+        height: 400,
         marginTop: -30,
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
@@ -135,14 +129,14 @@ const styles = StyleSheet.create({
     },
 
     dataContainer: {
-        paddingTop: 130,
+        paddingTop: 65,
         alignSelf: 'center'
     },
     datacont:{
         fontSize: Fonts.text,
         color: Colors.black,
         textAlign: 'center',
-        marginTop: '4%',
+    
         alignItems: 'center',
         marginBottom: '-3%'
     },
@@ -161,7 +155,7 @@ const styles = StyleSheet.create({
     buttonDark: {
         width: 193,
         padding: 15,
-        marginTop: 450,
+        marginTop: 370,
         borderRadius: 15,
         backgroundColor: Colors.black,
         borderColor: Colors.black,
@@ -181,11 +175,11 @@ const styles = StyleSheet.create({
         marginBottom: '4%'
     },
     phone: {
-        fontSize: 20,
+        fontSize: 14,
         textAlign: 'center',
-        marginTop: "15%",
+        marginTop: 15,
+        marginBottom: 50,
         borderBottomColor: Colors.black,
-        borderBottomWidth: 2,
         width: 150,
       
     },

@@ -1,4 +1,8 @@
-// structure of the screens
+// Structure of the screens
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import Colors from '../../res/Colors';
+import Layout from './Layout';
 
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -20,22 +24,63 @@ import PassengerPublicProfile from '../Profiles/ProfilePassenger'
 import PassengerPrivate from '../Profiles/ProfilePassengerPrivate'
 import Location from '../LatLong/LatLong'
 
-const Stack = createStackNavigator()
 
-const BadgesStack = () =>{
-    return(
-        <Stack.Navigator
-            screenOptions={{
-            }}>
-            <Stack.Screen 
-                name="Welcome"
-                component={Location}
-                options={{headerShown: false}}
-            />
-            <Stack.Screen name="SignupCar" component={SignupCar}/>
+const Stack = createStackNavigator();
 
-        </Stack.Navigator>
-    );
-}
+const BadgesStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{}}>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUpData"
+        component={SignUpData}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUpAdrress"
+        component={SignUpAdrress}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignupCar"
+        component={SignupCar}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignupPayment"
+        component={SignupPayment}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Selection"
+        component={Selection}
+        options={{headerShown: false}}
+      />
+
+
+      <Stack.Screen
+        name="HomeDriver"
+        component={HomeDriver}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="HomePassenger"
+        component={HomePassenger1}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen 
+         name="Welcome"
+         component={Location}
+         options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
 
 export default BadgesStack;
