@@ -1,7 +1,9 @@
 import Storage from './Storage';
-export var token = '';
-export var id = 0;
-export var full_name='';
+export var driver = false;
+export var name=""
+var id = '';
+var token = '';
+
 
 class UserSession {
   static instance = new UserSession();
@@ -21,15 +23,22 @@ class UserSession {
       let response = await request.json();
       try {
         let key = `token-${response.user.username}`;
-        token = response.token;
-        id = response.user.profile.id +1;
-        
-        full_name = response.first_name
-        
-
         await Storage.instance.store(key, response.token);
-        console.log(id, token);
-        return response.user.username;
+
+        key = `data-${response.user.username}`;
+        await Storage.instance.store(key, JSON.stringify(response.user));
+
+        key = `driver-${response.user.username}`;
+        driver = await Storage.instance.store(
+          key,
+          JSON.stringify(response.driver),
+        );
+
+        id = response.user.profile+1;
+        token = response.token;
+        name=response.user.first_name
+        //console.log(driver, name);
+        return true;
       } catch (err) {
         return response;
       }
@@ -73,43 +82,47 @@ class UserSession {
       throw Error(err);
     }
   };
-  signupDriver = async body => {
+  signupCar = async body => {
     try {
-      let request = await fetch(``, {
-        method: 'POST',
+      let request = await fetch(`https://carpool-utch.herokuapp.com/driver/car/0/`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
+          Authorization: `Token ${token}`,
         },
         body: JSON.stringify(body),
       });
       let response = await request.json();
-      if (typeof response.username == 'string') {
+      console.log(response)
+      /* if (typeof response.username == 'string') {
         return response.username;
       } else {
         return response;
-      }
+      } */
     } catch (err) {
       console.log('signup err', err);
       throw Error(err);
     }
   };
-  signupPassenger = async body => {
+  
+  SignupPayment = async body => {
     try {
-      let request = await fetch(``, {
-        method: 'POST',
+      id-=1
+      let request = await fetch(`https://carpool-utch.herokuapp.com/driver/payment/${id}/`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
+          Authorization: `Token ${token}`,
         },
         body: JSON.stringify(body),
       });
       let response = await request.json();
-      if (typeof response.username == 'string') {
+      console.log(response)
+      /* if (typeof response.username == 'string') {
         return response.username;
       } else {
         return response;
-      }
+      } */
     } catch (err) {
       console.log('signup err', err);
       throw Error(err);
@@ -118,15 +131,19 @@ class UserSession {
 
   signupData = async body => {
     try {
-      let request = await fetch(`https://carpool-utch.herokuapp.com/profile/${id}/`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          
-          Authorization: 'Token' + token
+      //console.log(token, id)
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/profile/${id}/`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+
+            Authorization: `Token ${token}`,
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
       let response = await request.json();
       if (typeof response.username == 'string') {
         return response.username;
@@ -139,8 +156,21 @@ class UserSession {
     }
   };
 
-  getToken = async key => {
+  getUser = async () => {
     try {
+      const allKeys = await Storage.instance.getAllKeys();
+      const data = allKeys.filter(key => key.includes('data-'));
+      const user = await Storage.instance.get(data.toString());
+      console.log(JSON.parse(user));
+      return JSON.parse(user);
+    } catch (err) {
+      console.log('Get user err', err);
+    }
+  };
+
+  getToken = async username => {
+    try {
+      const key = `token-${username}`;
       return await Storage.instance.get(key);
     } catch (err) {
       console.log('Get token error', err);
