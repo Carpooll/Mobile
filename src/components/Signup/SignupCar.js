@@ -11,9 +11,24 @@ import {
   ScrollView,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
-
+import UserSession from '../../Libs/Sessions';
 
 class SignupCar extends React.Component {
+  state = {
+    form: {},
+  };
+
+  handleSubmit = async () => {
+    try {
+      await UserSession.instance.signupCar(this.state.form);
+      this.props.navigation.navigate('SignupPayment');
+      
+    } catch (err) {
+      console.log('Sign up err', err);
+      throw Error(err);
+    }
+  };
+
   render() {
     return (
       <ScrollView>
@@ -24,67 +39,93 @@ class SignupCar extends React.Component {
               <Image
                 style={styles.logo}
                 source={{
-                    uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
+                  uri: 'https://image.flaticon.com/icons/png/512/3448/3448650.png',
                 }}></Image>
             </View>
           </View>
           <View style={styles.formShadow}>
             <View style={styles.inputContainer}>
-            <Text style={styles.title}>Car information</Text>
+              <Text style={styles.title}>Car information</Text>
               <TextInput
                 style={styles.form}
                 placeholder="Model"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => { esq no sabemos si se usa unu
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.model = text;
+                    return {form};
+                  });
+                }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="Color"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => {
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.color = text;
+                    return {form};
+                  });
+                }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="Plates"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => {
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.plates = text;
+                    return {form};
+                  });
+                }}
               />
               <TextInput
                 style={styles.form}
                 placeholder="Insurance police"
                 placeholderTextColor={Colors.black}
-                // onChangeText={text => {
-                //     this.setState(prevState =>{
-                //         let form = Object.assign({}, prevState.form);
-                //         form.name = text;
-                //         return {form};
-                //     })
-                // }}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.insurance = text;
+                    return {form};
+                  });
+                }}
+              />
+
+              <TextInput
+                style={styles.form}
+                placeholder="Passengers limit"
+                placeholderTextColor={Colors.black}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.limit = text;
+                    return {form};
+                  });
+                }}
+              />
+
+              <TextInput
+                style={styles.form}
+                placeholder="Travel cost"
+                placeholderTextColor={Colors.black}
+                onChangeText={text => {
+                  this.setState(prevState => {
+                    let form = Object.assign({}, prevState.form);
+                    form.travel_cost = text;
+                    return {form};
+                  });
+                }}
               />
             </View>
 
             <TouchableOpacity
               style={styles.buttonDark}
-              onPress={this.handlePress}>
-              <Text style={styles.buttonDarkText}>Next</Text>
+              onPress={this.handleSubmit}>
+              <Text style={styles.buttonDarkText}>Submit</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -138,7 +179,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: Colors.blue,
     fontSize: Fonts.button,
-
   },
 
   formShadow: {
@@ -148,7 +188,7 @@ const styles = StyleSheet.create({
       height: 5,
     },
 
-    height: 480,
+    height: 650,
     marginTop: -30,
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
@@ -156,12 +196,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     width: 265,
     borderRadius: 15,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   inputContainer: {
     paddingTop: 130,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   form: {
@@ -172,13 +212,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     width: 180,
     textAlign: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   buttonDark: {
     width: 193,
     padding: 15,
-    marginTop: 450,
+    marginTop: 630,
     borderRadius: 15,
     backgroundColor: Colors.black,
     borderColor: Colors.black,
