@@ -73,7 +73,8 @@ class Login extends React.Component {
       this.setState({error: err});
     }
     if (this.state.user) {
-      if (user.first_name == '' || user.first_name == null) {
+      console.log(vars.name)
+      if (vars.name === "") {
         this.props.navigation.replace('SignUpAdrress');
       } else {
         if (vars.driver == true) {
