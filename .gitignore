@@ -62,5 +62,5 @@ buck-out/
 *.jpeg
 
 #env
-.env
 /.env
+.env

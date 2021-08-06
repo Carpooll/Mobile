@@ -44,7 +44,6 @@ class SignUpData extends React.Component {
     const {form} = this.state
     form.is_driver = 0
     console.log(form)
-
   };
 
   handleDriver = () => {

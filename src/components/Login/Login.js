@@ -88,13 +88,25 @@ class Login extends React.Component {
         }
       }
     }
-  };
+
+
+  //handleLogin = () => {
+    // this.props.navigation.navigate('TabNavigatorDriver')
+  //  this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
+  //}
+
+  //handleSignUp = () => {
+  //  this.props.navigation.navigate('SignUpData')
+
+  //};
 
   render() {
     const {error} = this.state;
     return (
+
       <ScrollView style={styles.container}>
         <View>
+
           <StatusBar backgroundColor="transparent" translucent={true} />
 
           <ImageBackground source={Background} style={styles.image}>

@@ -59,6 +59,7 @@ class SignUpAdrress extends React.Component {
         coordinate_y: 0.0,
       },
     },
+
     driver: vars.driver,
     latitude: 0,
     longitude: 0,
@@ -149,6 +150,7 @@ class SignUpAdrress extends React.Component {
     }
   };
 
+
   //boton
   handleGetLocation = async () => {
     const {form} = this.state;
@@ -172,7 +174,6 @@ class SignUpAdrress extends React.Component {
             Address = addressComponent.formatted_address;
             this.setState({address: Address});
             addressAlert();
-
             //console.log(addressComponent.geometry.location.lat)
             Latitud = addressComponent.geometry.location.lat;
             Lat = parseFloat(Latitud);
