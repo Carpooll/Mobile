@@ -1,4 +1,6 @@
 import React from 'react';
+import Geocoder from 'react-native-geocoding';
+import Geolocation from 'react-native-geolocation-service';
 import {
   Text,
   View,
@@ -16,41 +18,188 @@ import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import * as vars from '../../Libs/Sessions';
 import UserSession from '../../Libs/Sessions';
+import LocationAddress from '../LatLong/Address';
+import api from '../../../config';
+
+var address = '';
+var Lat,
+  Lng = 0;
+
+Geocoder.init(api.API_KEY);
+Geocoder.init(api.API_KEY, {language: 'es'});
 
 const createTwoButtonAlert = () =>
   Alert.alert('Important', 'Your data was succesfully registered', [
     {text: 'OK'},
   ]);
 
+const addressFields = () =>
+  Alert.alert(
+    'Important',
+    'Please, do not fill next fields, click on submit.',
+    [{text: 'Got it'}],
+  );
+const addressAlert = () =>
+  Alert.alert('Verify your address', `${Address}`, [
+    {text: 'It is ok!'},
+    {text: 'I preffer to enter it manually!'},
+  ]);
+
 class SignUpAdrress extends React.Component {
   state = {
     errors: [],
     form: {
-      profile: {},
+      profile: {
+        street: '',
+        suburb: '',
+        postal_code: '',
+        external_number: '',
+        coordinate_x: 0.0,
+        coordinate_y: 0.0,
+      },
     },
     driver: vars.driver,
+    latitude: 0,
+    longitude: 0,
+    error: null,
+    user: {
+      address: '',
+    },
   };
 
   handleSubmit = async () => {
-    const {driver} = this.state;
-    try {
-      let response = await UserSession.instance.signupData(this.state.form);
-      if (response) {
-        console.log(vars.driver)
-        if (driver == true) {
-          this.props.navigation.navigate('SignupCar');
-        } else if (driver == false) {
-          createTwoButtonAlert();
-          this.props.navigation.navigate('HomePassenger');
-        }
+    const {driver, form, user, latitude} = this.state;
+    if (latitude == 0) {
+      try {
+        address = form.profile.street.concat(
+          ' ',
+          form.profile.external_number.concat(
+            ' ',
+            form.profile.suburb.concat(' ', form.profile.postal_code),
+          ),
+        );
+        user.address = address;
+
+        Geolocation.getCurrentPosition(
+          position => {
+            Geocoder.from(user.address)
+              .then(json => {
+                results = json.results[0];
+                latitud = JSON.stringify(results.geometry.location.lat);
+                //console.log(latitud)
+                Lat = parseFloat(latitud);
+                //console.log(Lat)
+                form.profile.coordinate_x = Lat;
+                //console.log(form.profile.coordinate_x)
+                longitud = JSON.stringify(results.geometry.location.lng);
+                Lng = parseFloat(longitud);
+                form.profile.coordinate_y = Lng;
+                //console.log(form.profile.coordinate_y)
+                //console.log(form);
+                let response = UserSession.instance.signupData(this.state.form);
+                if (response) {
+                  //console.log(vars.driver);
+                  if (driver == true) {
+                    this.props.navigation.navigate('SignupCar');
+                  } else if (driver == false) {
+                    createTwoButtonAlert();
+                    this.props.navigation.navigate('HomePassenger');
+                  }
+                }
+              })
+              .catch(error => console.warn(error));
+          },
+          error => {
+            this.setState({
+              error: error.message,
+            }),
+              console.log(error.code, error.message);
+          },
+
+          {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 100000,
+          },
+        );
+      } catch (err) {
+        console.log('Sign up err', err);
+        throw Error(err);
       }
-    } catch (err) {
-      console.log('Sign up err', err);
-      throw Error(err);
+    }else{
+      try{
+        console.log(form)
+        let response = await UserSession.instance.signupData(this.state.form);
+        if (response) {
+          //console.log(vars.driver);
+          if (driver == true) {
+            this.props.navigation.navigate('SignupCar');
+          } else if (driver == false) {
+            createTwoButtonAlert();
+            this.props.navigation.navigate('HomePassenger');
+          }
+        }
+      }catch(err){
+        console.log('Sign up err', err);
+        throw Error(err);
+      }
     }
   };
 
+  handleGetLocation = async () => {
+    const {form} = this.state;
+    Geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+
+        Geocoder.from(position.coords.latitude, position.coords.longitude)
+
+          .then(json => {
+            //console.log(json);
+            var addressComponent = json.results[1];
+            this.setState({
+              Address: addressComponent,
+            });
+            //console.log(addressComponent);
+
+            Address = addressComponent.formatted_address;
+            this.setState({address: Address});
+            addressAlert();
+
+            //console.log(addressComponent.geometry.location.lat)
+            Latitud = addressComponent.geometry.location.lat;
+            Lat = parseFloat(Latitud);
+            //console.log(Lat);
+            form.profile.coordinate_x = Lat;
+            //console.log(addressComponent.geometry.location.lng)
+            Longitud = addressComponent.geometry.location.lng;
+            Lng = parseFloat(Longitud);
+            form.profile.coordinate_y = Lng;
+          })
+
+          .catch(error => console.warn(error));
+      },
+
+      error => {
+        this.setState({
+          error: error.message,
+        }),
+          console.log(error.code, error.message);
+      },
+
+      {
+        enableHighAccuracy: false,
+        timeout: 10000,
+        maximumAge: 100000,
+      },
+    );
+  };
+
   render() {
+    const {error} = this.state;
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -105,9 +254,10 @@ class SignUpAdrress extends React.Component {
           <Text style={Styles.titleA}>Address</Text>
           <TouchableOpacity
             style={Styles.locationButton}
-            onPress={this.handleSubmit}>
+            onPress={this.handleGetLocation}>
             <Text style={Styles.locationTitle}>Use my current location</Text>
           </TouchableOpacity>
+          {this.state.error ? <Text> Error : {this.state.error} </Text> : null}
           <View style={Styles.inputContainer}>
             <TextInput
               style={Styles.input}
@@ -217,7 +367,6 @@ const Styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 12.0,
-    elevation: 20,
     backgroundColor: Colors.white,
     width: 110,
     height: 110,
@@ -285,8 +434,8 @@ const Styles = StyleSheet.create({
     height: 60,
     marginTop: 20,
     elevation: 4,
-    borderWidth:2,
-    borderColor:'#A7C7E7',
+    borderWidth: 2,
+    borderColor: '#A7C7E7',
     alignItems: 'center',
   },
 });
