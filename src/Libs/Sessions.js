@@ -3,7 +3,7 @@ export var driver = false;
 export var name = '';
 var id = '';
 var token = '';
-var username = '';
+export var username = '';
 
 class UserSession {
   static instance = new UserSession();
@@ -200,13 +200,13 @@ getBalance = async () => {
     console.log('signup err', err);
     throw Error(err);
   }
-  try {
+  /* try {
     //https://carpool-arduino-backend.herokuapp.com/
     const key = `token-${username}`;
     return await Storage.instance.get(key);
   } catch (err) {
     console.log('Get token error', err);
-  }
+  } */
 };
 
 export default UserSession;
