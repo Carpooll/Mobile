@@ -18,12 +18,13 @@ import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import * as vars from '../../Libs/Sessions';
 import UserSession from '../../Libs/Sessions';
-import LocationAddress from '../LatLong/Address';
 import api from '../../../config';
 
-var address = '';
-var Lat,
-  Lng = 0;
+var address = ''
+var Lat=0
+var Lng=0
+var lng=0
+var lat=0
 
 Geocoder.init(api.API_KEY);
 Geocoder.init(api.API_KEY, {language: 'es'});
@@ -52,8 +53,8 @@ class SignUpAdrress extends React.Component {
       profile: {
         street: '',
         suburb: '',
-        postal_code: '',
-        external_number: '',
+        postal_code: 0,
+        external_number: 0,
         coordinate_x: 0.0,
         coordinate_y: 0.0,
       },
@@ -68,8 +69,10 @@ class SignUpAdrress extends React.Component {
   };
 
   handleSubmit = async () => {
-    const {driver, form, user, latitude} = this.state;
-    if (latitude == 0) {
+    const {driver, form, user} = this.state;
+    console.log(Lat)
+    console.log(Lng)
+    if (Lat == 0 && Lng == 0) {
       try {
         address = form.profile.street.concat(
           ' ',
@@ -87,13 +90,13 @@ class SignUpAdrress extends React.Component {
                 results = json.results[0];
                 latitud = JSON.stringify(results.geometry.location.lat);
                 //console.log(latitud)
-                Lat = parseFloat(latitud);
+                lat = parseFloat(latitud);
                 //console.log(Lat)
-                form.profile.coordinate_x = Lat;
+                form.profile.coordinate_x = lat;
                 //console.log(form.profile.coordinate_x)
                 longitud = JSON.stringify(results.geometry.location.lng);
-                Lng = parseFloat(longitud);
-                form.profile.coordinate_y = Lng;
+                lng = parseFloat(longitud);
+                form.profile.coordinate_y = lng;
                 //console.log(form.profile.coordinate_y)
                 //console.log(form);
                 let response = UserSession.instance.signupData(this.state.form);
@@ -126,26 +129,27 @@ class SignUpAdrress extends React.Component {
         console.log('Sign up err', err);
         throw Error(err);
       }
-    }else{
-      try{
-        console.log(form)
-        let response = await UserSession.instance.signupData(this.state.form);
-        if (response) {
-          //console.log(vars.driver);
-          if (driver == true) {
-            this.props.navigation.navigate('SignupCar');
-          } else if (driver == false) {
-            createTwoButtonAlert();
-            this.props.navigation.navigate('HomePassenger');
-          }
+    } else {
+      //console.log(form)
+      let response = await UserSession.instance.signupData(this.state.form);
+      //console.log(response)
+      /* console.log(typeof(response))
+        console.log(typeof(vars.username)) */
+      if (response == vars.username) {
+        //console.log(vars.driver);
+        if (driver == true) {
+          this.props.navigation.navigate('SignupCar');
+        } else if (driver == false) {
+          createTwoButtonAlert();
+          this.props.navigation.navigate('HomePassenger');
         }
-      }catch(err){
-        console.log('Sign up err', err);
-        throw Error(err);
+      }else{
+        console.log('Signup data error, button', response)
       }
     }
   };
 
+  //boton
   handleGetLocation = async () => {
     const {form} = this.state;
     Geolocation.getCurrentPosition(
@@ -174,22 +178,22 @@ class SignUpAdrress extends React.Component {
             Lat = parseFloat(Latitud);
             //console.log(Lat);
             form.profile.coordinate_x = Lat;
-            //console.log(addressComponent.geometry.location.lng)
+            //console.log(form.profile.coordinate_x);
+
             Longitud = addressComponent.geometry.location.lng;
             Lng = parseFloat(Longitud);
             form.profile.coordinate_y = Lng;
+            //console.log(form.profile.coordinate_y);
+            this.handleSubmit();
           })
-
           .catch(error => console.warn(error));
       },
-
       error => {
         this.setState({
           error: error.message,
         }),
           console.log(error.code, error.message);
       },
-
       {
         enableHighAccuracy: false,
         timeout: 10000,
@@ -199,7 +203,6 @@ class SignUpAdrress extends React.Component {
   };
 
   render() {
-    const {error} = this.state;
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -256,6 +259,7 @@ class SignUpAdrress extends React.Component {
             style={Styles.locationButton}
             onPress={this.handleGetLocation}>
             <Text style={Styles.locationTitle}>Use my current location</Text>
+            {this.state.error ? <Text> Error : {this.state.error} </Text> : null}
           </TouchableOpacity>
           {this.state.error ? <Text> Error : {this.state.error} </Text> : null}
           <View style={Styles.inputContainer}>
