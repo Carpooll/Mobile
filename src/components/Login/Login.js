@@ -10,9 +10,12 @@ import {
   TextInput,
   Image,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
+import UserSession from '../../Libs/Sessions';
+import * as vars from '../../Libs/Sessions';
+
 // import Background from "../../assets/background.jpeg"
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -21,22 +24,89 @@ const Background = {
   uri: `https://images.pexels.com/photos/3876465/pexels-photo-3876465.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260`,
 };
 class Login extends React.Component {
-
-  handleLogin = () => {
-    // this.props.navigation.navigate('TabNavigatorDriver')
-    this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
-  }
-
-  handleSignUp = () => {
-    this.props.navigation.navigate('SignUpData')
+  state = {
+    error: null,
+    user: undefined,
+    form: {},
+    user: {},
+    driver: vars.driver,
   };
 
+  componentDidMount = () => {
+    this.getUserData();
+    
+    //this.deleteTokens();
+  };
+
+  /* deleteTokens = async () => {
+    await UserSession.instance.logout();
+  }; */
+
+
+  getUserData = async () => {
+    let user = await UserSession.instance.getUser();
+    //console.log(user)
+    //console.log(this.state.driver)
+    this.setState({user: user});
+  };
+
+  handlePress = () => {
+    this.props.navigation.navigate('SignUpData');
+  };
+
+  handleSubmit = async () => {
+    const {user} = this.state;
+    try {
+      this.setState({error: null, user: undefined});
+      let response = await UserSession.instance.login(this.state.form);
+
+      if (typeof response == 'object') {
+        //console.log(response);
+        if (response['405']) {
+          var message = 'Your account is not verified';
+        } else {
+          var message = 'Invalid username or password, try again';
+        }
+        this.setState({error: message, user: undefined});
+      } else {
+        this.setState({error: null, user: response});
+      }
+    } catch (err) {
+      this.setState({error: err});
+    }
+    if (this.state.user) {
+      console.log(vars.name)
+      if (vars.name === "") {
+        this.props.navigation.replace('SignUpAdrress');
+      } else {
+        if (vars.driver == true) {
+          this.props.navigation.replace('HomeDriver');
+        } else if (vars.driver == false) {
+          this.props.navigation.replace('HomePassenger');
+        } else {
+          console.log('error');
+        }
+      }
+    }
+
+
+  //handleLogin = () => {
+    // this.props.navigation.navigate('TabNavigatorDriver')
+  //  this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
+  //}
+
+  //handleSignUp = () => {
+  //  this.props.navigation.navigate('SignUpData')
+
+  //};
+
   render() {
+    const {error} = this.state;
     return (
 
       <ScrollView style={styles.container}>
+        <View>
 
-        <View >
           <StatusBar backgroundColor="transparent" translucent={true} />
 
           <ImageBackground source={Background} style={styles.image}>
@@ -52,51 +122,55 @@ class Login extends React.Component {
                     }}></Image>
                 </View>
               </View>
-
               <View style={styles.login}>
+                <Text style={styles.errorText}>
+                  {error ? (
+                    <View>
+                      <Text style={styles.error}>{error}</Text>
+                    </View>
+                  ) : null}
+                </Text>
                 <View style={styles.inputContainer}>
                   <TextInput
                     style={styles.form}
                     placeholder="Student ID"
                     placeholderTextColor={Colors.black}
-                  // onChangeText={text => { esq no sabemos si se usa unu
-                  //     this.setState(prevState =>{
-                  //         let form = Object.assign({}, prevState.form);
-                  //         form.name = text;
-                  //         return {form};
-                  //     })
-                  // }}
+                    onChangeText={text => {
+                      this.setState(prevState => {
+                        let form = Object.assign({}, prevState.form);
+                        form.username = text;
+                        return {form};
+                      });
+                    }}
                   />
                   <TextInput
                     secureTextEntry={true}
                     style={styles.form}
                     placeholder="Password"
                     placeholderTextColor={Colors.black}
-                  // onChangeText={text => {
-                  //     this.setState(prevState =>{
-                  //         let form = Object.assign({}, prevState.form);
-                  //         form.name = text;
-                  //         return {form};
-                  //     })
-                  // }}
+                    onChangeText={text => {
+                      this.setState(prevState => {
+                        let form = Object.assign({}, prevState.form);
+                        form.password = text;
+                        return {form};
+                      });
+                    }}
                   />
                 </View>
 
                 <TouchableOpacity
                   style={styles.buttonDark}
-                  onPress={this.handleLogin}
-                >
+                  onPress={this.handleSubmit}>
                   <Text style={styles.buttonDarkText}>LOGIN</Text>
                 </TouchableOpacity>
               </View>
-
             </View>
           </ImageBackground>
           <View style={styles.signup}>
             <Text style={styles.signupText}>Don't have an account?</Text>
             <TouchableOpacity
               style={styles.buttonLight}
-              onPress={this.handleSignUp}>
+              onPress={this.handlePress}>
               <Text style={styles.buttonLightText}>SIGN UP</Text>
             </TouchableOpacity>
           </View>
@@ -107,11 +181,16 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     height: windowHeight,
     backgroundColor: Colors.white,
-
+  },
+  errorText: {
+    marginTop: 60,
+  },
+  error: {
+    color: '#FF0000',
+    fontWeight: 'bold',
   },
 
   image: {
@@ -196,7 +275,7 @@ const styles = StyleSheet.create({
       height: 5,
     },
 
-    height: 250,
+    height: 320,
 
     marginTop: -30,
 
@@ -224,25 +303,20 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    paddingTop: 40,
+    paddingTop: 100,
 
     marginBottom: -30,
   },
 
   form: {
     paddingHorizontal: 20,
-
     color: Colors.black,
-
     borderBottomColor: Colors.black,
-
     borderBottomWidth: 1,
-
-    marginBottom: 30,
-
+    marginBottom: 80,
     width: 150,
-
     textAlign: 'center',
+    marginTop: -70,
   },
 
   signup: {
@@ -294,7 +368,7 @@ const styles = StyleSheet.create({
 
     padding: 15,
 
-    marginTop: 220,
+    marginTop: 295,
 
     // marginBottom: 0,
 

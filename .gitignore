@@ -60,5 +60,7 @@ buck-out/
 
 #images
 *.jpeg
+
+#env
 /.env
 .env
