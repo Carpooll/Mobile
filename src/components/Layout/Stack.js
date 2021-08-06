@@ -17,7 +17,8 @@ import DriverDetailsPrivate from '../Details/DetailsPrivate';
 import HomePassenger1 from '../Home/HomePassenger';
 import PassengerPublicProfile from '../Profiles/ProfilePassenger';
 import PassengerPrivate from '../Profiles/ProfilePassengerPrivate';
-import Location from '../LatLong/LatLong';
+import LocationAddress from '../LatLong/Address'
+import LocationCurrentPosition from '../LatLong/LatLong'
 
 const Stack = createStackNavigator();
 
@@ -65,10 +66,18 @@ const BadgesStack = () => {
       />
 
       <Stack.Screen
-        name="Welcome"
-        component={Location}
+        name="LocationAddress"
+        component={LocationAddress}
         options={{headerShown: false}}
       />
+      
+      <Stack.Screen
+        name="LocationCurrentPosition"
+        component={LocationCurrentPosition}
+        options={{headerShown: false}}
+      />
+      
+
     </Stack.Navigator>
   );
 };
