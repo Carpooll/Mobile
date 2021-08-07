@@ -35,7 +35,7 @@ class UserSession {
           JSON.stringify(response.driver),
         );
 
-        id =  response.user.profile ;
+        id = response.user.profile;
         id = JSON.stringify(id)
         await Storage.instance.store('token', token)
         await Storage.instance.store('id', id)
@@ -141,8 +141,15 @@ class UserSession {
   };
 
   signupData = async body => {
+    console.log(token, id)
     try {
-      console.log(token, id)
+      let _body = body
+      _body.postal_code = parseInt( _body.postal_code)
+      _body.internal_number = parseInt( _body.internal_number)
+      _body.external_number = parseInt( _body.external_number)
+      body = _body
+      console.log(body)
+      //console.log(token, id)
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/profile/${id}/`,
         {

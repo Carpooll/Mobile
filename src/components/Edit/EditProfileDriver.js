@@ -14,12 +14,29 @@ import {
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import ModalDelete from '../Generics/Modal';
+import UserSession from '../../Libs/Sessions';
 
 class EditProfileDriver extends React.Component {
+  state = {
+    form: {
+        profile: {},
+    },
+}
     
   handlePress = () => {
-    this.props.navigation.navigate('ProfileDriver');
   };
+  
+  handleSubmit = async () => {
+    try {
+      await UserSession.instance.signupData(this.state.form);
+      await UserSession.instance.SignupPayment(this.state.form);
+      await UserSession.instance.signupCar(this.state.form);
+      this.props.navigation.replace('ProfileDriver');
+    } catch (err) {
+        console.log("Edit profile error", err)
+        throw Error(err);
+    }
+}
 
   render() {
     return (
@@ -39,82 +56,207 @@ class EditProfileDriver extends React.Component {
             <TextInput
               style={Styles.input}
               placeholder="Cellphone"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.phone = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Cellphone</Text>
 
             <Text style={Styles.subtitle}>Address</Text>
             <TextInput
               style={Styles.input}
               placeholder="Street"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.street = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Street</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Suburbal"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.suburb = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Suburbal</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Internal Number"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.internal_number = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Internal Number</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="External Number"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.external_number = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
+
             <Text style={Styles.grayText}>External Number</Text>
             <TextInput
               style={Styles.input}
               placeholder="Postal Code"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.profile.postal_code = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Postal code</Text>
 
             <Text style={Styles.subtitle}>Payment</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Name"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.card_owner = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Name</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Card number"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.card_number = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Card number</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Expiration date"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.exp_date = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Expiration date</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="CVV"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.ccv = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>CVV</Text>
 
             <Text style={Styles.subtitle}>Car data</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Color"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.color = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Color</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Model"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.model = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Model</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Insurance policy"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.insurance = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Insurance policy</Text>
+
             <TextInput
               style={Styles.input}
               placeholder="Plates"
-              placeholderTextColor={Colors.black}></TextInput>
+              placeholderTextColor={Colors.black}
+              onChangeText={text => {
+                this.setState(prevState => {
+                  let form = Object.assign({}, prevState.form);
+                  form.plates = text;
+                  return {form};
+                });
+              }}
+            ></TextInput>
             <Text style={Styles.grayText}>Plates</Text>
+
           </View>
         </View>
-        <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
+        <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
           <Text style={Styles.darkButtonText}>SAVE</Text>
         </TouchableOpacity>
         <TouchableOpacity>

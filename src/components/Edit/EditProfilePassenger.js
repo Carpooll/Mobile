@@ -14,11 +14,24 @@ import {
 import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 import ModalDelete from '../Generics/Modal';
+import UserSession from '../../Libs/Sessions';
 
 class EditProfilePassenger extends React.Component {
+    state = {
+        form: {
+            profile: {},
+        },
+    }
 
-    handlePress = () => {
-        this.props.navigation.navigate('PassengerPrivateX')
+    handleSubmit = async () => {
+        try {
+            console.log(this.state.form)
+            await UserSession.instance.signupData(this.state.form);
+            this.props.navigation.replace('PassengerPrivate')
+        } catch (err) {
+            console.log("Edit profile error", err)
+            throw Error(err);
+        }
     }
 
     render() {
@@ -34,23 +47,101 @@ class EditProfilePassenger extends React.Component {
                 </View>
                 <View style={Styles.FormContainer}>
                     <View style={Styles.inputContainer}>
+
                         <Text style={Styles.subtitle}>Personal Data</Text>
-                        <TextInput style={Styles.input} placeholder='Cellphone' placeholderTextColor={Colors.black}></TextInput>
+
+                        <TextInput
+                            style={Styles.input}
+                            placeholder='Cellphone'
+                            placeholderTextColor={Colors.black}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.phone = text;
+                                    return { form };
+                                });
+                            }}
+                        ></TextInput>
                         <Text style={Styles.grayText}>Cellphone</Text>
+
                         <Text style={Styles.subtitle}>Address</Text>
-                        <TextInput style={Styles.input} placeholder='Street' placeholderTextColor={Colors.black}></TextInput>
+
+                        <TextInput
+                            style={Styles.input}
+                            placeholder='Street'
+                            placeholderTextColor={Colors.black}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.street = text;
+                                    return { form };
+                                });
+                            }}
+                        ></TextInput>
                         <Text style={Styles.grayText}>Street</Text>
-                        <TextInput style={Styles.input} placeholder='Suburbal' placeholderTextColor={Colors.black}></TextInput>
+
+                        <TextInput
+                            style={Styles.input}
+                            placeholder='Suburbal'
+                            placeholderTextColor={Colors.black}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.suburb = text;
+                                    return { form };
+                                });
+                            }}
+                        ></TextInput>
                         <Text style={Styles.grayText}>Suburbal</Text>
-                        <TextInput style={Styles.input} placeholder='Internal Number' placeholderTextColor={Colors.black}></TextInput>
+
+                        <TextInput
+                            style={Styles.input}
+                            placeholder='Internal Number'
+                            placeholderTextColor={Colors.black}
+                            keyboardType='numeric'
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.internal_number = text;
+                                    return { form };
+                                });
+                            }}
+                        ></TextInput>
                         <Text style={Styles.grayText}>Internal Number</Text>
-                        <TextInput style={Styles.input} placeholder='External Number' placeholderTextColor={Colors.black}></TextInput>
+
+                        <TextInput
+                            style={Styles.input}
+                            placeholder='External Number'
+                            placeholderTextColor={Colors.black}
+                            keyboardType='numeric'
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.external_number = text;
+                                    return { form };
+                                });
+                            }}
+                        ></TextInput>
                         <Text style={Styles.grayText}>External Number</Text>
-                        <TextInput style={Styles.input} placeholder='Postal Code' placeholderTextColor={Colors.black}></TextInput>
+
+                        <TextInput
+                            style={Styles.input}
+                            placeholder='Postal Code'
+                            placeholderTextColor={Colors.black}
+                            keyboardType='numeric'
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.postal_code = text;
+                                    return { form };
+                                });
+                            }}
+                        ></TextInput>
+                        
                         <Text style={Styles.grayText}>Postal Code</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
+                <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
                     <Text style={Styles.darkButtonText}>SAVE</Text>
                 </TouchableOpacity>
                 <ModalDelete></ModalDelete>
