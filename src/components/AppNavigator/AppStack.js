@@ -34,6 +34,7 @@ const AppStack = () => {
         }}>
 
             <Stack.Screen name="Login" component={Login}/>
+            <Stack.Screen name="screens" component={screens}/>
 
             <Stack.Screen name="SignUpData" component={SignUpData}/>
             <Stack.Screen name="SignUpAddress" component={SignUpAddress}/>

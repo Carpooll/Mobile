@@ -80,9 +80,9 @@ class Login extends React.Component {
         this.props.navigation.replace('SignUpAddress');
       } else {
         if (vars.driver == true) {
-          this.props.navigation.replace('HomeDriver');
+          this.props.navigation.replace('TabNavigatorDriver');
         } else if (vars.driver == false) {
-          this.props.navigation.replace('HomePassenger');
+          this.props.navigation.replace('TabNavigatorPassenger');
         } else {
           console.log('error');
         }
