@@ -14,6 +14,7 @@ import {
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import ModalDelete from '../Generics/Modal';
+import UserSession from '../../Libs/Sessions';
 
 class EditProfileDriver extends React.Component {
   state = {

@@ -15,7 +15,6 @@ import Fonts from '../../res/Fonts'
 import Colors from '../../res/Colors';
 import ModalDelete from '../Generics/Modal';
 import UserSession from '../../Libs/Sessions';
-import * as vars from '../../Libs/Sessions';
 
 class EditProfilePassenger extends React.Component {
     state = {
