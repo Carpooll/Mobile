@@ -98,6 +98,7 @@ class SignupCar extends React.Component {
                 style={styles.form}
                 placeholder="Passengers limit"
                 placeholderTextColor={Colors.black}
+                keyboardType='numeric'
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
@@ -111,6 +112,7 @@ class SignupCar extends React.Component {
                 style={styles.form}
                 placeholder="Travel cost"
                 placeholderTextColor={Colors.black}
+                keyboardType='numeric'
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);

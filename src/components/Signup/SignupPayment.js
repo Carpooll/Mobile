@@ -56,6 +56,7 @@ class SignupPayment extends React.Component {
                 style={styles.form}
                 placeholder="Card number"
                 placeholderTextColor={Colors.black}
+                keyboardType='numeric'
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
@@ -92,6 +93,7 @@ class SignupPayment extends React.Component {
                 style={styles.form}
                 placeholder="CCV"
                 placeholderTextColor={Colors.black}
+                keyboardType='numeric'
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);

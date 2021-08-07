@@ -25,7 +25,8 @@ class EditProfilePassenger extends React.Component {
 
     handleSubmit = async () => {
         try {
-            await UserSession.instance.SignupPayment(this.state.form);
+            console.log(this.state.form)
+            await UserSession.instance.signupData(this.state.form);
             this.props.navigation.replace('PassengerPrivate')
         } catch (err) {
             console.log("Edit profile error", err)
@@ -57,7 +58,6 @@ class EditProfilePassenger extends React.Component {
                                 this.setState(prevState => {
                                     let form = Object.assign({}, prevState.form);
                                     form.profile.phone = text;
-                                    console.log(form.profile.phone)
                                     return { form };
                                 });
                             }}
@@ -98,6 +98,7 @@ class EditProfilePassenger extends React.Component {
                             style={Styles.input}
                             placeholder='Internal Number'
                             placeholderTextColor={Colors.black}
+                            keyboardType='numeric'
                             onChangeText={text => {
                                 this.setState(prevState => {
                                     let form = Object.assign({}, prevState.form);
@@ -112,6 +113,7 @@ class EditProfilePassenger extends React.Component {
                             style={Styles.input}
                             placeholder='External Number'
                             placeholderTextColor={Colors.black}
+                            keyboardType='numeric'
                             onChangeText={text => {
                                 this.setState(prevState => {
                                     let form = Object.assign({}, prevState.form);
@@ -126,6 +128,7 @@ class EditProfilePassenger extends React.Component {
                             style={Styles.input}
                             placeholder='Postal Code'
                             placeholderTextColor={Colors.black}
+                            keyboardType='numeric'
                             onChangeText={text => {
                                 this.setState(prevState => {
                                     let form = Object.assign({}, prevState.form);
@@ -134,6 +137,7 @@ class EditProfilePassenger extends React.Component {
                                 });
                             }}
                         ></TextInput>
+                        
                         <Text style={Styles.grayText}>Postal Code</Text>
                     </View>
                 </View>
