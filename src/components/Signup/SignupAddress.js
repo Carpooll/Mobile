@@ -25,6 +25,7 @@ var Lat=0
 var Lng=0
 var lng=0
 var lat=0
+export var Address=''
 
 Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg");
 Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg", {language: 'es'});
@@ -43,7 +44,7 @@ const addressFields = () =>
 const addressAlert = () =>
   Alert.alert('Verify your address', `${Address}`, [
     {text: 'It is ok!'},
-    {text: 'I preffer to enter it manually!'},
+    {text: 'I prefer to introduce it manually!'},
   ]);
 
 class SignUpAdrress extends React.Component {
@@ -71,8 +72,8 @@ class SignUpAdrress extends React.Component {
 
   handleSubmit = async () => {
     const {driver, form, user} = this.state;
-    console.log(Lat)
-    console.log(Lng)
+    //console.log(Lat)
+    //console.log(Lng)
     if (Lat == 0 && Lng == 0) {
       try {
         address = form.profile.street.concat(
@@ -131,7 +132,7 @@ class SignUpAdrress extends React.Component {
         throw Error(err);
       }
     } else {
-      //console.log(form)
+      console.log(Address)
       let response = await UserSession.instance.signupData(this.state.form);
       //console.log(response)
       /* console.log(typeof(response))

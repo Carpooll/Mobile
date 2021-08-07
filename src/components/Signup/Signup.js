@@ -43,7 +43,7 @@ class SignUpData extends React.Component {
     this.setState({driver:false})
     const {form} = this.state
     form.is_driver = 0
-    console.log(form)
+    //console.log(form)
   };
 
   handleDriver = () => {
@@ -51,7 +51,7 @@ class SignUpData extends React.Component {
     this.setState({passenger: false} )
     const { form} = this.state
     form.is_driver = 1
-    console.log(form)
+    //console.log(form)
   };
 
   handleSubmit = async () => {
