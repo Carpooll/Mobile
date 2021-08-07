@@ -20,15 +20,15 @@ import * as vars from '../../Libs/Sessions';
 import UserSession from '../../Libs/Sessions';
 import api from '../../../config';
 
-var address = ''
-var Lat=0
-var Lng=0
-var lng=0
-var lat=0
-export var Address=''
+var address = '';
+var Lat = 0;
+var Lng = 0;
+var lng = 0;
+var lat = 0;
+export var Address = '';
 
-Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg");
-Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg", {language: 'es'});
+Geocoder.init('AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg');
+Geocoder.init('AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg', {language: 'es'});
 
 const createTwoButtonAlert = () =>
   Alert.alert('Important', 'Your data was succesfully registered', [
@@ -43,7 +43,12 @@ const addressFields = () =>
   );
 const addressAlert = () =>
   Alert.alert('Verify your address', `${Address}`, [
-    {text: 'It is ok!'},
+    {
+      text: 'It is ok!',
+      onPress: async () => {
+        addressFields();
+      },
+    },
     {text: 'I prefer to introduce it manually!'},
   ]);
 
@@ -105,10 +110,10 @@ class SignUpAdrress extends React.Component {
                 if (response) {
                   //console.log(vars.driver);
                   if (driver == true) {
-                    this.props.navigation.navigate('SignupCar');
+                    this.props.navigation.replace('SignupCar');
                   } else if (driver == false) {
                     createTwoButtonAlert();
-                    this.props.navigation.navigate('HomePassenger');
+                    this.props.navigation.replace('TabNavigatorPassenger');
                   }
                 }
               })
@@ -132,7 +137,7 @@ class SignUpAdrress extends React.Component {
         throw Error(err);
       }
     } else {
-      console.log(Address)
+      console.log(Address);
       let response = await UserSession.instance.signupData(this.state.form);
       //console.log(response)
       /* console.log(typeof(response))
@@ -141,18 +146,19 @@ class SignUpAdrress extends React.Component {
         //console.log(vars.driver);
         if (driver == true) {
           //this.props.navigation.navigate('SignupCar');
-          console.log("Signup car")
+          this.props.navigation.replace('SignupCar');
+          console.log('Signup car');
         } else if (driver == false) {
           createTwoButtonAlert();
           //this.props.navigation.navigate('HomePassenger');
-          console.log("Home passenger")
+          this.props.navigation.replace('TabNavigatorPassenger');
+          // console.log("Home passenger")
         }
-      }else{
-        console.log('Signup data error, button', response)
+      } else {
+        console.log('Signup data error, button', response);
       }
     }
   };
-
 
   //boton
   handleGetLocation = async () => {
@@ -188,7 +194,7 @@ class SignUpAdrress extends React.Component {
             Lng = parseFloat(Longitud);
             form.profile.coordinate_y = Lng;
             //console.log(form.profile.coordinate_y);
-            this.handleSubmit();
+           
           })
           .catch(error => console.warn(error));
       },
@@ -263,7 +269,9 @@ class SignUpAdrress extends React.Component {
             style={Styles.locationButton}
             onPress={this.handleGetLocation}>
             <Text style={Styles.locationTitle}>Use my current location</Text>
-            {this.state.error ? <Text> Error : {this.state.error} </Text> : null}
+            {this.state.error ? (
+              <Text> Error : {this.state.error} </Text>
+            ) : null}
           </TouchableOpacity>
           {this.state.error ? <Text> Error : {this.state.error} </Text> : null}
           <View style={Styles.inputContainer}>
@@ -327,6 +335,24 @@ class SignUpAdrress extends React.Component {
                 });
               }}
             />
+              {vars.driver ? (
+                <View>
+            <TextInput
+            style={Styles.input}
+            placeholder="Range (km)"
+            placeholderTextColor={Colors.black}
+            onChangeText={text => {
+              this.setState(prevState => {
+                let form = Object.assign({}, prevState.form);
+                form.profile._range = text;
+                return {form};
+              });
+            }}
+            />
+            <Text style={Styles.label}>Maximum range to pick up a passenger</Text>
+            </View>
+                  ) : null}
+
           </View>
         </View>
         <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
@@ -350,7 +376,7 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight + 350,
+    height: FormHeight + 450,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -412,7 +438,7 @@ const Styles = StyleSheet.create({
   darkButton: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    marginTop: FormHeight + 460,
+    marginTop: FormHeight + 560,
     width: 193,
     borderRadius: 15,
     fontSize: Fonts.miniButtons,
@@ -446,6 +472,11 @@ const Styles = StyleSheet.create({
     borderColor: '#A7C7E7',
     alignItems: 'center',
   },
+  label:{
+    fontSize: 10,
+    marginTop: -15,
+    color: '#A497A6'
+  }
 });
 
 export default SignUpAdrress;

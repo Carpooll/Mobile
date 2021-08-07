@@ -100,8 +100,8 @@ class UserSession {
           body: JSON.stringify(body),
         },
       );
-      let response = await request.json();
-      console.log(response);
+      //let response = await request.json();
+      //console.log(response);
       /* if (typeof response.username == 'string') {
         return response.username;
       } else {
@@ -115,7 +115,6 @@ class UserSession {
 
   SignupPayment = async body => {
     try {
-      id -= 1;
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/driver/payment/${id}/`,
         {
@@ -127,8 +126,8 @@ class UserSession {
           body: JSON.stringify(body),
         },
       );
-      let response = await request.json();
-      console.log(response);
+      //let response = await request.json();
+      //console.log(response);
       /* if (typeof response.username == 'string') {
         return response.username;
       } else {
