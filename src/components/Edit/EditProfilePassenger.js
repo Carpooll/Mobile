@@ -18,12 +18,17 @@ import UserSession from '../../Libs/Sessions';
 import * as vars from '../../Libs/Sessions';
 
 class EditProfilePassenger extends React.Component {
-    
+    state = {
+        form: {
+            profile: {},
+        },
+    }
+
     handleSubmit = async () => {
-        try{
+        try {
             await UserSession.instance.SignupPayment(this.state.form);
             this.props.navigation.replace('PassengerPrivate')
-        }catch(err){
+        } catch (err) {
             console.log("Edit profile error", err)
             throw Error(err);
         }
@@ -45,7 +50,7 @@ class EditProfilePassenger extends React.Component {
 
                         <Text style={Styles.subtitle}>Personal Data</Text>
 
-                        <TextInput 
+                        <TextInput
                             style={Styles.input}
                             placeholder='Cellphone'
                             placeholderTextColor={Colors.black}
@@ -54,23 +59,23 @@ class EditProfilePassenger extends React.Component {
                                     let form = Object.assign({}, prevState.form);
                                     form.profile.phone = text;
                                     console.log(form.profile.phone)
-                                  return {form};
+                                    return { form };
                                 });
                             }}
-                            ></TextInput>
+                        ></TextInput>
                         <Text style={Styles.grayText}>Cellphone</Text>
 
                         <Text style={Styles.subtitle}>Address</Text>
 
-                        <TextInput 
+                        <TextInput
                             style={Styles.input}
                             placeholder='Street'
                             placeholderTextColor={Colors.black}
                             onChangeText={text => {
                                 this.setState(prevState => {
-                                  let form = Object.assign({}, prevState.form);
-                                  form.profile.street = text;
-                                  return {form};
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.street = text;
+                                    return { form };
                                 });
                             }}
                         ></TextInput>
@@ -82,37 +87,37 @@ class EditProfilePassenger extends React.Component {
                             placeholderTextColor={Colors.black}
                             onChangeText={text => {
                                 this.setState(prevState => {
-                                  let form = Object.assign({}, prevState.form);
-                                  form.profile.suburb = text;
-                                  return {form};
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.suburb = text;
+                                    return { form };
                                 });
                             }}
                         ></TextInput>
                         <Text style={Styles.grayText}>Suburbal</Text>
 
-                        <TextInput 
+                        <TextInput
                             style={Styles.input}
                             placeholder='Internal Number'
                             placeholderTextColor={Colors.black}
                             onChangeText={text => {
                                 this.setState(prevState => {
-                                  let form = Object.assign({}, prevState.form);
-                                  form.profile.internal_number = text;
-                                  return {form};
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.internal_number = text;
+                                    return { form };
                                 });
                             }}
                         ></TextInput>
                         <Text style={Styles.grayText}>Internal Number</Text>
 
-                        <TextInput 
+                        <TextInput
                             style={Styles.input}
                             placeholder='External Number'
                             placeholderTextColor={Colors.black}
                             onChangeText={text => {
                                 this.setState(prevState => {
-                                  let form = Object.assign({}, prevState.form);
-                                  form.profile.external_number = text;
-                                  return {form};
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.external_number = text;
+                                    return { form };
                                 });
                             }}
                         ></TextInput>
@@ -124,9 +129,9 @@ class EditProfilePassenger extends React.Component {
                             placeholderTextColor={Colors.black}
                             onChangeText={text => {
                                 this.setState(prevState => {
-                                  let form = Object.assign({}, prevState.form);
-                                  form.profile.postal_code = text;
-                                  return {form};
+                                    let form = Object.assign({}, prevState.form);
+                                    form.profile.postal_code = text;
+                                    return { form };
                                 });
                             }}
                         ></TextInput>
