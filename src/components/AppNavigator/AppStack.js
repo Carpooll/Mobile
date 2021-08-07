@@ -18,6 +18,7 @@ import SignupPayment from '../Signup/SignupPayment'         // Step 4 (driver on
 import SignupCar from '../Signup/SignupCar' 
 
 import screens from '../DriverHomeMaps/DriverHomeMap';// Step 5 (driver only)
+import HomeDriver from '../Home/HomeDriver'
 
 const Stack = createStackNavigator()
 
@@ -34,6 +35,8 @@ const AppStack = () => {
         }}>
 
             <Stack.Screen name="Login" component={Login}/>
+            <Stack.Screen name="screens" component={screens}/>
+            <Stack.Screen name="HomeDriver" component={HomeDriver}/>
 
             <Stack.Screen name="SignUpData" component={SignUpData}/>
             <Stack.Screen name="SignUpAddress" component={SignUpAddress}/>

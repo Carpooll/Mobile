@@ -2,8 +2,9 @@ import Storage from './Storage';
 export var driver = false;
 export var name = '';
 var id = '';
-var token = '';
+export var token = '';
 export var username = '';
+export var mypassenger = {};
 
 class UserSession {
   static instance = new UserSession();
@@ -35,11 +36,14 @@ class UserSession {
         );
 
         id = response.user.profile;
+        id = JSON.stringify(id)
+        await Storage.instance.store('token', token)
+        await Storage.instance.store('id', id)
         token = response.token;
         name = response.user.first_name;
         username = response.user.username;
         driver = response.driver
-        
+        //console.log(driver);
         return true;
       } catch (err) {
         return response;
@@ -97,8 +101,8 @@ class UserSession {
           body: JSON.stringify(body),
         },
       );
-      let response = await request.json();
-      console.log(response);
+      //let response = await request.json();
+      //console.log(response);
       /* if (typeof response.username == 'string') {
         return response.username;
       } else {
@@ -123,8 +127,8 @@ class UserSession {
           body: JSON.stringify(body),
         },
       );
-      let response = await request.json();
-      console.log(response);
+      //let response = await request.json();
+      //console.log(response);
       /* if (typeof response.username == 'string') {
         return response.username;
       } else {
@@ -145,7 +149,7 @@ class UserSession {
       _body.external_number = parseInt( _body.external_number)
       body = _body
       console.log(body)
-
+      //console.log(token, id)
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/profile/${id}/`,
         {
@@ -172,13 +176,22 @@ class UserSession {
 
   getUser = async () => {
     try {
-      const allKeys = await Storage.instance.getAllKeys();
-      const data = allKeys.filter(key => key.includes('data-'));
-      const user = await Storage.instance.get(data.toString());
-      console.log(JSON.parse(user));
-      return JSON.parse(user);
+      id = await Storage.instance.get('id')
+      token = await Storage.instance.get('token')
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/profile/${id}/`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Token '+ token,
+          },
+        },
+      );
+      let response = await request.json();
+      return response
     } catch (err) {
-      console.log('Get user err', err);
+      console.log('Geting user info error', err);
+      throw Error(err);
     }
   };
 
