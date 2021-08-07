@@ -29,6 +29,7 @@ class PassengerPrivate extends React.Component {
       latitudeDelta: 0.100,
     },
   };
+
   componentDidMount = () => {
     this.getUserData();
     //this.getMarkers();
@@ -43,6 +44,7 @@ class PassengerPrivate extends React.Component {
       console.log(markers.latitude, user.profile.coordinate_y)
       this.setState({user: user, markers: markers});
   };
+
   handlePress = () => {
     this.props.navigation.navigate('EditProfilePassenger');
   };
