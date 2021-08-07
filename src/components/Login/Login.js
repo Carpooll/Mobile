@@ -62,7 +62,7 @@ class Login extends React.Component {
 
       if (typeof response == 'object') {
         //console.log(response);
-        if (response['405']) {
+        if (response['401'][0] == "User not verified") {
           var message = 'Your account is not verified';
         } else {
           var message = 'Invalid username or password, try again';
@@ -77,7 +77,7 @@ class Login extends React.Component {
     if (this.state.user) {
       console.log(vars.name)
       if (vars.name === "") {
-        this.props.navigation.replace('SignUpAdrress');
+        this.props.navigation.replace('SignUpAddress');
       } else {
         if (vars.driver == true) {
           this.props.navigation.replace('HomeDriver');
@@ -99,7 +99,7 @@ class Login extends React.Component {
   //  this.props.navigation.navigate('SignUpData')
 
   //};
-
+  }
   render() {
     const {error} = this.state;
     return (

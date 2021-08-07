@@ -1,9 +1,9 @@
-import {API_KEY} from "@env"
+// import {API_KEY} from "@env"
 
-/* export default hola {
-    API_KEY,
-} */
+// /* export default hola {
+//     API_KEY,
+// } */
 
-var api = API_KEY
+// var api = AIzaSyCBEc_taBegVpcbuSs8IWcGslODuMzvnOw
 
-export default api
+// export default api

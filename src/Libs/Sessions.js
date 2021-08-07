@@ -38,7 +38,8 @@ class UserSession {
         token = response.token;
         name = response.user.first_name;
         username = response.user.username;
-        //console.log(driver, name);
+        console.log(id);
+        console.log(token)
         return true;
       } catch (err) {
         return response;

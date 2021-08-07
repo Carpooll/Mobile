@@ -26,8 +26,8 @@ var Lng=0
 var lng=0
 var lat=0
 
-Geocoder.init(api.API_KEY);
-Geocoder.init(api.API_KEY, {language: 'es'});
+Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg");
+Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg", {language: 'es'});
 
 const createTwoButtonAlert = () =>
   Alert.alert('Important', 'Your data was succesfully registered', [
@@ -139,10 +139,12 @@ class SignUpAdrress extends React.Component {
       if (response == vars.username) {
         //console.log(vars.driver);
         if (driver == true) {
-          this.props.navigation.navigate('SignupCar');
+          //this.props.navigation.navigate('SignupCar');
+          console.log("Signup car")
         } else if (driver == false) {
           createTwoButtonAlert();
-          this.props.navigation.navigate('HomePassenger');
+          //this.props.navigation.navigate('HomePassenger');
+          console.log("Home passenger")
         }
       }else{
         console.log('Signup data error, button', response)

@@ -15,7 +15,9 @@ import SignUpData from '../Signup/Signup'                   // Step 1 x
 import SignUpAddress from '../Signup/SignupAddress'         // Step 2 x
 import SignupSelection from "../Signup/SignupSelection"     // Step 3 x
 import SignupPayment from '../Signup/SignupPayment'         // Step 4 (driver only) x
-import SignupCar from '../Signup/SignupCar'                 // Step 5 (driver only)
+import SignupCar from '../Signup/SignupCar' 
+
+import screens from '../DriverHomeMaps/DriverHomeMap';// Step 5 (driver only)
 
 const Stack = createStackNavigator()
 
