@@ -14,6 +14,8 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
 import Fonts from '../../res/Fonts';
 import ModalDeletePass from '../Generics/ModalDeletePass';
+import UserSession from '../../Libs/Sessions';
+import * as vars from '../../Libs/Sessions';
 
 const Images = [
   {
@@ -35,65 +37,80 @@ const {width, height} = Dimensions.get('window');
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
+var passenger = {};
+var passenger2 = {};
+var passenger3 = {};
+var passenger4 = {};
+var coordinatex = 0;
+var coordinatey = 0;
+var coordinatex2 = 0;
+var coordinatey2 = 0;
+
 class screens extends Component {
   animation = new Animated.Value(0);
 
   state = {
-    markers: [
-      {
-        coordinate: {
-          latitude: 45.524548,
-          longitude: -122.6749817,
-        },
-        title: 'Trina',
-        image: Images[0],
-        phone:6142508855
-      },
-      {
-        coordinate: {
-          latitude: 45.524698,
-          longitude: -122.6655507,
-        },
-        title: 'Armando',
-        image: Images[1],
-        phone:6142508855
-      },
-      {
-        coordinate: {
-          latitude: 45.5230786,
-          longitude: -122.6701034,
-        },
-        title: 'Ximena',
-        image: Images[2],
-        phone:6142508855
-      },
-      {
-        coordinate: {
-          latitude: 45.521016,
-          longitude: -122.6561917,
-        },
-        title: 'Michell',
-        image: Images[3],
-        phone:6142508855
-      },
-    ],
+    passengers: [],
+    markers: [],
     region: {
-      latitude: 45.52220671242907,
-      longitude: -122.6653281029795,
-      latitudeDelta: 0.04864195044303443,
-      longitudeDelta: 0.040142817690068,
+      latitude: 28.659699,
+      longitude: -106.0953865,
+      latitudeDelta: 0.24864195044303443,
+      longitudeDelta: 0.240142817690068,
     },
   };
 
-  componentWillMount() {
-    this.index = 0;
-  }
+  // componentWillMount() {
+  //   this.index = 0;
+  // }
 
-  handlePress = () =>{
-    this.props.navigation.navigate('PassengerPublicProfile')
-  }
+  handlePress = () => {
+    this.props.navigation.navigate('PassengerPublicProfile');
+  };
+
+  getPassengers = async () => {
+    try {
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/driver/passengers/`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${vars.token}`,
+          },
+        },
+      );
+      let response = await request.json();
+      //console.log(response[1].profile.phone);
+      //profile = response;
+      //let response = await UserSession.instance.driverHome();
+      console.log(response);
+      this.setState({passengers: response});
+      const {passengers, markers} = this.state;
+
+      for (var i = 0; i < passengers.length; i++) {
+        let marker = {
+          coordinate: {
+            latitude: passengers[i].profile.coordinate_x,
+            longitude: passengers[i].profile.coordinate_y,
+          },
+          title: passengers[i].profile.user.first_name,
+          image: Images[0],
+          phone: passengers[i].profile.phone,
+        };
+        markers.push(marker);
+
+        // console.log(markers);
+
+        this.setState({markers: markers});
+      }
+    } catch (err) {
+      console.log('Get passenger error', err);
+    }
+  };
 
   render() {
+    const {passengers} = this.state;
+
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
@@ -198,6 +215,9 @@ class screens extends Component {
   }
 
   componentDidMount() {
+    this.index = 0;
+    this.getPassengers();
+    //this.getMarkers();
     this.animation.addListener(({value}) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3);
       if (index >= this.state.markers.length) {
@@ -255,7 +275,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.3,
     shadowOffset: {x: 2, y: -2},
-    height: CARD_HEIGHT+10,
+    height: CARD_HEIGHT + 10,
     width: CARD_WIDTH,
     overflow: 'hidden',
     borderRadius: 5,
@@ -265,9 +285,9 @@ const styles = StyleSheet.create({
     height: '65%',
     alignSelf: 'center',
   },
-  cardphone:{
-    alignSelf:'center',
-    color:'#424242'
+  cardphone: {
+    alignSelf: 'center',
+    color: '#424242',
   },
   textContent: {
     flex: 1,
@@ -302,7 +322,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: '#bdbdbd',
     zIndex: 2,
-    marginBottom:13
+    marginBottom: 13,
   },
 
   blueButtonText: {

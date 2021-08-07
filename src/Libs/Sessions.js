@@ -2,8 +2,9 @@ import Storage from './Storage';
 export var driver = false;
 export var name = '';
 var id = '';
-var token = '';
+export var token = '';
 export var username = '';
+export var mypassenger = {};
 
 class UserSession {
   static instance = new UserSession();
