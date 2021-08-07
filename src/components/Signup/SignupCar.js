@@ -22,7 +22,6 @@ class SignupCar extends React.Component {
     try {
       await UserSession.instance.signupCar(this.state.form);
       this.props.navigation.navigate('SignupPayment');
-      
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
