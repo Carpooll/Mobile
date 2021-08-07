@@ -25,6 +25,7 @@ var Lat=0
 var Lng=0
 var lng=0
 var lat=0
+export var Address=''
 
 Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg");
 Geocoder.init("AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg", {language: 'es'});
