@@ -28,7 +28,7 @@ class SignupPayment extends React.Component {
     try {
       await UserSession.instance.SignupPayment(this.state.form);
       createTwoButtonAlert();
-      this.props.navigation.navigate('HomeDriver');
+      this.props.navigation.replace('TabNavigatorDriver');
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
