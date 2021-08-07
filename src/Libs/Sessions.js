@@ -153,6 +153,9 @@ class UserSession {
         },
       );
       let response = await request.json();
+
+      // id = response.user.profile + 1; // THIS IS NOT CORRECT, WAIT UNTIL FIX TO DELETE
+
       if (typeof response.username == 'string') {
         return response.username;
       } else {
