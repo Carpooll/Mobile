@@ -194,7 +194,7 @@ class SignUpAdrress extends React.Component {
             Lng = parseFloat(Longitud);
             form.profile.coordinate_y = Lng;
             //console.log(form.profile.coordinate_y);
-            this.handleSubmit();
+           
           })
           .catch(error => console.warn(error));
       },
@@ -335,6 +335,24 @@ class SignUpAdrress extends React.Component {
                 });
               }}
             />
+              {vars.driver ? (
+                <View>
+            <TextInput
+            style={Styles.input}
+            placeholder="Range (km)"
+            placeholderTextColor={Colors.black}
+            onChangeText={text => {
+              this.setState(prevState => {
+                let form = Object.assign({}, prevState.form);
+                form.profile._range = text;
+                return {form};
+              });
+            }}
+            />
+            <Text style={Styles.label}>Maximum range to pick up a passenger</Text>
+            </View>
+                  ) : null}
+
           </View>
         </View>
         <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
@@ -358,7 +376,7 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight + 350,
+    height: FormHeight + 450,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -420,7 +438,7 @@ const Styles = StyleSheet.create({
   darkButton: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    marginTop: FormHeight + 460,
+    marginTop: FormHeight + 560,
     width: 193,
     borderRadius: 15,
     fontSize: Fonts.miniButtons,
@@ -454,6 +472,11 @@ const Styles = StyleSheet.create({
     borderColor: '#A7C7E7',
     alignItems: 'center',
   },
+  label:{
+    fontSize: 10,
+    marginTop: -15,
+    color: '#A497A6'
+  }
 });
 
 export default SignUpAdrress;
