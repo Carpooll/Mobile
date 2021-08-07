@@ -112,7 +112,7 @@ class SignUpAdrress extends React.Component {
                     this.props.navigation.navigate('SignupCar');
                   } else if (driver == false) {
                     createTwoButtonAlert();
-                    this.props.navigation.navigate('HomePassenger');
+                    this.props.navigation.navigate('TabNavigatorPassenger');
                   }
                 }
               })
