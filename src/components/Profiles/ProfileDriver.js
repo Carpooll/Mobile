@@ -14,25 +14,69 @@ import {
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-
+import UserSession from '../../Libs/Sessions';
+import Storage from '../../Libs/Storage';
+import * as vars from '../../Libs/Sessions'
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
+var Car={}
+
 class ProfileDriver extends React.Component {
+  state = {
+    user: {
+      profile: {},
+    },
+    car: {},
+    markers: {
+      latitude: 28.6369439,
+      longitude: -106.0767429,
+      longitudeDelta: 0.4,
+      latitudeDelta: 0.1,
+    },
+  };
+  componentDidMount = () => {
+    this.getCarData();
+    this.getUserData();
+    //this.getMarkers();
+  };
 
-    state = {
-        markers: {
-          latitude: 28.6491049,
-          longitude: -106.0282516,
-          longitudeDelta: 0.0,
-          latitudeDelta: 0.001,
+  getCarData = async () => {
+    try {
+      id = await Storage.instance.get('id');
+      token = vars.token
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/driver/car/${id}/`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Token ' + token,
+          },
         },
-      };
-
+      );
+      let response = await request.json();
+      Car= response
+      this.setState({car: Car});
+      return response;
+    } catch (err) {
+      console.log('Get car data err', err);
+    }
+  };
+  getUserData = async () => {
+    let user = await UserSession.instance.getUser();
+    let markers = {
+      latitude: user.profile.coordinate_x,
+      longitude: user.profile.coordinate_y,
+      longitudeDelta: 0.0,
+      latitudeDelta: 0.001,
+    };
+    this.setState({user: user, markers: markers});
+  };
   handlePress = () => {
     this.props.navigation.navigate('EditProfileDriver');
   };
 
   render() {
+    const {user, car} = this.state;
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -45,18 +89,20 @@ class ProfileDriver extends React.Component {
           />
         </View>
         <View style={Styles.infoContainer}>
-          <Text style={Styles.userName}>Brayan Prieto</Text>
-          <Text style={Styles.userInfo}>35416654231</Text>
-          <Text style={Styles.userInfo}>614-522-88-99</Text>
+          <Text style={Styles.userName}>{user.first_name}</Text>
+          <Text style={Styles.userInfo}>{user.username}</Text>
+          <Text style={Styles.userInfo}>{user.profile.phone}</Text>
 
           <Text style={Styles.userTitle}>Car Info</Text>
-          <Text style={Styles.userInfo}>Mercedez</Text>
-          <Text style={Styles.userInfo}>Black</Text>
-          <Text style={Styles.userInfo}>ABS-55-88</Text>
+          <Text style={Styles.userInfo}>{car.model}</Text>
+          <Text style={Styles.userInfo}>{car.color}</Text>
+          <Text style={Styles.userInfo}>{car.plates}</Text>
 
           <Text style={Styles.userTitle}>Your Profits</Text>
           <View style={Styles.profitContainer}>
-            <Text style={Styles.userInfo}>$ 350.00</Text>
+            <Text style={Styles.userInfo}>
+              {'$0.0' || user.profile.balance}
+            </Text>
           </View>
           <Text style={Styles.profitTime}>This Week</Text>
 
@@ -113,9 +159,9 @@ const Styles = StyleSheet.create({
   },
   containerMap: {
     ...StyleSheet.absoluteFillObject,
-    height: "20%",
+    height: '20%',
     width: 150,
-    marginTop:385,
+    marginTop: 385,
     marginLeft: 60,
   },
   map: {
