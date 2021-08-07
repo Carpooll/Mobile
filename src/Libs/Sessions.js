@@ -142,9 +142,9 @@ class UserSession {
 
   signupData = async body => {
     try {
-      //console.log(token, id)
+      console.log(token, id)
       let request = await fetch(
-        `https://carpool-utadmch.herokuapp.com/profile/${id}/`,
+        `https://carpool-utch.herokuapp.com/profile/${id}/`,
         {
           method: 'PATCH',
           headers: {
@@ -168,12 +168,9 @@ class UserSession {
   };
 
   getUser = async () => {
-    //aqui hay un +1 pa la id
     try {
       id = await Storage.instance.get('id')
       token = await Storage.instance.get('token')
-      id = parseInt(id)
-      id +=1
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/profile/${id}/`,
         {
@@ -184,13 +181,6 @@ class UserSession {
         },
       );
       let response = await request.json();
-      let coor_y = response.profile.coordinate_y
-      coor_y = JSON.stringify(coor_y)
-      await Storage.instance.store('coor_y', coor_y)
-      let coor_x = response.profile.coordinate_x
-      coor_x = JSON.stringify(coor_x)
-      await Storage.instance.store('coor_y', coor_x)
-      console.log(coor_y, coor_x)
       return response
     } catch (err) {
       console.log('Geting user info error', err);
