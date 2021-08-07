@@ -1,21 +1,18 @@
 import React, {Component} from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  ScrollView,
   Animated,
   Image,
   Dimensions,
-  TouchableOpacity,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
-import Fonts from '../../res/Fonts';
 import ModalDeletePass from '../Generics/ModalDeletePass';
-import UserSession from '../../Libs/Sessions';
 import * as vars from '../../Libs/Sessions';
+
+export var noPassengers = false;
 
 const Images = [
   {
@@ -37,14 +34,6 @@ const {width, height} = Dimensions.get('window');
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-var passenger = {};
-var passenger2 = {};
-var passenger3 = {};
-var passenger4 = {};
-var coordinatex = 0;
-var coordinatey = 0;
-var coordinatex2 = 0;
-var coordinatey2 = 0;
 
 class screens extends Component {
   animation = new Animated.Value(0);
@@ -80,28 +69,31 @@ class screens extends Component {
         },
       );
       let response = await request.json();
-      //console.log(response[1].profile.phone);
-      //profile = response;
-      //let response = await UserSession.instance.driverHome();
-      console.log(response);
-      this.setState({passengers: response});
-      const {passengers, markers} = this.state;
-
-      for (var i = 0; i < passengers.length; i++) {
-        let marker = {
-          coordinate: {
-            latitude: passengers[i].profile.coordinate_x,
-            longitude: passengers[i].profile.coordinate_y,
-          },
-          title: passengers[i].profile.user.first_name,
-          image: Images[0],
-          phone: passengers[i].profile.phone,
-        };
-        markers.push(marker);
-
-        // console.log(markers);
-
-        this.setState({markers: markers});
+      //console.log(Object.keys(response).length);
+      if (Object.keys(response).length === 0 ){
+        console.log("vacio")
+       noPassengers  = true;
+      }else{
+        console.log("no vacio")
+        this.setState({passengers: response});
+        const {passengers, markers} = this.state;
+  
+        for (var i = 0; i < passengers.length; i++) {
+          let marker = {
+            coordinate: {
+              latitude: passengers[i].profile.coordinate_x,
+              longitude: passengers[i].profile.coordinate_y,
+            },
+            title: passengers[i].profile.user.first_name,
+            image: Images[0],
+            phone: passengers[i].profile.phone,
+          };
+          markers.push(marker);
+  
+          // console.log(markers);
+  
+          this.setState({markers: markers});
+        }
       }
     } catch (err) {
       console.log('Get passenger error', err);
@@ -109,7 +101,6 @@ class screens extends Component {
   };
 
   render() {
-    const {passengers} = this.state;
 
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
@@ -199,11 +190,6 @@ class screens extends Component {
                   </Text>
                   <View style={styles.buttons}>
                     <ModalDeletePass></ModalDeletePass>
-                    {/* <TouchableOpacity
-                      style={styles.blueButton}
-                      onPress={this.handlePress}>
-                      <Text style={styles.blueButtonText}>Delete</Text>
-                    </TouchableOpacity> */}
                   </View>
                 </View>
               </View>
