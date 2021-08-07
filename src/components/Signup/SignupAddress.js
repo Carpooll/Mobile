@@ -38,13 +38,18 @@ const createTwoButtonAlert = () =>
 const addressFields = () =>
   Alert.alert(
     'Important',
-    'Please, do not fill next fields, click on submit.',
+    'Your address information is ready, no need to fill it.',
     [{text: 'Got it'}],
   );
 const addressAlert = () =>
   Alert.alert('Verify your address', `${Address}`, [
-    {text: 'It is ok!'},
-    {text: 'I preffer to enter it manually!'},
+    {
+      text: 'It is ok!',
+      onPress: () => {
+        addressFields()
+      }
+    },
+    {text: 'I prefer to introduce it manually!'},
   ]);
 
 class SignUpAdrress extends React.Component {
@@ -103,7 +108,6 @@ class SignUpAdrress extends React.Component {
                 //console.log(form);
                 let response = UserSession.instance.signupData(this.state.form);
                 if (response) {
-                  //console.log(vars.driver);
                   if (driver == true) {
                     this.props.navigation.navigate('SignupCar');
                   } else if (driver == false) {
@@ -140,11 +144,11 @@ class SignUpAdrress extends React.Component {
       if (response == vars.username) {
         //console.log(vars.driver);
         if (driver == true) {
-          //this.props.navigation.navigate('SignupCar');
+          this.props.navigation.replace('SignupCar');
           console.log("Signup car")
         } else if (driver == false) {
           createTwoButtonAlert();
-          //this.props.navigation.navigate('HomePassenger');
+          this.props.navigation.replace('HomePassenger');
           console.log("Home passenger")
         }
       }else{
@@ -188,7 +192,7 @@ class SignUpAdrress extends React.Component {
             Lng = parseFloat(Longitud);
             form.profile.coordinate_y = Lng;
             //console.log(form.profile.coordinate_y);
-            this.handleSubmit();
+            // this.handleSubmit();
           })
           .catch(error => console.warn(error));
       },
