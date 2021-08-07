@@ -148,7 +148,7 @@ class SignUpAdrress extends React.Component {
           console.log("Signup car")
         } else if (driver == false) {
           createTwoButtonAlert();
-          this.props.navigation.replace('HomePassenger');
+          this.props.navigation.replace('TabNavigatorPassenger');
           console.log("Home passenger")
         }
       }else{
