@@ -21,7 +21,7 @@ class SignupCar extends React.Component {
   handleSubmit = async () => {
     try {
       await UserSession.instance.signupCar(this.state.form);
-      this.props.navigation.navigate('SignupPayment');
+      this.props.navigation.replace('SignupPayment');
       
     } catch (err) {
       console.log('Sign up err', err);
