@@ -13,24 +13,43 @@ import {
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import UserSession from '../../Libs/Sessions';
 
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
 class PassengerPrivate extends React.Component {
   state = {
+    user: {
+      profile: {},
+    },
     markers: {
-      latitude: 28.6491049,
-      longitude: -106.0282516,
-      longitudeDelta: 0.0,
-      latitudeDelta: 0.001,
+      latitude: 28.6369439,
+      longitude: -106.0767429,
+      longitudeDelta: .40,
+      latitudeDelta: 0.100,
     },
   };
-
+  componentDidMount = () => {
+    this.getUserData();
+    //this.getMarkers();
+  };
+  getUserData = async () => {
+    let user = await UserSession.instance.getUser();
+    let markers ={
+      latitude: user.profile.coordinate_x,
+      longitude: user.profile.coordinate_y,
+      longitudeDelta: 0.0,
+      latitudeDelta: 0.001,}
+      console.log(markers.latitude, user.profile.coordinate_y)
+      this.setState({user: user, markers: markers});
+  };
   handlePress = () => {
     this.props.navigation.navigate('EditProfilePassenger');
   };
 
   render() {
+    const {user, markers} = this.state;
+    //console.log(user);
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -43,13 +62,13 @@ class PassengerPrivate extends React.Component {
           />
         </View>
         <View style={Styles.infoContainer}>
-          <Text style={Styles.userName}>Brayan Prieto</Text>
-          <Text style={Styles.schoolId}>35416654231</Text>
-          <Text style={Styles.phone}>614-522-88-99</Text>
+          <Text style={Styles.userName}>{user.first_name}</Text>
+          <Text style={Styles.schoolId}>{user.username}</Text>
+          <Text style={Styles.phone}>{user.profile.phone}</Text>
 
           <Text style={Styles.userTitle}>Your current balance</Text>
           <View style={Styles.profitContainer}>
-            <Text style={Styles.userInfo}>$ 350.00</Text>
+            <Text style={Styles.userInfo}>{ '$0.0' || user.profile.balance}</Text>
           </View>
 
           <Text style={Styles.loc}>Location</Text>
@@ -57,10 +76,9 @@ class PassengerPrivate extends React.Component {
             <MapView
               provider={PROVIDER_GOOGLE}
               style={Styles.map}
-              initialRegion={this.state.markers}
-              >
-                  <Marker coordinate={this.state.markers} />
-              </MapView>
+              initialRegion={markers}>
+              <Marker coordinate={markers} />
+            </MapView>
           </View>
         </View>
 
@@ -126,9 +144,9 @@ const Styles = StyleSheet.create({
   },
   containerMap: {
     ...StyleSheet.absoluteFillObject,
-    height: "25%",
+    height: '25%',
     width: 200,
-    marginTop:350,
+    marginTop: 350,
     marginLeft: 35,
   },
   map: {
