@@ -95,8 +95,7 @@ class EditProfileDriver extends React.Component {
                 }
               }
               this.setState({aux: aux});
-              console.log(this.state.aux)
-              console.log('2')
+              //console.log(this.state.aux)
               this.handleGetLocation();
             })
             .catch(error => console.warn(error));
@@ -121,7 +120,6 @@ class EditProfileDriver extends React.Component {
   };
 
   handleGetLocation = async () => {
-    console.log('3')
     const {aux, form} = this.state
       let form2 = {
         profile: {
