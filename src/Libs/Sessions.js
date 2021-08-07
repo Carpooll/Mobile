@@ -37,13 +37,13 @@ class UserSession {
 
         id = response.user.profile;
         id = JSON.stringify(id)
+        token = response.token;
         await Storage.instance.store('token', token)
         await Storage.instance.store('id', id)
-        token = response.token;
         name = response.user.first_name;
         username = response.user.username;
         driver = response.driver
-        //console.log(driver);
+        console.log(token);
         return true;
       } catch (err) {
         return response;
@@ -142,6 +142,8 @@ class UserSession {
 
   signupData = async body => {
     console.log(token, id)
+    token2 = await Storage.instance.get('token')
+    console.log(token2)
     try {
       let _body = body
       _body.postal_code = parseInt( _body.postal_code)
@@ -163,6 +165,7 @@ class UserSession {
         },
       );
       let response = await request.json();
+      console.log()
       if (typeof response.username == 'string') {
         return response.username;
       } else {

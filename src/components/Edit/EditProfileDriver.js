@@ -9,34 +9,140 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import ModalDelete from '../Generics/Modal';
 import UserSession from '../../Libs/Sessions';
+import Geocoder from 'react-native-geocoding';
+import Geolocation from 'react-native-geolocation-service';
+Geocoder.init('AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg');
+Geocoder.init('AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg', {language: 'es'});
+
+var address = '';
 
 class EditProfileDriver extends React.Component {
   state = {
     form: {
-        profile: {},
+      profile: {
+        coordinate_y: null,
+        coordinate_x: null,
+      },
     },
-}
-    
-  handlePress = () => {
+    user: {
+      address: null,
+    },
+    aux: {
+      profile: {
+        coordinate_y: null,
+        coordinate_x: null,
+      },
+    },
   };
-  
+
+
   handleSubmit = async () => {
     try {
-      await UserSession.instance.signupData(this.state.form);
+      if (address != null) {
+        this.handleLocation();
+      } else {
+        await UserSession.instance.signupData(this.state.form);
+        await UserSession.instance.SignupPayment(this.state.form);
+        this.props.navigation.replace('ProfileDriver');
+      }
+    } catch (err) {
+      console.log('Edit profile error', err);
+      this.props.navigation.replace('ProfileDriver');
+      throw Error(err);
+    }
+  };
+
+  handleLocation = async () => {
+    const {user, form} = this.state;
+    //console.log(Lat)
+    //console.log(Lng)
+    try {
+      address = form.profile.street.concat(
+        ' ',
+        form.profile.external_number.concat(
+          ' ',
+          form.profile.suburb.concat(' ', form.profile.postal_code),
+        ),
+      );
+      user.address = address;
+      //console.log(address);
+
+      Geolocation.getCurrentPosition(
+        position => {
+          Geocoder.from(user.address)
+            .then(json => {
+              let results = json.results[0];
+              latitud = JSON.stringify(results.geometry.location.lat);
+              //console.log(latitud)
+              let lat = parseFloat(latitud);
+              //console.log(Lat)
+              form.profile.coordinate_x = lat;
+              //console.log(form.profile.coordinate_x);
+              longitud = JSON.stringify(results.geometry.location.lng);
+              let lng = parseFloat(longitud);
+              form.profile.coordinate_y = lng;
+              //console.log(form.profile.coordinate_y);
+              var aux = this.state.form
+              aux =  {
+                profile:{
+                  coordinate_x:lat,
+                  coordinate_y:lng
+                }
+              }
+              this.setState({aux: aux});
+              console.log(this.state.aux)
+              console.log('2')
+              this.handleGetLocation();
+            })
+            .catch(error => console.warn(error));
+        },
+        error => {
+          this.setState({
+            error: error.message,
+          }),
+            console.log(error.code, error.message);
+        },
+
+        {
+          enableHighAccuracy: false,
+          timeout: 10000,
+          maximumAge: 100000,
+        },
+      );
+    } catch (err) {
+      console.log('Sign up err', err);
+      throw Error(err);
+    }
+  };
+
+  handleGetLocation = async () => {
+    console.log('3')
+    const {aux, form} = this.state
+      let form2 = {
+        profile: {
+
+          "phone":form.profile.phone,
+          "street": form.profile.street,
+          "suburb": form.profile.suburb,
+          "postal_code": form.profile.postal_code,
+          "internal_number": form.profile.internal_number,
+          "external_number": form.profile.external_number,
+          "coordinate_x": aux.profile.coordinate_x,
+          "coordinate_y": aux.profile.coordinate_y,
+        }
+      }
+      console.log(form2)
+      await UserSession.instance.signupData(form2);
       await UserSession.instance.SignupPayment(this.state.form);
       await UserSession.instance.signupCar(this.state.form);
       this.props.navigation.replace('ProfileDriver');
-    } catch (err) {
-        console.log("Edit profile error", err)
-        throw Error(err);
-    }
-}
+    
+  };
 
   render() {
     return (
@@ -63,8 +169,7 @@ class EditProfileDriver extends React.Component {
                   form.profile.phone = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Cellphone</Text>
 
             <Text style={Styles.subtitle}>Address</Text>
@@ -78,8 +183,7 @@ class EditProfileDriver extends React.Component {
                   form.profile.street = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Street</Text>
 
             <TextInput
@@ -92,8 +196,7 @@ class EditProfileDriver extends React.Component {
                   form.profile.suburb = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Suburbal</Text>
 
             <TextInput
@@ -106,8 +209,7 @@ class EditProfileDriver extends React.Component {
                   form.profile.internal_number = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Internal Number</Text>
 
             <TextInput
@@ -120,8 +222,7 @@ class EditProfileDriver extends React.Component {
                   form.profile.external_number = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
 
             <Text style={Styles.grayText}>External Number</Text>
             <TextInput
@@ -134,8 +235,7 @@ class EditProfileDriver extends React.Component {
                   form.profile.postal_code = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Postal code</Text>
 
             <Text style={Styles.subtitle}>Payment</Text>
@@ -150,8 +250,7 @@ class EditProfileDriver extends React.Component {
                   form.card_owner = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Name</Text>
 
             <TextInput
@@ -164,8 +263,7 @@ class EditProfileDriver extends React.Component {
                   form.card_number = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Card number</Text>
 
             <TextInput
@@ -178,8 +276,7 @@ class EditProfileDriver extends React.Component {
                   form.exp_date = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Expiration date</Text>
 
             <TextInput
@@ -192,8 +289,7 @@ class EditProfileDriver extends React.Component {
                   form.ccv = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>CVV</Text>
 
             <Text style={Styles.subtitle}>Car data</Text>
@@ -208,8 +304,7 @@ class EditProfileDriver extends React.Component {
                   form.color = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Color</Text>
 
             <TextInput
@@ -222,8 +317,7 @@ class EditProfileDriver extends React.Component {
                   form.model = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Model</Text>
 
             <TextInput
@@ -236,8 +330,7 @@ class EditProfileDriver extends React.Component {
                   form.insurance = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Insurance policy</Text>
 
             <TextInput
@@ -250,10 +343,8 @@ class EditProfileDriver extends React.Component {
                   form.plates = text;
                   return {form};
                 });
-              }}
-            ></TextInput>
+              }}></TextInput>
             <Text style={Styles.grayText}>Plates</Text>
-
           </View>
         </View>
         <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
@@ -280,7 +371,7 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight-50,
+    height: FormHeight - 50,
     width: FormWidth,
     alignSelf: 'center',
     backgroundColor: Colors.white,
@@ -312,7 +403,6 @@ const Styles = StyleSheet.create({
     borderRadius: 90,
     position: 'absolute',
   },
-
 
   title: {
     marginTop: iconSize / 2,
