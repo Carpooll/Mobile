@@ -34,12 +34,12 @@ class UserSession {
           JSON.stringify(response.driver),
         );
 
-        id = response.user.profile + 1;
+        id = response.user.profile;
         token = response.token;
         name = response.user.first_name;
         username = response.user.username;
-        console.log(id);
-        console.log(token)
+        driver = response.driver
+        
         return true;
       } catch (err) {
         return response;
