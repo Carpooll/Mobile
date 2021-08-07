@@ -112,7 +112,6 @@ class UserSession {
 
   SignupPayment = async body => {
     try {
-      id -= 1;
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/driver/payment/${id}/`,
         {
@@ -138,8 +137,15 @@ class UserSession {
   };
 
   signupData = async body => {
+    console.log(token, id)
     try {
-      //console.log(token, id)
+      let _body = body
+      _body.postal_code = parseInt( _body.postal_code)
+      _body.internal_number = parseInt( _body.internal_number)
+      _body.external_number = parseInt( _body.external_number)
+      body = _body
+      console.log(body)
+
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/profile/${id}/`,
         {
@@ -153,9 +159,6 @@ class UserSession {
         },
       );
       let response = await request.json();
-
-      // id = response.user.profile + 1; // THIS IS NOT CORRECT, WAIT UNTIL FIX TO DELETE
-
       if (typeof response.username == 'string') {
         return response.username;
       } else {
