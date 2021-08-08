@@ -65,3 +65,10 @@ buck-out/
 /.env
 .env
 *.env
+
+# Password visible images
+/src/assets/*.png
+
+# DOWNLOAD FROM HERE
+# https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/eye_rbfdax
+# https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/invisible_znmjkk
