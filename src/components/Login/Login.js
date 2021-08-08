@@ -132,7 +132,7 @@ class Login extends React.Component {
                 </Text>
                 <View style={styles.inputContainer}>
                   <TextInput
-                    style={styles.form}
+                    style={styles.form1}
                     placeholder="Student ID"
                     placeholderTextColor={Colors.black}
                     onChangeText={text => {
@@ -145,7 +145,7 @@ class Login extends React.Component {
                   />
                   <TextInput
                     secureTextEntry={true}
-                    style={styles.form}
+                    style={styles.form2}
                     placeholder="Password"
                     placeholderTextColor={Colors.black}
                     onChangeText={text => {
@@ -308,7 +308,18 @@ const styles = StyleSheet.create({
     marginBottom: -30,
   },
 
-  form: {
+  form1: {
+    paddingHorizontal: 20,
+    color: Colors.black,
+    borderBottomColor: Colors.black,
+    borderBottomWidth: 1,
+    marginBottom: 125,
+    width: 150,
+    textAlign: 'center',
+    marginTop: -110,
+  },
+
+  form2: {
     paddingHorizontal: 20,
     color: Colors.black,
     borderBottomColor: Colors.black,
