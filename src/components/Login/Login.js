@@ -30,6 +30,7 @@ class Login extends React.Component {
     form: {},
     user: {},
     driver: vars.driver,
+    isPasswordVisible: true,
   };
 
   componentDidMount = () => {
@@ -52,6 +53,21 @@ class Login extends React.Component {
 
   handlePress = () => {
     this.props.navigation.navigate('SignUpData');
+  };
+
+  ToggleisPasswordVisible = () => {
+    //here we make that the password is visible or not 
+
+    if (this.state.isPasswordVisible) {
+
+      this.setState({isPasswordVisible: false});
+      
+    } else {
+
+      this.setState({isPasswordVisible: true});
+
+    }
+
   };
 
   handleSubmit = async () => {
@@ -101,7 +117,7 @@ class Login extends React.Component {
   //};
   }
   render() {
-    const {error} = this.state;
+    const {error, isPasswordVisible} = this.state;
     return (
 
       <ScrollView style={styles.container}>
@@ -144,7 +160,7 @@ class Login extends React.Component {
                     }}
                   />
                   <TextInput
-                    secureTextEntry={true}
+                    secureTextEntry={isPasswordVisible}
                     style={styles.form2}
                     placeholder="Password"
                     placeholderTextColor={Colors.black}
@@ -157,6 +173,15 @@ class Login extends React.Component {
                     }}
                   />
                 </View>
+                <TouchableOpacity  style={styles.visible} onPress={this.ToggleisPasswordVisible}>
+                  <Image
+                    source={
+                      isPasswordVisible
+                        ? require('../../assets/hide.png')
+                        : require('../../assets/show.png')
+                    }
+                  />
+                </TouchableOpacity>
 
                 <TouchableOpacity
                   style={styles.buttonDark}
@@ -184,6 +209,10 @@ const styles = StyleSheet.create({
   container: {
     height: windowHeight,
     backgroundColor: Colors.white,
+  },
+  visible:{
+    marginLeft:10,
+    marginTop: -40
   },
   errorText: {
     marginTop: 60,
