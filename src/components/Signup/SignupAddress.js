@@ -20,12 +20,12 @@ import * as vars from '../../Libs/Sessions';
 import UserSession from '../../Libs/Sessions';
 import api from '../../../config';
 
-var address = '';
-var Lat = 0;
-var Lng = 0;
-var lng = 0;
-var lat = 0;
-export var Address = '';
+var address = ''
+var Lat=0
+var Lng=0
+var lng=0
+var lat=0
+export var Address = ''
 
 Geocoder.init('AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg');
 Geocoder.init('AIzaSyAp0yzmKQT9t6pXXJ3xLHrxzedpOS-6hYg', {language: 'es'});
@@ -38,16 +38,16 @@ const createTwoButtonAlert = () =>
 const addressFields = () =>
   Alert.alert(
     'Important',
-    'Please, do not fill next fields, click on submit.',
+    'Your address information is ready, no need to fill it.',
     [{text: 'Got it'}],
   );
 const addressAlert = () =>
   Alert.alert('Verify your address', `${Address}`, [
     {
       text: 'It is ok!',
-      onPress: async () => {
-        addressFields();
-      },
+      onPress: () => {
+        addressFields()
+      }
     },
     {text: 'I prefer to introduce it manually!'},
   ]);
@@ -108,12 +108,11 @@ class SignUpAdrress extends React.Component {
                 //console.log(form);
                 let response = UserSession.instance.signupData(this.state.form);
                 if (response) {
-                  //console.log(vars.driver);
                   if (driver == true) {
                     this.props.navigation.replace('SignupCar');
                   } else if (driver == false) {
                     createTwoButtonAlert();
-                    this.props.navigation.replace('TabNavigatorPassenger');
+                    this.props.navigation.navigate('TabNavigatorPassenger');
                   }
                 }
               })
@@ -145,14 +144,12 @@ class SignUpAdrress extends React.Component {
       if (response == vars.username) {
         //console.log(vars.driver);
         if (driver == true) {
-          //this.props.navigation.navigate('SignupCar');
           this.props.navigation.replace('SignupCar');
-          console.log('Signup car');
+          console.log("Signup car")
         } else if (driver == false) {
           createTwoButtonAlert();
-          //this.props.navigation.navigate('HomePassenger');
           this.props.navigation.replace('TabNavigatorPassenger');
-          // console.log("Home passenger")
+          console.log("Home passenger")
         }
       } else {
         console.log('Signup data error, button', response);
@@ -194,7 +191,7 @@ class SignUpAdrress extends React.Component {
             Lng = parseFloat(Longitud);
             form.profile.coordinate_y = Lng;
             //console.log(form.profile.coordinate_y);
-           
+            // this.handleSubmit();
           })
           .catch(error => console.warn(error));
       },

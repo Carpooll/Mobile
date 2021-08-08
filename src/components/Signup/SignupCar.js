@@ -21,8 +21,7 @@ class SignupCar extends React.Component {
   handleSubmit = async () => {
     try {
       await UserSession.instance.signupCar(this.state.form);
-      this.props.navigation.replace('SignupPayment');
-      
+      this.props.navigation.navigate('SignupPayment');
     } catch (err) {
       console.log('Sign up err', err);
       throw Error(err);
@@ -99,6 +98,7 @@ class SignupCar extends React.Component {
                 style={styles.form}
                 placeholder="Passengers limit"
                 placeholderTextColor={Colors.black}
+                keyboardType='numeric'
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
@@ -112,6 +112,7 @@ class SignupCar extends React.Component {
                 style={styles.form}
                 placeholder="Travel cost"
                 placeholderTextColor={Colors.black}
+                keyboardType='numeric'
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
