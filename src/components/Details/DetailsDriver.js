@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 
+
 class DetailsPublic extends React.Component {
     render() {
       return (

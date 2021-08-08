@@ -12,13 +12,18 @@ import PassengerPrivate from '../Profiles/ProfilePassengerPrivate';
 // Home
 import HomePassenger from '../Home/HomePassenger'; // when there's no driver
 // import HomePassenger2 from '../Home/HomePassenger2' // when there's driver. No tiene nada jsjs
-import DetailsPrivate from '../Details/DetailsPrivate'; // request a ride (when there's driver)
 // Edit
 import EditProfilePassenger from '../Edit/EditProfilePassenger';
 
-import DetailsPublic from '../Details/DetailsDriver';
+import DetailsPrivate from '../../components/Details/DetailsPrivate'
+
+
+import * as vars from '../Home/HomePassenger';
+
 
 const Tabs = createBottomTabNavigator();
+
+
 
 // Stack to redirect to screens between tab navigator (HOME)
 const HomeStack = createStackNavigator();
@@ -33,19 +38,23 @@ function HomeStackScreen() {
           backgroundColor: Colors.white,
         },
       }}>
-      <HomeStack.Screen
-        name="HomePassenger"
-        component={HomePassenger}
-        options={{headerShown: false}}
-      />
-      {/* <HomeStack.Screen name="HomePassenger2" component={HomePassenger2} options={{ headerShown: false }} /> */}
-      <HomeStack.Screen
+
+      {vars.driver ? (
+        <HomeStack.Screen
         name="DetailsPrivate"
         component={DetailsPrivate}
         options={{headerShown: false}}
       />
+      ) : (
+        <HomeStack.Screen
+          name="HomePassenger"
+          component={HomePassenger}
+          options={{headerShown: false}}
+        />
+      )}
+      {/* <HomeStack.Screen name="HomePassenger2" component={HomePassenger2} options={{ headerShown: false }} /> */}
 
-      <HomeStack.Screen name="DetailsPublic" component={DetailsPublic} options={{headerShown: false}}/>
+      
     </HomeStack.Navigator>
   );
 }

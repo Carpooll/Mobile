@@ -43,7 +43,6 @@ class UserSession {
         name = response.user.first_name;
         username = response.user.username;
         driver = response.driver
-        console.log(token);
         return true;
       } catch (err) {
         return response;
@@ -109,7 +108,7 @@ class UserSession {
         return response;
       } */
     } catch (err) {
-      console.log('signup err', err);
+      console.log('car err', err);
       throw Error(err);
     }
   };
@@ -135,22 +134,22 @@ class UserSession {
         return response;
       } */
     } catch (err) {
-      console.log('signup err', err);
+      console.log('payment err', err);
       throw Error(err);
     }
   };
 
   signupData = async body => {
-    console.log(token, id)
+    //console.log(token, id)
     token2 = await Storage.instance.get('token')
-    console.log(token2)
+    //console.log(token2)
     try {
       let _body = body
       _body.postal_code = parseInt( _body.postal_code)
       _body.internal_number = parseInt( _body.internal_number)
       _body.external_number = parseInt( _body.external_number)
       body = _body
-      console.log(body)
+      //console.log(body)
       //console.log(token, id)
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/profile/${id}/`,
@@ -165,14 +164,14 @@ class UserSession {
         },
       );
       let response = await request.json();
-      console.log()
+      
       if (typeof response.username == 'string') {
         return response.username;
       } else {
         return response;
       }
     } catch (err) {
-      console.log('signup err', err);
+      console.log('get info err', err);
       throw Error(err);
     }
   };
@@ -217,10 +216,10 @@ getBalance = async () => {
       },
     );
     let response = await request.json();
-    console.log("the balance is: ")
-    console.log(response);
+    //console.log("the balance is: ")
+    //console.log(response);
   } catch (err) {
-    console.log('signup err', err);
+    console.log('get balance err', err);
     throw Error(err);
   }
   /* try {
