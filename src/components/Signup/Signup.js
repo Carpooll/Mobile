@@ -36,8 +36,8 @@ class SignUpData extends React.Component {
     form: {},
     passenger: false,
     driver: false,
-    isPasswordVisible: false,
-    isPasswordConfVisible: false,
+    isPasswordVisible: true,
+    isPasswordConfVisible: true,
   };
 
   handlePassenger = () => {
