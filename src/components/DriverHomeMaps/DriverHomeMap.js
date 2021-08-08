@@ -250,8 +250,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   cardImage: {
+    marginTop:10,
     width: '100%',
-    height: '45%',
+    height: '50%',
     alignSelf: 'center',
   },
   cardphone: {
