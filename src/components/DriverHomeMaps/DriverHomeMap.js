@@ -6,7 +6,9 @@ import {
   Animated,
   Image,
   Dimensions,
-  Alert
+  Alert,
+  TouchableOpacity,
+  TouchableOpacityComponent,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
@@ -14,11 +16,7 @@ import ModalDeletePass from '../Generics/ModalDeletePass';
 import * as vars from '../../Libs/Sessions';
 
 const createTwoButtonAlert = () =>
-  Alert.alert(
-    'Important',
-    'You do not have passenger yet!',
-    [{text: 'OK'}],
-  );
+  Alert.alert('Important', 'You do not have passenger yet!', [{text: 'OK'}]);
 const Images = [
   {
     uri: 'https://images.pexels.com/photos/7275394/pexels-photo-7275394.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
@@ -39,7 +37,6 @@ const {width, height} = Dimensions.get('window');
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-
 class screens extends Component {
   animation = new Animated.Value(0);
 
@@ -58,6 +55,31 @@ class screens extends Component {
     this.props.navigation.navigate('PassengerPublicProfile');
   };
 
+  startRide = async () => {
+    console.log(vars.token)
+    try {
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/rides/`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Token ${vars.token}`
+          }
+        },
+        );
+        let response = await request.json();
+        console.log(response)
+        if(response !=  {}){
+          Alert.alert('Important', 'Your ride has begun.\n\nYour passengers got a notification to go with you !', [{text: 'OK'}]);
+        }
+        //console.log("the balance is: ")
+      //console.log(response);
+    } catch (err) {
+      console.log('Start ride error', err);
+      throw Error(err);
+    }
+  };
+
   getPassengers = async () => {
     try {
       let request = await fetch(
@@ -72,7 +94,7 @@ class screens extends Component {
       let response = await request.json();
       //console.log(Object.keys(response).length);
       if (Object.keys(response).length === 0) {
-        createTwoButtonAlert ()
+        createTwoButtonAlert();
       } else {
         this.setState({passengers: response});
         const {passengers, markers} = this.state;
@@ -119,6 +141,9 @@ class screens extends Component {
 
     return (
       <View style={styles.container}>
+        <TouchableOpacity style={styles.cardRide} onPress={this.startRide}>
+          <Text style={styles.cardRideText}>Start a ride</Text>
+        </TouchableOpacity>
         <MapView
           provider={PROVIDER_GOOGLE}
           ref={map => (this.map = map)}
@@ -199,7 +224,7 @@ class screens extends Component {
   componentDidMount() {
     this.index = 0;
     this.getPassengers();
-  
+
     //this.getMarkers();
     this.animation.addListener(({value}) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3);
@@ -317,6 +342,36 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#e0e0e0',
     fontSize: 12,
+  },
+  cardRide: {
+    backgroundColor: '#0081A7',
+    width: 150,
+    height: 60,
+
+    position: 'absolute',
+
+    marginTop: 50,
+
+    zIndex: 2,
+
+    borderRadius: 15,
+
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center'
+  },
+
+  cardRideText:{
+
+    color: Colors.white,
+
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
+
+    fontSize: 25
   },
 });
 
