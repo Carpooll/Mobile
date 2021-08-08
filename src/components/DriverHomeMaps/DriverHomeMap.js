@@ -19,20 +19,6 @@ const createTwoButtonAlert = () =>
     'You do not have passenger yet!',
     [{text: 'OK'}],
   );
-const Images = [
-  {
-    uri: 'https://images.pexels.com/photos/7275394/pexels-photo-7275394.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-  {
-    uri: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-  {
-    uri: 'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-  {
-    uri: 'https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-];
 
 const {width, height} = Dimensions.get('window');
 
@@ -84,7 +70,7 @@ class screens extends Component {
               longitude: passengers[i].profile.coordinate_y,
             },
             title: passengers[i].profile.user.first_name,
-            image: Images[0],
+            image: {uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry'},
             phone: passengers[i].profile.phone,
           };
           markers.push(marker);

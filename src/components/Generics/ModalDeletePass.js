@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, Pressable, View, Image} from 'react-native';
 import Colors from '../../res/Colors';
 
 const ModalDeletePass = () => {
@@ -37,7 +37,10 @@ const ModalDeletePass = () => {
       <Pressable
         style={styles.blueButton}
         onPress={() => setModalVisible(true)}>
-        <Text style={styles.blueButtonText}>Delete</Text>
+        <Image 
+          style={styles.editIcon}
+          source={{uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/trash_xqtmop'}}
+        />
       </Pressable>
     </View>
   );
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     marginLeft: -20,
     marginTop: -23,
     borderRadius: 3,
-    backgroundColor: '#bdbdbd',
+    // backgroundColor: '#bdbdbd',
     zIndex: 2,
     marginBottom: 13,
   },
@@ -120,6 +123,13 @@ const styles = StyleSheet.create({
     color: '#e0e0e0',
     fontSize: 12,
   },
+  editIcon: {
+    height: 22,
+    width: 30,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    marginLeft: 30
+},
 });
 
 export default ModalDeletePass;
