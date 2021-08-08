@@ -244,7 +244,7 @@ class EditProfilePassenger extends React.Component {
         <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
           <Text style={Styles.darkButtonText}>SAVE</Text>
         </TouchableOpacity>
-        <ModalDelete></ModalDelete>
+        {/* <ModalDelete></ModalDelete> */}
       </ScrollView>
     );
   }

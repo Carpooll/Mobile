@@ -348,8 +348,8 @@ class EditProfileDriver extends React.Component {
         <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
           <Text style={Styles.darkButtonText}>SAVE</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <ModalDelete></ModalDelete>
+        <TouchableOpacity>{/* 
+          <ModalDelete></ModalDelete> */}
         </TouchableOpacity>
       </ScrollView>
     );
