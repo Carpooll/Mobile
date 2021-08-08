@@ -36,14 +36,7 @@ class Login extends React.Component {
 
   componentDidMount = () => {
     this.getUserData();
-    
-    //this.deleteTokens();
   };
-
-  /* deleteTokens = async () => {
-    await UserSession.instance.logout();
-  }; */
-
 
   getUserData = async () => {
     let user = await UserSession.instance.getUser();
@@ -57,18 +50,13 @@ class Login extends React.Component {
   };
 
   ToggleisPasswordVisible = () => {
-    //here we make that the password is visible or not 
+    //here we make that the password is visible or not
 
     if (this.state.isPasswordVisible) {
-
       this.setState({isPasswordVisible: false});
-      
     } else {
-
       this.setState({isPasswordVisible: true});
-
     }
-
   };
 
   handleSubmit = async () => {
@@ -79,7 +67,7 @@ class Login extends React.Component {
 
       if (typeof response == 'object') {
         //console.log(response);
-        if (response['401'][0] == "User not verified") {
+        if (response['401'] == 'User not verified') {
           var message = 'Your account is not verified';
         } else {
           var message = 'Invalid username or password, try again';
@@ -93,7 +81,7 @@ class Login extends React.Component {
     }
     if (this.state.user) {
       //console.log(vars.name)
-      if (vars.name === "") {
+      if (vars.name === '') {
         this.props.navigation.replace('SignUpAddress');
       } else {
         if (vars.driver == true) {
@@ -106,25 +94,21 @@ class Login extends React.Component {
       }
     }
 
-    
     //handleLogin = () => {
     // this.props.navigation.navigate('TabNavigatorDriver')
     //  this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
-  //}
-  
-  //handleSignUp = () => {
-  //  this.props.navigation.navigate('SignUpData')
+    //}
 
-  //};
+    //handleSignUp = () => {
+    //  this.props.navigation.navigate('SignUpData')
 
-}
-render() {
+    //};
+  };
+  render() {
     const {error, isPasswordVisible} = this.state;
     return (
-
       <ScrollView style={styles.container}>
         <View>
-
           <StatusBar backgroundColor="transparent" translucent={true} />
 
           <ImageBackground source={Background} style={styles.image}>
@@ -141,13 +125,11 @@ render() {
                 </View>
               </View>
               <View style={styles.login}>
-                <Text style={styles.errorText}>
-                  {error ? (
-                    <View>
-                      <Text style={styles.error}>{error}</Text>
-                    </View>
-                  ) : null}
-                </Text>
+                    {error ? (
+                      <View style={styles.errorcont}>
+                        <Text style={styles.error}>{error}</Text>
+                      </View>
+                    ) : null}
                 <View style={styles.inputContainer}>
                   <TextInput
                     style={styles.form1}
@@ -175,7 +157,9 @@ render() {
                     }}
                   />
                 </View>
-                <TouchableOpacity  style={styles.visible} onPress={this.ToggleisPasswordVisible}>
+                <TouchableOpacity
+                  style={styles.visible}
+                  onPress={this.ToggleisPasswordVisible}>
                   <Image
                     source={
                       isPasswordVisible
@@ -212,16 +196,25 @@ const styles = StyleSheet.create({
     height: windowHeight,
     backgroundColor: Colors.white,
   },
-  visible:{
-    marginLeft:10,
-    marginTop: -40
+  visible: {
+    marginLeft: 10,
+    marginTop: -40,
   },
-  errorText: {
-    marginTop: 60,
+  errorcont:{
+    
+    position:'absolute',
+    width:'100%',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width:200,
+    height:120,
+    
   },
   error: {
     color: '#FF0000',
     fontWeight: 'bold',
+    
   },
 
   image: {
@@ -347,7 +340,7 @@ const styles = StyleSheet.create({
     marginBottom: 125,
     width: 150,
     textAlign: 'center',
-    marginTop: -110,
+    marginTop: -30,
   },
 
   form2: {
