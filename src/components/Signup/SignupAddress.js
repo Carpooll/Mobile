@@ -261,6 +261,25 @@ class SignUpAdrress extends React.Component {
               }}
             />
           </View>
+          
+          {vars.driver ? (
+            <View>
+                  <Text style={Styles.titleA}>Passanger range</Text>
+            <TextInput
+            style={Styles.inputR}
+            placeholder="Range (km)"
+            placeholderTextColor={Colors.black}
+            onChangeText={text => {
+              this.setState(prevState => {
+                let form = Object.assign({}, prevState.form);
+                form.profile._range = text;
+                return {form};
+              });
+            }}
+            />
+            <Text style={Styles.label}>Maximum range to pick up a passenger</Text>
+            </View>
+                  ) : null}
           <Text style={Styles.titleA}>Address</Text>
           <TouchableOpacity
             style={Styles.locationButton}
@@ -332,23 +351,7 @@ class SignUpAdrress extends React.Component {
                 });
               }}
             />
-              {vars.driver ? (
-                <View>
-            <TextInput
-            style={Styles.input}
-            placeholder="Range (km)"
-            placeholderTextColor={Colors.black}
-            onChangeText={text => {
-              this.setState(prevState => {
-                let form = Object.assign({}, prevState.form);
-                form.profile._range = text;
-                return {form};
-              });
-            }}
-            />
-            <Text style={Styles.label}>Maximum range to pick up a passenger</Text>
-            </View>
-                  ) : null}
+              
 
           </View>
         </View>
@@ -366,6 +369,17 @@ var borderTop = height * 0.1;
 var FormWidth = width * 0.69;
 var FormHeight = height * 0.68;
 const Styles = StyleSheet.create({
+  inputR:{
+    marginLeft:50,
+    color: Colors.black,
+    borderBottomColor: Colors.black,
+    borderBottomWidth: 1,
+    fontSize: Fonts.text,
+    paddingBottom: 8,
+    marginBottom: 25,
+    width: 180,
+    textAlign: 'center',
+  },
   Container: {
     backgroundColor: Colors.blue,
     position: 'relative',
@@ -470,6 +484,7 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   label:{
+    marginLeft:39,
     fontSize: 10,
     marginTop: -15,
     color: '#A497A6'

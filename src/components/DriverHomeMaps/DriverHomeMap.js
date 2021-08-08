@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,29 +10,20 @@ import {
   TouchableOpacity,
   TouchableOpacityComponent,
 } from 'react-native';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Colors from '../../res/Colors';
 import ModalDeletePass from '../Generics/ModalDeletePass';
 import * as vars from '../../Libs/Sessions';
 
 const createTwoButtonAlert = () =>
-  Alert.alert('Important', 'You do not have passenger yet!', [{text: 'OK'}]);
-const Images = [
-  {
-    uri: 'https://images.pexels.com/photos/7275394/pexels-photo-7275394.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-  {
-    uri: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-  {
-    uri: 'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-  {
-    uri: 'https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-  },
-];
 
-const {width, height} = Dimensions.get('window');
+  Alert.alert(
+    'Important',
+    'You do not have passenger yet!',
+    [{ text: 'OK' }],
+  );
+
+const { width, height } = Dimensions.get('window');
 
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
@@ -96,8 +87,8 @@ class screens extends Component {
       if (Object.keys(response).length === 0) {
         createTwoButtonAlert();
       } else {
-        this.setState({passengers: response});
-        const {passengers, markers} = this.state;
+        this.setState({ passengers: response });
+        const { passengers, markers } = this.state;
 
         for (var i = 0; i < passengers.length; i++) {
           let marker = {
@@ -106,12 +97,12 @@ class screens extends Component {
               longitude: passengers[i].profile.coordinate_y,
             },
             title: passengers[i].profile.user.first_name,
-            image: Images[0],
+            image: { uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry' },
             phone: passengers[i].profile.phone,
           };
           markers.push(marker);
 
-          this.setState({markers: markers});
+          this.setState({ markers: markers });
         }
       }
     } catch (err) {
@@ -136,7 +127,7 @@ class screens extends Component {
         outputRange: [0.35, 1, 0.35],
         extrapolate: 'clamp',
       });
-      return {scale, opacity};
+      return { scale, opacity };
     });
 
     return (
@@ -226,7 +217,7 @@ class screens extends Component {
     this.getPassengers();
 
     //this.getMarkers();
-    this.animation.addListener(({value}) => {
+    this.animation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3);
       if (index >= this.state.markers.length) {
         index = this.state.markers.length - 1;
@@ -289,8 +280,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   cardImage: {
+    marginTop:10,
     width: '100%',
-    height: '65%',
+    height: '50%',
     alignSelf: 'center',
   },
   cardphone: {

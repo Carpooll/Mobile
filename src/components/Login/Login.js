@@ -23,6 +23,7 @@ const windowHeight = Dimensions.get('window').height;
 const Background = {
   uri: `https://images.pexels.com/photos/3876465/pexels-photo-3876465.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260`,
 };
+
 class Login extends React.Component {
   state = {
     error: null,
@@ -30,6 +31,7 @@ class Login extends React.Component {
     form: {},
     user: {},
     driver: vars.driver,
+    isPasswordVisible: true,
   };
 
   componentDidMount = () => {
@@ -52,6 +54,21 @@ class Login extends React.Component {
 
   handlePress = () => {
     this.props.navigation.navigate('SignUpData');
+  };
+
+  ToggleisPasswordVisible = () => {
+    //here we make that the password is visible or not 
+
+    if (this.state.isPasswordVisible) {
+
+      this.setState({isPasswordVisible: false});
+      
+    } else {
+
+      this.setState({isPasswordVisible: true});
+
+    }
+
   };
 
   handleSubmit = async () => {
@@ -89,19 +106,20 @@ class Login extends React.Component {
       }
     }
 
-
-  //handleLogin = () => {
+    
+    //handleLogin = () => {
     // this.props.navigation.navigate('TabNavigatorDriver')
-  //  this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
+    //  this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
   //}
-
+  
   //handleSignUp = () => {
   //  this.props.navigation.navigate('SignUpData')
 
   //};
-  }
-  render() {
-    const {error} = this.state;
+
+}
+render() {
+    const {error, isPasswordVisible} = this.state;
     return (
 
       <ScrollView style={styles.container}>
@@ -132,7 +150,7 @@ class Login extends React.Component {
                 </Text>
                 <View style={styles.inputContainer}>
                   <TextInput
-                    style={styles.form}
+                    style={styles.form1}
                     placeholder="Student ID"
                     placeholderTextColor={Colors.black}
                     onChangeText={text => {
@@ -144,8 +162,8 @@ class Login extends React.Component {
                     }}
                   />
                   <TextInput
-                    secureTextEntry={true}
-                    style={styles.form}
+                    secureTextEntry={isPasswordVisible}
+                    style={styles.form2}
                     placeholder="Password"
                     placeholderTextColor={Colors.black}
                     onChangeText={text => {
@@ -157,6 +175,15 @@ class Login extends React.Component {
                     }}
                   />
                 </View>
+                <TouchableOpacity  style={styles.visible} onPress={this.ToggleisPasswordVisible}>
+                  <Image
+                    source={
+                      isPasswordVisible
+                        ? require('../../assets/hide.png')
+                        : require('../../assets/show.png')
+                    }
+                  />
+                </TouchableOpacity>
 
                 <TouchableOpacity
                   style={styles.buttonDark}
@@ -184,6 +211,10 @@ const styles = StyleSheet.create({
   container: {
     height: windowHeight,
     backgroundColor: Colors.white,
+  },
+  visible:{
+    marginLeft:10,
+    marginTop: -40
   },
   errorText: {
     marginTop: 60,
@@ -308,7 +339,18 @@ const styles = StyleSheet.create({
     marginBottom: -30,
   },
 
-  form: {
+  form1: {
+    paddingHorizontal: 20,
+    color: Colors.black,
+    borderBottomColor: Colors.black,
+    borderBottomWidth: 1,
+    marginBottom: 125,
+    width: 150,
+    textAlign: 'center',
+    marginTop: -110,
+  },
+
+  form2: {
     paddingHorizontal: 20,
     color: Colors.black,
     borderBottomColor: Colors.black,

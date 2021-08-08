@@ -24,7 +24,7 @@ const createTwoButtonAlert = () =>
   Alert.alert(
     'Important',
     'We sent you an email, please check it to verify your account.',
-    [{text: 'OK'}],
+    [{ text: 'OK' }],
   );
 
 export var is_driver = 0;
@@ -35,28 +35,52 @@ class SignUpData extends React.Component {
     user: undefined,
     form: {},
     passenger: false,
-    driver:false,
+    driver: false,
+    isPasswordVisible: false,
+    isPasswordConfVisible: false,
   };
 
   handlePassenger = () => {
-    this.setState({passenger:true})
-    this.setState({driver:false})
-    const {form} = this.state
+    this.setState({ passenger: true })
+    this.setState({ driver: false })
+    const { form } = this.state
     form.is_driver = 0
     //console.log(form)
   };
 
   handleDriver = () => {
-    this.setState({driver:true})
-    this.setState({passenger: false} )
-    const { form} = this.state
+    this.setState({ driver: true })
+    this.setState({ passenger: false })
+    const { form } = this.state
     form.is_driver = 1
     //console.log(form)
   };
 
+  ToggleisPasswordVisible = () => {
+    //here we make that the password is visible or not 
+
+    if (this.state.isPasswordVisible) {
+      this.setState({ isPasswordVisible: false });
+    } else {
+      this.setState({ isPasswordVisible: true });
+    }
+
+  };
+
+  ToggleisPasswordConfVisible = () => {
+    //here we make that the password is visible or not 
+
+    if (this.state.isPasswordConfVisible) {
+      this.setState({ isPasswordConfVisible: false });
+    } else {
+      this.setState({ isPasswordConfVisible: true });
+    }
+
+  };
+
   handleSubmit = async () => {
     try {
-      this.setState({user: undefined});
+      this.setState({ user: undefined });
       //console.log(this.state.form);
 
       var response = await UserSession.instance.signup(this.state.form);
@@ -87,7 +111,7 @@ class SignUpData extends React.Component {
             </View>,
           );
           cont++;
-          this.setState({user: undefined, errors: errors});
+          this.setState({ user: undefined, errors: errors });
         }
         console.log(errors);
       } else {
@@ -105,7 +129,7 @@ class SignUpData extends React.Component {
   };
 
   render() {
-    const {errors, passenger, driver} = this.state;
+    const { errors, passenger, driver, isPasswordVisible, isPasswordConfVisible } = this.state;
 
     return (
       <ScrollView style={Styles.Container}>
@@ -135,7 +159,7 @@ class SignUpData extends React.Component {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
                     form.username = text;
-                    return {form};
+                    return { form };
                   });
                 }}
               />
@@ -149,36 +173,57 @@ class SignUpData extends React.Component {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
                     form.email = text;
-                    return {form};
+                    return { form };
                   });
                 }}
               />
               <TextInput
-                secureTextEntry={true}
-                style={Styles.input}
+                style={Styles.inputPassword}
+                secureTextEntry={isPasswordVisible}
                 placeholder="Password"
                 placeholderTextColor={Colors.black}
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
                     form.password = text;
-                    return {form};
+                    return { form };
                   });
                 }}
               />
+
+              <TouchableOpacity style={Styles.visible} onPress={this.ToggleisPasswordVisible}>
+                <Image
+                  source={
+                    isPasswordVisible
+                      ? require('../../assets/hide.png')
+                      : require('../../assets/show.png')
+                  }
+                />
+              </TouchableOpacity>
+
               <TextInput
-                secureTextEntry={true}
-                style={Styles.input}
+                secureTextEntry={isPasswordConfVisible}
+                style={Styles.inputPassword}
                 placeholder="Password confirmation"
                 placeholderTextColor={Colors.black}
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
                     form.password_confirmation = text;
-                    return {form};
+                    return { form };
                   });
                 }}
               />
+
+              <TouchableOpacity style={Styles.visible} onPress={this.ToggleisPasswordConfVisible}>
+                <Image
+                  source={
+                    isPasswordConfVisible
+                      ? require('../../assets/hide.png')
+                      : require('../../assets/show.png')
+                  }
+                />
+              </TouchableOpacity>
 
               <Text style={Styles.title2}>Choose one option</Text>
               <TouchableOpacity
@@ -237,8 +282,8 @@ const Styles = StyleSheet.create({
   },
   errs: {
     marginTop: 45,
-    marginLeft:5,
-    
+    marginLeft: 5,
+
     color: '#FF0000',
     fontWeight: 'bold',
   },
@@ -329,7 +374,7 @@ const Styles = StyleSheet.create({
 
   FormContainer: {
     marginTop: 45,
-    height: FormHeight + 200,
+    height: FormHeight + 60,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -339,7 +384,7 @@ const Styles = StyleSheet.create({
     marginBottom: height * 0.9 - (borderTop + FormHeight),
   },
 
-  
+
   logo: {
     width: 105,
     height: 105,
@@ -394,16 +439,39 @@ const Styles = StyleSheet.create({
 
     textAlign: 'center',
   },
-  inputContainer: {
-    alignItems: 'center',
-    marginTop: 20,
+  inputPassword: {
+
+    color: Colors.black,
+
+    borderBottomColor: Colors.black,
+
+    borderBottomWidth: 1,
+
+    fontSize: Fonts.text,
+
+    paddingBottom: 8,
+
+    marginBottom: 45,
+
+    width: 180,
+
+    textAlign: 'center',
   },
+
+  inputContainer: {
+
+    alignItems: 'center',
+
+    marginTop: 20,
+
+  },
+
   darkButton: {
     alignSelf: 'center',
 
     height: FormHeight * 0.1,
 
-    marginTop: FormHeight + 312,
+    marginTop: FormHeight + 170,
 
     width: 193,
 
@@ -422,6 +490,10 @@ const Styles = StyleSheet.create({
   darkButtonText: {
     alignSelf: 'center',
     color: Colors.white,
+  },
+  visible: {
+    marginLeft: 10,
+    marginTop: -40
   },
 });
 
