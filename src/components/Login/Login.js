@@ -23,6 +23,7 @@ const windowHeight = Dimensions.get('window').height;
 const Background = {
   uri: `https://images.pexels.com/photos/3876465/pexels-photo-3876465.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260`,
 };
+
 class Login extends React.Component {
   state = {
     error: null,
@@ -105,18 +106,19 @@ class Login extends React.Component {
       }
     }
 
-
-  //handleLogin = () => {
+    
+    //handleLogin = () => {
     // this.props.navigation.navigate('TabNavigatorDriver')
-  //  this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
+    //  this.props.navigation.navigate('TabNavigatorPassenger') // If its passenger
   //}
-
+  
   //handleSignUp = () => {
   //  this.props.navigation.navigate('SignUpData')
 
   //};
-  }
-  render() {
+
+}
+render() {
     const {error, isPasswordVisible} = this.state;
     return (
 
