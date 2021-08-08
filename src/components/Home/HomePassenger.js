@@ -10,69 +10,177 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Alert,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
+import UserSession from '../../Libs/Sessions';
+import Storage from '../../Libs/Storage';
+import * as vars from '../../Libs/Sessions';
 
+export var driver = false;
+export var driverData = [];
 class HomePassenger extends React.Component {
+  state = {
+    drivers: [],
+    markers: [],
+    driver: false,
+    driverData:[],
+  };
+  componentDidMount = () => {
+    this.checkDriver();
+    this.getDriver();
+  };
 
-   handlePress = () =>{ // Esto lleva a ver el perfil publico del driver q no encontre
-     this.props.navigation.navigate('DetailsPublic')
-   }
+  checkDriver = async () => {
+    try {
+      token = await Storage.instance.get('token');
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/passenger/driver/`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Token ' + token,
+          },
+        },
+      );
+      let response = await request.json();
+      driverData=response
+      this.setState({driverData:driverData})
+      driver = true;
+
+      this.setState({driver: driver});
+    } catch (err) {
+      console.log('Geting user info error', err);
+      throw Error(err);
+    }
+  };
+  handlePress = id => {
+    Alert.alert(
+      'Important',
+      `Do you really want to travel with this driver?\n\nThis choice can be undone.`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+
+        {
+          text: 'Yes!',
+          onPress: async () => {
+            let body = {
+              title: "Hey, I'd like to travel with you!",
+              text: 'Do you accept?',
+              sendee: parseInt(id),
+            };
+            token = await Storage.instance.get('token');
+
+            let request = await fetch(
+              `https://carpool-utch.herokuapp.com/requests/`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: 'Token ' + vars.token,
+                },
+                body: JSON.stringify(body),
+              },
+            );
+
+            let response = await request.json();
+            if (response.status == 'pending') {
+              Alert.alert(
+                'Important',
+                'Successful request\n\nWait for the driver response.',
+                [{text: 'OK'}],
+              );
+            } else if (
+              response.message ==
+              'Usted ya envio una solicitud a este conductor'
+            ) {
+              Alert.alert(
+                'Important',
+                'You already sent a request to this driver. \n\nWait for the driver response.',
+                [{text: 'OK'}],
+              );
+            }
+          },
+          style: 'destructive',
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
+
+    /* this.props.navigation.navigate('DetailsPublic', {marker}); */
+  };
+
+  getDriver = async () => {
+    try {
+      token = await Storage.instance.get('token');
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/drivers/available/`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Token ' + token,
+          },
+        },
+      );
+      let response = await request.json();
+      this.setState({drivers: response});
+
+      const {drivers, markers} = this.state;
+      for (var i = 0; i < drivers.length; i++) {
+        let driver = {
+          name: drivers[i].first_name,
+          travel_cost: drivers[i].travel_cost,
+          profile_id: drivers[i].profile_id,
+        };
+        markers.push(driver);
+        this.setState({markers: markers});
+        //console.log(markers)
+      }
+      return response;
+    } catch (err) {
+      console.log('signup err', err);
+      throw Error(err);
+    }
+    //let drivers = await UserSession.instance.availableDrivers();
+  };
 
   render() {
+    const {markers} = this.state;
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
         <View style={Styles.marginTopCards}>
-        {/* This is the first card, you can use it to generate all the next cards */}
-          <View style={Styles.FormContainer}>
-            <View style={Styles.FormContainerLeft}>
-              <View style={Styles.pictureContainer}>
-                <Image
-                  style={Styles.picture}
-                  source={{
-                    uri: 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
-                  }}
-                />
+          {this.state.markers.map((marker, profile_id) => {
+            return (
+              <View style={Styles.FormContainer}>
+                <View style={Styles.FormContainerLeft}>
+                  <View style={Styles.pictureContainer}>
+                    <Image
+                      style={Styles.picture}
+                      source={{
+                        uri: 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
+                      }}
+                    />
+                  </View>
+                </View>
+                <View key={profile_id} style={Styles.FormContainerRight}>
+                  <Text style={Styles.nameDriver}>{marker.name}</Text>
+                  <Text style={Styles.priceDriver}>{marker.travel_cost}</Text>
+                </View>
+                <TouchableOpacity
+                  style={Styles.darkButton}
+                  onPress={() => this.handlePress(marker.profile_id)}>
+                  <Text style={Styles.darkButtonText}>Request driver</Text>
+                </TouchableOpacity>
               </View>
-            </View>
-            <View style={Styles.FormContainerRight}>
-              <Text style={Styles.nameDriver}>Personal data</Text>
-              <Text style={Styles.priceDriver}>$1000</Text>
-            </View>
-            <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
-              <Text style={Styles.darkButtonText}>VIEW</Text>
-            </TouchableOpacity>
-
-          </View>
-
-
-          {/* Here you need to insert the next cards, like this example */}
-          {/* <View style={Styles.FormContainer}>
-            <View style={Styles.FormContainerLeft}>
-              <View style={Styles.pictureContainer}>
-                <Image
-                  style={Styles.picture}
-                  source={{
-                    uri: 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
-                  }}
-                />
-              </View>
-            </View>
-            <View style={Styles.FormContainerRight}>
-              <Text style={Styles.nameDriver}>Personal data</Text>
-              <Text style={Styles.priceDriver}>$1000</Text>
-            </View>
-            <TouchableOpacity style={Styles.darkButton}>
-              <Text style={Styles.darkButtonText}>VIEW</Text>
-            </TouchableOpacity>
-
-          </View> */}
-          
-
-
-
+            );
+          })}
         </View>
       </ScrollView>
     );
@@ -183,26 +291,15 @@ const Styles = StyleSheet.create({
 
   darkButton: {
     alignSelf: 'center',
-
     height: FormHeight * 0.2,
-
     marginTop: FormHeight - 16,
-
-    width: FormWidth * .39,
-
+    width: FormWidth * 0.39,
     borderRadius: 8,
-
     fontSize: Fonts.miniButtons,
-
     backgroundColor: Colors.black,
-
     justifyContent: 'center',
-
     zIndex: 5,
-
-    marginLeft: -100
-
-    
+    marginLeft: -100,
   },
   darkButtonText: {
     alignSelf: 'center',

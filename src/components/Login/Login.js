@@ -92,7 +92,7 @@ class Login extends React.Component {
       this.setState({error: err});
     }
     if (this.state.user) {
-      console.log(vars.name)
+      //console.log(vars.name)
       if (vars.name === "") {
         this.props.navigation.replace('SignUpAddress');
       } else {
