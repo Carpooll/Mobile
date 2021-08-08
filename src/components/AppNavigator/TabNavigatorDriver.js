@@ -16,13 +16,11 @@ import screens from '../DriverHomeMaps/DriverHomeMap';
 // Edit
 import EditProfileDriver from '../Edit/EditProfileDriver';
 
-import * as vars from '../DriverHomeMaps/DriverHomeMap';
-console.log('tabnavifator', vars.noPassengers);
-
 const Tabs = createBottomTabNavigator();
 
-// Stack to redirect to screens between tab navigator (HOME)
 const HomeStack = createStackNavigator();
+
+// Stack to redirect to screens between tab navigator (HOME)
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator
@@ -34,21 +32,13 @@ function HomeStackScreen() {
           backgroundColor: Colors.white,
         },
       }}>
-          
-      {vars.noPassengers ? (
-       
-        <HomeStack.Screen
-          name="HomeDriverNoPassengers"
-          component={HomeDriver}
-          options={{headerShown: false}}
-        />
-      ) : (
-        <HomeStack.Screen
-          name="HomeDriver"
-          component={screens}
-          options={{headerShown: false}}
-        />
-      )}
+
+      <HomeStack.Screen
+        name="HomeDriver"
+        component={screens}
+        options={{headerShown: false}}
+      />
+
       <HomeStack.Screen
         name="PassengerPublicProfile"
         component={PassengerPublicProfile}

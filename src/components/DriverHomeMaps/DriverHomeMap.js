@@ -6,14 +6,19 @@ import {
   Animated,
   Image,
   Dimensions,
+  Alert
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
 import ModalDeletePass from '../Generics/ModalDeletePass';
 import * as vars from '../../Libs/Sessions';
 
-export var noPassengers = false;
-
+const createTwoButtonAlert = () =>
+  Alert.alert(
+    'Important',
+    'You do not have passenger yet!',
+    [{text: 'OK'}],
+  );
 const Images = [
   {
     uri: 'https://images.pexels.com/photos/7275394/pexels-photo-7275394.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
@@ -49,10 +54,6 @@ class screens extends Component {
     },
   };
 
-  // componentWillMount() {
-  //   this.index = 0;
-  // }
-
   handlePress = () => {
     this.props.navigation.navigate('PassengerPublicProfile');
   };
@@ -70,14 +71,12 @@ class screens extends Component {
       );
       let response = await request.json();
       //console.log(Object.keys(response).length);
-      if (Object.keys(response).length === 0 ){
-        console.log("vacio")
-       noPassengers  = true;
-      }else{
-        console.log("no vacio")
+      if (Object.keys(response).length === 0) {
+        createTwoButtonAlert ()
+      } else {
         this.setState({passengers: response});
         const {passengers, markers} = this.state;
-  
+
         for (var i = 0; i < passengers.length; i++) {
           let marker = {
             coordinate: {
@@ -89,9 +88,7 @@ class screens extends Component {
             phone: passengers[i].profile.phone,
           };
           markers.push(marker);
-  
-          // console.log(markers);
-  
+
           this.setState({markers: markers});
         }
       }
@@ -101,7 +98,6 @@ class screens extends Component {
   };
 
   render() {
-
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
@@ -203,6 +199,7 @@ class screens extends Component {
   componentDidMount() {
     this.index = 0;
     this.getPassengers();
+  
     //this.getMarkers();
     this.animation.addListener(({value}) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3);
