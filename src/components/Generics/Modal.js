@@ -38,10 +38,10 @@ const ModalDelete = () => {
           </View>
         </View>
       </Modal>
-      <Pressable
+      {/* <Pressable
         onPress={() => setModalVisible(true)}>
         <Text style={styles.textStyle}>Delete account</Text>
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };

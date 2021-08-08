@@ -244,7 +244,8 @@ class EditProfilePassenger extends React.Component {
         <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
           <Text style={Styles.darkButtonText}>SAVE</Text>
         </TouchableOpacity>
-        {/* <ModalDelete></ModalDelete> */}
+
+         <ModalDelete></ModalDelete> 
       </ScrollView>
     );
   }
@@ -263,12 +264,13 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: 550,
+    height: 540,
     width: FormWidth,
     alignSelf: 'center',
     backgroundColor: Colors.white,
     borderRadius: 15,
     position: 'relative',
+    zIndex: 2,
   },
   logo: {
     alignSelf: 'center',
@@ -345,7 +347,7 @@ const Styles = StyleSheet.create({
 
     height: 50,
 
-    marginTop: 660,
+    marginTop: 650,
 
     width: 193,
 
@@ -360,6 +362,7 @@ const Styles = StyleSheet.create({
     zIndex: 5,
 
     position: 'absolute',
+
   },
   darkButtonText: {
     alignSelf: 'center',
@@ -379,6 +382,9 @@ const Styles = StyleSheet.create({
     color: '#A4A4A4',
     fontSize: 10,
   },
+  fixTop: {
+    zIndex: 100
+  }
 });
 
 export default EditProfilePassenger;

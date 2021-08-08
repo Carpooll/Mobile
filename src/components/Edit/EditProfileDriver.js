@@ -348,8 +348,8 @@ class EditProfileDriver extends React.Component {
         <TouchableOpacity style={Styles.darkButton} onPress={this.handleSubmit}>
           <Text style={Styles.darkButtonText}>SAVE</Text>
         </TouchableOpacity>
-        <TouchableOpacity>{/* 
-          <ModalDelete></ModalDelete> */}
+        <TouchableOpacity>
+          {/* <ModalDelete></ModalDelete> */}
         </TouchableOpacity>
       </ScrollView>
     );
@@ -369,12 +369,13 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight - 50,
+    height: FormHeight - 30,
     width: FormWidth,
     alignSelf: 'center',
     backgroundColor: Colors.white,
     borderRadius: 15,
     position: 'relative',
+    marginBottom: 50,
   },
   logo: {
     alignSelf: 'center',
@@ -448,7 +449,7 @@ const Styles = StyleSheet.create({
 
     height: FormHeight * 0.05,
 
-    marginTop: 1120,
+    marginTop: 1140,
 
     width: 193,
 
@@ -463,6 +464,7 @@ const Styles = StyleSheet.create({
     zIndex: 5,
 
     position: 'absolute',
+    
   },
   darkButtonText: {
     alignSelf: 'center',
