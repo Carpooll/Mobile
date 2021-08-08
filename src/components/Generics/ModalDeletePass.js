@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     width: 30,
     resizeMode: 'cover',
     justifyContent: 'center',
-    marginLeft: 30
+    marginLeft: 15,
 },
 });
 
