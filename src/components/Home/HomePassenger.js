@@ -1,4 +1,6 @@
 import React from 'react';
+export var driver = false;
+export var driverData = [];
 import {
   Text,
   View,
@@ -18,22 +20,24 @@ import UserSession from '../../Libs/Sessions';
 import Storage from '../../Libs/Storage';
 import * as vars from '../../Libs/Sessions';
 
-export var driver = false;
-export var driverData = [];
 class HomePassenger extends React.Component {
   state = {
     drivers: [],
     markers: [],
     driver: false,
     driverData:[],
-  };
+    info_id: undefined,
+    info_coorx: undefined,
+    info_coory: undefined,
+   };
 
   componentDidMount = () => {
-    //this.checkDriver();
+    this.checkDriver();
     this.getDriver();
+    
   };
 
-/*   checkDriver = async () => {
+   checkDriver = async () => {
     try {
       token = await Storage.instance.get('token');
       let request = await fetch(
@@ -49,13 +53,26 @@ class HomePassenger extends React.Component {
       driverData=response
       this.setState({driverData:driverData})
       driver = true;
+      info_driver = driverData[0];
 
-      this.setState({driver: driver});
+      info_id = info_driver.profile.id
+      info_id = JSON.stringify(info_id)
+
+      info_coorx = info_driver.profile.coordinate_x
+      info_coorx = JSON.stringify(info_coorx)
+
+      info_coory = info_driver.profile.coordinate_y
+      info_coory = JSON.stringify(info_coory)
+     
+      this.setState({driver: driver, info_id: info_id, info_coorx: info_coorx, info_coory: info_coory});
+   
     } catch (err) {
-      console.log('Geting user info error', err);
+      console.log('Getting user info error', err);
       throw Error(err);
     }
-  }; */
+
+  }; 
+
   handlePress = id => {
     Alert.alert(
       'Important',
@@ -119,6 +136,7 @@ class HomePassenger extends React.Component {
 
   getDriver = async () => {
     try {
+      
       token = await Storage.instance.get('token');
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/drivers/available/`,
@@ -153,6 +171,9 @@ class HomePassenger extends React.Component {
 
   render() {
     const {markers} = this.state;
+   
+    
+    
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -183,10 +204,13 @@ class HomePassenger extends React.Component {
             );
           })}
         </View>
+        
       </ScrollView>
     );
   }
 }
+
+
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
 var iconSize = height * 0.135;
