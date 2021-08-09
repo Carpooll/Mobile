@@ -59,7 +59,7 @@ class screens extends Component {
         },
         );
         let response = await request.json();
-        console.log(response)
+        //console.log(response)
         if(response !=  {}){
           Alert.alert('Important', 'Your ride has begun.\n\nYour passengers got a notification to go with you !', [{text: 'OK'}]);
         }
