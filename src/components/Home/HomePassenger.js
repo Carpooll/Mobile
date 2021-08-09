@@ -1,4 +1,6 @@
 import React from 'react';
+export var driver = false;
+export var driverData = [];
 import {
   Text,
   View,
@@ -18,21 +20,24 @@ import UserSession from '../../Libs/Sessions';
 import Storage from '../../Libs/Storage';
 import * as vars from '../../Libs/Sessions';
 
-export var driver = false;
-export var driverData = [];
 class HomePassenger extends React.Component {
   state = {
     drivers: [],
     markers: [],
     driver: false,
     driverData:[],
-  };
+    info_id: undefined,
+    info_coorx: undefined,
+    info_coory: undefined,
+   };
+
   componentDidMount = () => {
     this.checkDriver();
     this.getDriver();
+    
   };
 
-  checkDriver = async () => {
+   checkDriver = async () => {
     try {
       token = await Storage.instance.get('token');
       let request = await fetch(
@@ -48,11 +53,20 @@ class HomePassenger extends React.Component {
       driverData=response
       this.setState({driverData:driverData})
       driver = true;
+      info_driver = driverData[0];
+
+      info_id = info_driver.profile.id
+      info_id = JSON.stringify(info_id)
 
       this.setState({driver: driver})
+   
     } catch (err) {
+      console.log('Getting user info error', err);
+      throw Error(err);
     }
-  };
+
+  }; 
+
   handlePress = id => {
     Alert.alert(
       'Important',
@@ -116,6 +130,7 @@ class HomePassenger extends React.Component {
 
   getDriver = async () => {
     try {
+      
       token = await Storage.instance.get('token');
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/drivers/available/`,
@@ -149,6 +164,10 @@ class HomePassenger extends React.Component {
   };
 
   render() {
+
+    const {markers} = this.state;
+       
+    
     return (
       <ScrollView style={Styles.Container}>
         
@@ -181,12 +200,12 @@ class HomePassenger extends React.Component {
           })}
         </View>
         
-
-      
       </ScrollView>
     );
   }
 }
+
+
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
 var iconSize = height * 0.135;

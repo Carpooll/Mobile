@@ -43,6 +43,12 @@ class UserSession {
         name = response.user.first_name;
         username = response.user.username;
         driver = response.driver
+          if(driver){
+            await Storage.instance.store('isDriverLogCheck', 'true')
+          }else{
+            await Storage.instance.store('isDriverLogCheck', 'false')
+          }
+        
         return true;
       } catch (err) {
         return response;
