@@ -27,12 +27,13 @@ class HomePassenger extends React.Component {
     driver: false,
     driverData:[],
   };
+
   componentDidMount = () => {
-    this.checkDriver();
+    //this.checkDriver();
     this.getDriver();
   };
 
-  checkDriver = async () => {
+/*   checkDriver = async () => {
     try {
       token = await Storage.instance.get('token');
       let request = await fetch(
@@ -54,7 +55,7 @@ class HomePassenger extends React.Component {
       console.log('Geting user info error', err);
       throw Error(err);
     }
-  };
+  }; */
   handlePress = id => {
     Alert.alert(
       'Important',
