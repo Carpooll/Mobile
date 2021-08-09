@@ -6,7 +6,7 @@ import Colors from '../../res/Colors';
 import {createStackNavigator} from '@react-navigation/stack';
 
 // SCREENS
-import Notifications from '../Notifications/Notifications';
+import Notifications from '../Notifications/NotificationsDriver';
 // Profiles
 import ProfileDriver from '../Profiles/ProfileDriver';
 import PassengerPublicProfile from '../Profiles/ProfilePassenger';
