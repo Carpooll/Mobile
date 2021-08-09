@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Colors from '../../res/Colors';
 import Layout from './Layout';
 import SignupPayment from '../Signup/SignupPayment';
-import Notifications from '../Notifications/Notifications';
 import ProfileDriver from '../Profiles/ProfileDriver';
 import HomeDriver from '../Home/HomeDriver';
 import SignupCar from '../Signup/SignupCar';
