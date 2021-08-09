@@ -1,6 +1,7 @@
 /* FIGMA: Driver info (siendo ya passenger) */
 
 import React from 'react';
+import * as vars from '../Home/HomePassenger';
 import Colors from '../../res/Colors';
 import {
   Text,
@@ -13,8 +14,9 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import * as vars from '../Home/HomePassenger';
 import Storage from '../../Libs/Storage';
+
+var coorx, coory;
 
 class DetailsPrivate extends React.Component {
   state = {
@@ -25,30 +27,56 @@ class DetailsPrivate extends React.Component {
       longitudeDelta: 0.4,
       latitudeDelta: 0.1,
     },
+    driverData: [],
+    info_driver: {
+      profile: {
+        user: {}
+      }
+      
+    },
   };
   componentDidMount = () => {
-    this.mapLocation();
-    this.getCar();
-  };
-  handlePress = () => {
+    this.checkDriver();
+  }; 
 
-  };
-
-  mapLocation = () => {
-    let markers = {
-      latitude: vars.driverData[0].profile.coordinate_x,
-      longitude: vars.driverData[0].profile.coordinate_y,
-      longitudeDelta: 0.2,
-      latitudeDelta: 0.001,
-    };
-    this.setState({markers: markers});
-  };
-
-  getCar = async () => {
+  checkDriver = async () => {
     try {
-      id = vars.driverData[0].profile.id;
-
       token = await Storage.instance.get('token');
+
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/passenger/driver/`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Token ' + token,
+          },
+        },
+      );
+      let response = await request.json();
+      driverData = response;
+      this.setState({driverData: driverData});
+    
+      info_driver = driverData[0];
+     
+      coorx = info_driver.profile.coordinate_x;
+      coory = info_driver.profile.coordinate_y;
+   
+      let markers = {
+        latitude: coorx,
+        longitude: coory,
+        longitudeDelta: 0.2,
+        latitudeDelta: 0.001,
+      };
+      this.setState({markers: markers});
+    
+      this.setState({info_driver: info_driver});
+
+    } catch (err) {
+      console.log('Getting user info error', err);
+      throw Error(err);
+    }
+    try {
+      id = info_driver.profile.id
 
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/driver/car/${id}/`,
@@ -67,9 +95,9 @@ class DetailsPrivate extends React.Component {
       throw Error(err);
     }
   };
-
   render() {
-    const {car} = this.state;
+    const {car, info_driver} = this.state;
+    
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -86,11 +114,11 @@ class DetailsPrivate extends React.Component {
           <View style={styles.formShadow}>
             <View style={styles.dataContainer}>
               <Text style={styles.textName}>
-                {vars.driverData[0].profile.user.first_name}
+                {  info_driver.profile.user.first_name  || "loading" }
               </Text>
               <Text style={styles.phone}>
-                {vars.driverData[0].profile.phone}
-              </Text>
+                { info_driver.profile.phone   || "loading" }
+                </Text>
 
               <Text style={styles.titleLocation}>Location</Text>
               <View style={styles.containerMap}>
@@ -107,7 +135,7 @@ class DetailsPrivate extends React.Component {
               <Text style={styles.textColor}>{car.color}</Text>
             </View>
 
-           {/*  <TouchableOpacity
+            {/*  <TouchableOpacity
               style={styles.buttonDark}
               onPress={this.handlePress}>
               <Text style={styles.buttonDarkText}>Start ride</Text>
