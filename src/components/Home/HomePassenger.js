@@ -1,4 +1,6 @@
 import React from 'react';
+export var driver = false;
+export var driverData = [];
 import {
   Text,
   View,
@@ -18,18 +20,21 @@ import UserSession from '../../Libs/Sessions';
 import Storage from '../../Libs/Storage';
 import * as vars from '../../Libs/Sessions';
 
-export var driver = false;
-export var driverData = [];
 class HomePassenger extends React.Component {
   state = {
     drivers: [],
     markers: [],
     driver: false,
     driverData:[],
-  };
+    info_id: undefined,
+    info_coorx: undefined,
+    info_coory: undefined,
+   };
   componentDidMount = () => {
     this.checkDriver();
     this.getDriver();
+    setTimeout(() => {this.saveDataDriver()}, 2000)
+    
   };
 
   checkDriver = async () => {
@@ -48,13 +53,38 @@ class HomePassenger extends React.Component {
       driverData=response
       this.setState({driverData:driverData})
       driver = true;
+      info_driver = driverData[0];
 
-      this.setState({driver: driver});
+      info_id = info_driver.profile.id
+      info_id = JSON.stringify(info_id)
+
+      info_coorx = info_driver.profile.coordinate_x
+      info_coorx = JSON.stringify(info_coorx)
+
+      info_coory = info_driver.profile.coordinate_y
+      info_coory = JSON.stringify(info_coory)
+     
+      this.setState({driver: driver, info_id: info_id, info_coorx: info_coorx, info_coory: info_coory});
+   
     } catch (err) {
-      console.log('Geting user info error', err);
+      console.log('Getting user info error', err);
       throw Error(err);
     }
   };
+
+  saveDataDriver = async () => {
+    await Storage.instance.store('info_id_driver', info_id)
+    await Storage.instance.store('info_coorx_driver', info_coorx)
+    await Storage.instance.store('info_coory_driver', info_coory)
+
+    coorx = await Storage.instance.get('info_coorx_driver');
+    coory = await Storage.instance.get('info_coory_driver');
+
+    console.log(coorx)
+    console.log(coory)
+    
+  }
+
   handlePress = id => {
     Alert.alert(
       'Important',
@@ -118,6 +148,7 @@ class HomePassenger extends React.Component {
 
   getDriver = async () => {
     try {
+      
       token = await Storage.instance.get('token');
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/drivers/available/`,
@@ -152,6 +183,9 @@ class HomePassenger extends React.Component {
 
   render() {
     const {markers} = this.state;
+   
+    
+    
     return (
       <ScrollView style={Styles.Container}>
         <StatusBar backgroundColor="transparent" translucent={true} />
@@ -182,10 +216,13 @@ class HomePassenger extends React.Component {
             );
           })}
         </View>
+        
       </ScrollView>
     );
   }
 }
+
+
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;
 var iconSize = height * 0.135;
