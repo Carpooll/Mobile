@@ -13,10 +13,11 @@ import {
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import * as vars from '../../Libs/Sessions'
 import UserSession from '../../Libs/Sessions';
 
 // NEEDS TO CHANGE TO DYNAMIC DATA
-
+var userBalance;
 class PassengerPrivate extends React.Component {
   state = {
     user: {
@@ -28,10 +29,12 @@ class PassengerPrivate extends React.Component {
       longitudeDelta: .40,
       latitudeDelta: 0.100,
     },
+    balance:0,
   };
 
   componentDidMount = () => {
     this.getUserData();
+    this.getBalance()
     //this.getMarkers();
   };
   getUserData = async () => {
@@ -45,12 +48,31 @@ class PassengerPrivate extends React.Component {
       this.setState({user: user, markers: markers});
   };
 
+  getBalance = async () => {
+    try {
+      let request = await fetch(
+        `https://carpool-arduino-backend.herokuapp.com/getUser/?user_id=${vars.username}`,
+        {
+          method: 'GET',
+        },
+      );
+
+      let response = await request.json();
+      userBalance = response.current_balance;
+      console.log(userBalance, "usr")
+      this.setState({balance:userBalance})
+    } catch (err) {
+      console.log('get balance err', err);
+      throw Error(err);
+    }
+  };
+
   handlePress = () => {
     this.props.navigation.navigate('EditProfilePassenger');
   };
 
   render() {
-    const {user, markers} = this.state;
+    const {user, markers, balance} = this.state;
     //console.log(user);
     return (
       <ScrollView style={Styles.Container}>
@@ -70,7 +92,7 @@ class PassengerPrivate extends React.Component {
 
           <Text style={Styles.userTitle}>Your current balance</Text>
           <View style={Styles.profitContainer}>
-            <Text style={Styles.userInfo}>{ '$0.0' || user.profile.balance}</Text>
+            <Text style={Styles.userInfo}>${balance}</Text>
           </View>
 
           <Text style={Styles.loc}>Location</Text>
