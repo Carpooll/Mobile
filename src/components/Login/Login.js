@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import UserSession from '../../Libs/Sessions';
+import Storage from '../../Libs/Storage';
 import * as vars from '../../Libs/Sessions';
 
 // import Background from "../../assets/background.jpeg"
@@ -43,8 +44,17 @@ class Login extends React.Component {
     //console.log(user)
     //console.log(this.state.driver)
     this.setState({user: user});
+    console.log(user.username)
+    if (user.username != null){
+      is_driver = await Storage.instance.get('isDriverLogCheck')
+      console.log("driver?",is_driver)
+      if(is_driver == 'true'){
+        this.props.navigation.replace('TabNavigatorDriver');
+      }else if(is_driver == 'false'){
+        this.props.navigation.replace('TabNavigatorPassenger');
+      }
+    }
   };
-
   handlePress = () => {
     this.props.navigation.navigate('SignUpData');
   };

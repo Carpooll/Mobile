@@ -10,7 +10,9 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Alert
 } from 'react-native';
+import RNRestart from 'react-native-restart'
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
@@ -74,7 +76,40 @@ class ProfileDriver extends React.Component {
   handlePress = () => {
     this.props.navigation.navigate('EditProfileDriver');
   };
-
+  logout = () => {
+    /* gives an alert to logout */
+    Alert.alert('Logout',
+    `Do you really want to logout?`,
+    [
+        {
+            text: 'Cancel',
+            style:'cancel'
+        },
+        {
+            text: 'Logout',
+            onPress:async() =>{this.setState({
+                loading: true})
+                try{
+                    await Storage.instance.remove('id')
+                }
+                catch(e){
+                    console.log('id error', e)
+                }
+                try{
+                    RNRestart.Restart();
+                }catch(e){
+                    console.log('error restarting application', e)
+                    
+                }
+            },
+            style:'destructive',
+        },    
+    ],
+    {
+        cancelable: true,
+    }
+    )
+}
   render() {
     const {user, car} = this.state;
     return (
@@ -118,6 +153,12 @@ class ProfileDriver extends React.Component {
         </View>
         <TouchableOpacity style={Styles.darkButton} onPress={this.handlePress}>
           <Text style={Styles.darkButtonText}>EDIT</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={Styles.redButton} onPress={this.logout}>
+          <Image 
+            style={Styles.redButtonText}
+            source={require('../../assets/logout_icon.png')}
+          />
         </TouchableOpacity>
       </ScrollView>
     );
@@ -267,6 +308,26 @@ const Styles = StyleSheet.create({
   darkButtonText: {
     alignSelf: 'center',
     color: Colors.white,
+  },
+  redButton: {
+    alignSelf: 'center',
+    height: FormHeight * 0.1,
+    
+    width: FormWidth * 0.19,
+    borderRadius: 50,
+    marginTop:height*.08,
+    left:55,
+    fontSize: Fonts.miniButtons,
+    backgroundColor: 'red',
+    position:'absolute',
+    justifyContent: 'center',
+
+    zIndex: 5,
+  },
+
+  redButtonText: {
+    alignSelf: 'center',
+
   },
 });
 
