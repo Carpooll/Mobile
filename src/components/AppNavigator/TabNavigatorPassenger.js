@@ -7,7 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Storage from '../../Libs/Storage';
 
 // SCREENS
-import Notifications from '../Notifications/Notifications';
+import Notifications from '../Notifications/NotificationsPass';
 // Profiles
 import PassengerPrivate from '../Profiles/ProfilePassengerPrivate';
 // Home

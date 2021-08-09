@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,20 +10,15 @@ import {
   TouchableOpacity,
   TouchableOpacityComponent,
 } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
 import ModalDeletePass from '../Generics/ModalDeletePass';
 import * as vars from '../../Libs/Sessions';
 
 const createTwoButtonAlert = () =>
+  Alert.alert('Important', 'You do not have passenger yet!', [{text: 'OK'}]);
 
-  Alert.alert(
-    'Important',
-    'You do not have passenger yet!',
-    [{ text: 'OK' }],
-  );
-
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
@@ -40,6 +35,13 @@ class screens extends Component {
       latitudeDelta: 0.24864195044303443,
       longitudeDelta: 0.240142817690068,
     },
+    getRideStatus: undefined,
+    passengers:undefined,
+  };
+
+  componentDidMount = () => {
+    this.getRide();
+    this.getPassengers()
   };
 
   handlePress = () => {
@@ -47,24 +49,68 @@ class screens extends Component {
   };
 
   startRide = async () => {
-    console.log(vars.token)
+    try {
+      let request = await fetch(`https://carpool-utch.herokuapp.com/rides/`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${vars.token}`,
+        },
+      });
+      let response = await request.json();
+      //console.log(response)
+      if (response != {}) {
+        Alert.alert(
+          'Important',
+          'Your ride has begun.\n\nYour passengers got a notification to go with you !',
+          [{text: 'OK'}],
+        );
+      }
+      this.setState({getRideStatus:true})
+      //console.log("the balance is: ")
+      //console.log(response);
+    } catch (err) {
+      console.log('Start ride error', err);
+      throw Error(err);
+    }
+  };
+  getRide = async () => {
     try {
       let request = await fetch(
-        `https://carpool-utch.herokuapp.com/rides/`,
+        `https://carpool-utch.herokuapp.com/driver/on_ride/`,
         {
-          method: 'POST',
+          method: 'GET',
           headers: {
-            'Authorization': `Token ${vars.token}`
-          }
+            Authorization: `Token ${vars.token}`,
+          },
         },
-        );
-        let response = await request.json();
-        console.log(response)
-        if(response !=  {}){
+      );
+      let response = await request.json();
+      let getRideStatus = response.is_active;
+      this.setState({getRideStatus: getRideStatus});
+      /*  if(response !=  {}){
           Alert.alert('Important', 'Your ride has begun.\n\nYour passengers got a notification to go with you !', [{text: 'OK'}]);
-        }
-        //console.log("the balance is: ")
-      //console.log(response);
+        } */
+    } catch (err) {
+      console.log('Get ride error', err);
+      throw Error(err);
+    }
+  };
+
+  closeRide = async () => {
+    try {
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/rides/close/`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${vars.token}`,
+          },
+        },
+      );
+      let response = await request.json();
+      if(response.message =="ride successfully closed"){
+        this.setState({ getRideStatus:false})
+      }
     } catch (err) {
       console.log('Start ride error', err);
       throw Error(err);
@@ -86,9 +132,10 @@ class screens extends Component {
       //console.log(Object.keys(response).length);
       if (Object.keys(response).length === 0) {
         createTwoButtonAlert();
+        this.setState({passengers:0})
       } else {
-        this.setState({ passengers: response });
-        const { passengers, markers } = this.state;
+        this.setState({passengers: response});
+        const {passengers, markers} = this.state;
 
         for (var i = 0; i < passengers.length; i++) {
           let marker = {
@@ -97,12 +144,14 @@ class screens extends Component {
               longitude: passengers[i].profile.coordinate_y,
             },
             title: passengers[i].profile.user.first_name,
-            image: { uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry' },
+            image: {
+              uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
+            },
             phone: passengers[i].profile.phone,
           };
           markers.push(marker);
 
-          this.setState({ markers: markers });
+          this.setState({markers: markers});
         }
       }
     } catch (err) {
@@ -111,6 +160,8 @@ class screens extends Component {
   };
 
   render() {
+    const {getRideStatus, passengers} = this.state;
+    console.log(getRideStatus)
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
@@ -127,14 +178,21 @@ class screens extends Component {
         outputRange: [0.35, 1, 0.35],
         extrapolate: 'clamp',
       });
-      return { scale, opacity };
+      return {scale, opacity};
     });
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.cardRide} onPress={this.startRide}>
-          <Text style={styles.cardRideText}>Start a ride</Text>
-        </TouchableOpacity>
+        {getRideStatus == false && passengers>0 ? (
+          <TouchableOpacity  style={styles.cardRide} onPress={this.startRide}>
+            <Text style={styles.cardRideText}>Start ride</Text>
+          </TouchableOpacity>
+        ) :(
+          <TouchableOpacity  style={styles.cardRide} onPress={this.closeRide}>
+            <Text style={styles.cardRideText}>Close ride</Text>
+          </TouchableOpacity>
+        )}
+
         <MapView
           provider={PROVIDER_GOOGLE}
           ref={map => (this.map = map)}
@@ -217,7 +275,7 @@ class screens extends Component {
     this.getPassengers();
 
     //this.getMarkers();
-    this.animation.addListener(({ value }) => {
+    this.animation.addListener(({value}) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3);
       if (index >= this.state.markers.length) {
         index = this.state.markers.length - 1;
@@ -280,7 +338,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   cardImage: {
-    marginTop:10,
+    marginTop: 10,
     width: '100%',
     height: '50%',
     alignSelf: 'center',
@@ -351,11 +409,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     alignContent: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
-  cardRideText:{
-
+  cardRideText: {
     color: Colors.white,
 
     textAlign: 'center',
@@ -363,7 +420,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignSelf: 'center',
 
-    fontSize: 25
+    fontSize: 25,
   },
 });
 

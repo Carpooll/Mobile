@@ -77,7 +77,9 @@ class Login extends React.Component {
 
       if (typeof response == 'object') {
         //console.log(response);
+
         if (response['401'] == 'User not verified') {
+
           var message = 'Your account is not verified';
         } else {
           var message = 'Invalid username or password, try again';

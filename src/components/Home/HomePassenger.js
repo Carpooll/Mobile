@@ -58,13 +58,7 @@ class HomePassenger extends React.Component {
       info_id = info_driver.profile.id
       info_id = JSON.stringify(info_id)
 
-      info_coorx = info_driver.profile.coordinate_x
-      info_coorx = JSON.stringify(info_coorx)
-
-      info_coory = info_driver.profile.coordinate_y
-      info_coory = JSON.stringify(info_coory)
-     
-      this.setState({driver: driver, info_id: info_id, info_coorx: info_coorx, info_coory: info_coory});
+      this.setState({driver: driver})
    
     } catch (err) {
       console.log('Getting user info error', err);
@@ -151,7 +145,7 @@ class HomePassenger extends React.Component {
       this.setState({drivers: response});
 
       const {drivers, markers} = this.state;
-      for (var i = 0; i < drivers.length; i++) {
+    for (var i = 0; i < drivers.length; i++) {
         let driver = {
           name: drivers[i].first_name,
           travel_cost: drivers[i].travel_cost,
@@ -160,22 +154,23 @@ class HomePassenger extends React.Component {
         markers.push(driver);
         this.setState({markers: markers});
         //console.log(markers)
-      }
+      }  
       return response;
     } catch (err) {
-      console.log('signup err', err);
+      console.log('get drivers err', err);
       throw Error(err);
     }
     //let drivers = await UserSession.instance.availableDrivers();
   };
 
   render() {
+
     const {markers} = this.state;
-   
-    
+       
     
     return (
       <ScrollView style={Styles.Container}>
+        
         <StatusBar backgroundColor="transparent" translucent={true} />
         <View style={Styles.marginTopCards}>
           {this.state.markers.map((marker, profile_id) => {
@@ -284,7 +279,7 @@ const Styles = StyleSheet.create({
     elevation: 20,
   },
 
-  nameDriver: {
+ nameDriver : {
     marginTop: 20,
 
     marginLeft: 30,
@@ -315,7 +310,6 @@ const Styles = StyleSheet.create({
   },
 
   darkButton: {
-    alignSelf: 'center',
     height: FormHeight * 0.2,
     marginTop: FormHeight - 16,
     width: FormWidth * 0.39,
