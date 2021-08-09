@@ -14,6 +14,7 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
 import ModalDeletePass from '../Generics/ModalDeletePass';
 import * as vars from '../../Libs/Sessions';
+var passenger
 
 const createTwoButtonAlert = () =>
   Alert.alert('Important', 'You do not have passenger yet!', [{text: 'OK'}]);
@@ -36,7 +37,7 @@ class screens extends Component {
       longitudeDelta: 0.240142817690068,
     },
     getRideStatus: undefined,
-    passengers:undefined,
+    passenger:undefined,
   };
 
   componentDidMount = () => {
@@ -130,11 +131,14 @@ class screens extends Component {
       );
       let response = await request.json();
       //console.log(Object.keys(response).length);
-      if (Object.keys(response).length === 0) {
+      
+      if (Object.keys(response).length == 0) {
+        
         createTwoButtonAlert();
-        this.setState({passengers:0})
+        passenger= 0
       } else {
-        this.setState({passengers: response});
+        passenger= 1
+        this.setState({passengers:response});
         const {passengers, markers} = this.state;
 
         for (var i = 0; i < passengers.length; i++) {
@@ -161,7 +165,6 @@ class screens extends Component {
 
   render() {
     const {getRideStatus, passengers} = this.state;
-    console.log(getRideStatus)
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
@@ -180,18 +183,18 @@ class screens extends Component {
       });
       return {scale, opacity};
     });
-
     return (
       <View style={styles.container}>
-        {getRideStatus == false && passengers>0 ? (
+        {getRideStatus == "False" && passenger>0?( 
           <TouchableOpacity  style={styles.cardRide} onPress={this.startRide}>
-            <Text style={styles.cardRideText}>Start ride</Text>
-          </TouchableOpacity>
-        ) :(
+          <Text style={styles.cardRideText}>Start ride</Text>
+        </TouchableOpacity>
+        ):getRideStatus == "True" && passenger>0?(
           <TouchableOpacity  style={styles.cardRide} onPress={this.closeRide}>
             <Text style={styles.cardRideText}>Close ride</Text>
           </TouchableOpacity>
-        )}
+        ): null}
+
 
         <MapView
           provider={PROVIDER_GOOGLE}
