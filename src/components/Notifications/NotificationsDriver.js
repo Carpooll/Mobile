@@ -71,8 +71,7 @@ class Notifications extends React.Component {
   };
 
   deniedRequest = async (id_notification) => {
-      console.log(id_notification)
-      console.log(token)
+      
     Alert.alert(
         'Denied passenger request.',
         `Are you sure you want to reject the request?\n\nThis action can't be undone.`,
@@ -96,9 +95,7 @@ class Notifications extends React.Component {
                   },
                 );
                 let response = await request.json();
-                if(response){
-                    this.getNotifications()
-                  }
+                
               } catch (err) {
                 console.log('reject pass', err);
                 throw Error(err);
