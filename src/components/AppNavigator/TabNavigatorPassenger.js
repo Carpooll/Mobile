@@ -4,6 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Stack from '../Layout/Stack';
 import Colors from '../../res/Colors';
 import {createStackNavigator} from '@react-navigation/stack';
+import Storage from '../../Libs/Storage';
 
 // SCREENS
 import Notifications from '../Notifications/Notifications';
@@ -19,11 +20,36 @@ import DetailsPrivate from '../../components/Details/DetailsPrivate'
 
 
 import * as vars from '../Home/HomePassenger';
-
+//import { driver } from '../../Libs/Sessions';
 
 const Tabs = createBottomTabNavigator();
 
+var driver = false;
 
+checkDriver = async () => {
+  try {
+    console.log('esta cosa es es check a ver si es verdah ')
+    token = await Storage.instance.get('token');
+    let request = await fetch(
+      `https://carpool-utch.herokuapp.com/passenger/driver/`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Token ' + token,
+        },
+      },
+    );
+    let response = await request.json();
+    driverData=response
+
+    driver = true;
+    console.log(driver)
+    return driver
+  } catch (err) {
+    console.log('Geting user info error', err);
+    throw Error(err);
+  }
+};
 
 // Stack to redirect to screens between tab navigator (HOME)
 const HomeStack = createStackNavigator();
@@ -39,7 +65,7 @@ function HomeStackScreen() {
         },
       }}>
 
-      {vars.driver ? (
+      {driver ? (
         <HomeStack.Screen
         name="DetailsPrivate"
         component={DetailsPrivate}
@@ -61,6 +87,7 @@ function HomeStackScreen() {
 
 // Stack to redirect to screens between tab navigator (PROFILE)
 const ProfileStack = createStackNavigator();
+
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator
@@ -115,6 +142,7 @@ const TabNavigator = () => {
       <Tabs.Screen
         name="Profile"
         component={ProfileStackScreen}
+        onPress={checkDriver()}
         options={{
           tabBarIcon: ({size, color}) => (
             <Image
