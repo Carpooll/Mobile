@@ -30,14 +30,14 @@ class HomePassenger extends React.Component {
     info_coorx: undefined,
     info_coory: undefined,
    };
+
   componentDidMount = () => {
     this.checkDriver();
     this.getDriver();
-    setTimeout(() => {this.saveDataDriver()}, 2000)
     
   };
 
-  checkDriver = async () => {
+   checkDriver = async () => {
     try {
       token = await Storage.instance.get('token');
       let request = await fetch(
@@ -70,20 +70,8 @@ class HomePassenger extends React.Component {
       console.log('Getting user info error', err);
       throw Error(err);
     }
-  };
 
-  saveDataDriver = async () => {
-    await Storage.instance.store('info_id_driver', info_id)
-    await Storage.instance.store('info_coorx_driver', info_coorx)
-    await Storage.instance.store('info_coory_driver', info_coory)
-
-    coorx = await Storage.instance.get('info_coorx_driver');
-    coory = await Storage.instance.get('info_coory_driver');
-
-    console.log(coorx)
-    console.log(coory)
-    
-  }
+  }; 
 
   handlePress = id => {
     Alert.alert(
