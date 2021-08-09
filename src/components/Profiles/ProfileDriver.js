@@ -16,10 +16,11 @@ import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import UserSession from '../../Libs/Sessions';
 import Storage from '../../Libs/Storage';
-import * as vars from '../../Libs/Sessions'
+import * as vars from '../../Libs/Sessions';
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
-var Car={}
+var Car = {};
+var userBalance;
 
 class ProfileDriver extends React.Component {
   state = {
@@ -36,14 +37,33 @@ class ProfileDriver extends React.Component {
   };
   componentDidMount = () => {
     this.getCarData();
+    this.getBalance();
     this.getUserData();
     //this.getMarkers();
+  };
+
+  getBalance = async () => {
+    try {
+      let request = await fetch(
+        `https://carpool-arduino-backend.herokuapp.com/getUser/?user_id=${vars.username}`,
+        {
+          method: 'GET',
+        },
+      );
+
+      let response = await request.json();
+      userBalance = response.current_balance;
+      console.log(userBalance, "usr")
+    } catch (err) {
+      console.log('get balance err', err);
+      throw Error(err);
+    }
   };
 
   getCarData = async () => {
     try {
       id = await Storage.instance.get('id');
-      token = vars.token
+      token = vars.token;
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/driver/car/${id}/`,
         {
@@ -54,7 +74,7 @@ class ProfileDriver extends React.Component {
         },
       );
       let response = await request.json();
-      Car= response
+      Car = response;
       this.setState({car: Car});
       return response;
     } catch (err) {
@@ -100,9 +120,7 @@ class ProfileDriver extends React.Component {
 
           <Text style={Styles.userTitle}>Your Profits</Text>
           <View style={Styles.profitContainer}>
-            <Text style={Styles.userInfo}>
-              {'$0.0' || user.profile.balance}
-            </Text>
+            <Text style={Styles.userInfo}>${userBalance}</Text>
           </View>
           <Text style={Styles.profitTime}>This Week</Text>
 
