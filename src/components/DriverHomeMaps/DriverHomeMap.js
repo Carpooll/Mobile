@@ -36,6 +36,7 @@ class screens extends Component {
       longitudeDelta: 0.240142817690068,
     },
     getRideStatus: undefined,
+    passengers:undefined,
   };
 
   componentDidMount = () => {
@@ -131,6 +132,7 @@ class screens extends Component {
       //console.log(Object.keys(response).length);
       if (Object.keys(response).length === 0) {
         createTwoButtonAlert();
+        this.setState({passengers:0})
       } else {
         this.setState({passengers: response});
         const {passengers, markers} = this.state;
@@ -158,7 +160,8 @@ class screens extends Component {
   };
 
   render() {
-    const {getRideStatus} = this.state;
+    const {getRideStatus, passengers} = this.state;
+    console.log(getRideStatus)
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
@@ -180,13 +183,13 @@ class screens extends Component {
 
     return (
       <View style={styles.container}>
-        {getRideStatus ? (
-          <TouchableOpacity style={styles.cardRide} onPress={this.closeRide}>
-            <Text style={styles.cardRideText}>Close ride</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={styles.cardRide} onPress={this.startRide}>
+        {getRideStatus == false && passengers>0 ? (
+          <TouchableOpacity  style={styles.cardRide} onPress={this.startRide}>
             <Text style={styles.cardRideText}>Start ride</Text>
+          </TouchableOpacity>
+        ) :(
+          <TouchableOpacity  style={styles.cardRide} onPress={this.closeRide}>
+            <Text style={styles.cardRideText}>Close ride</Text>
           </TouchableOpacity>
         )}
 
