@@ -49,10 +49,8 @@ class HomePassenger extends React.Component {
       this.setState({driverData:driverData})
       driver = true;
 
-      this.setState({driver: driver});
+      this.setState({driver: driver})
     } catch (err) {
-      console.log('Geting user info error', err);
-      throw Error(err);
     }
   };
   handlePress = id => {
@@ -132,7 +130,7 @@ class HomePassenger extends React.Component {
       this.setState({drivers: response});
 
       const {drivers, markers} = this.state;
-      for (var i = 0; i < drivers.length; i++) {
+    for (var i = 0; i < drivers.length; i++) {
         let driver = {
           name: drivers[i].first_name,
           travel_cost: drivers[i].travel_cost,
@@ -141,19 +139,19 @@ class HomePassenger extends React.Component {
         markers.push(driver);
         this.setState({markers: markers});
         //console.log(markers)
-      }
+      }  
       return response;
     } catch (err) {
-      console.log('signup err', err);
+      console.log('get drivers err', err);
       throw Error(err);
     }
     //let drivers = await UserSession.instance.availableDrivers();
   };
 
   render() {
-    const {markers} = this.state;
     return (
       <ScrollView style={Styles.Container}>
+        
         <StatusBar backgroundColor="transparent" translucent={true} />
         <View style={Styles.marginTopCards}>
           {this.state.markers.map((marker, profile_id) => {
@@ -182,6 +180,9 @@ class HomePassenger extends React.Component {
             );
           })}
         </View>
+        
+
+      
       </ScrollView>
     );
   }
@@ -259,7 +260,7 @@ const Styles = StyleSheet.create({
     elevation: 20,
   },
 
-  nameDriver: {
+ nameDriver : {
     marginTop: 20,
 
     marginLeft: 30,
@@ -290,7 +291,6 @@ const Styles = StyleSheet.create({
   },
 
   darkButton: {
-    alignSelf: 'center',
     height: FormHeight * 0.2,
     marginTop: FormHeight - 16,
     width: FormWidth * 0.39,
