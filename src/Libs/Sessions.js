@@ -216,8 +216,8 @@ getBalance = async () => {
       },
     );
     let response = await request.json();
-    //console.log("the balance is: ")
-    //console.log(response);
+    console.log("the balance is: ")
+    console.log(response);
   } catch (err) {
     console.log('get balance err', err);
     throw Error(err);
