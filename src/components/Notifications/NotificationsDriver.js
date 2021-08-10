@@ -31,7 +31,33 @@ class Notifications extends React.Component {
 
   componentDidMount = () => {
     this.getNotifications();
-  };
+      this.focusEvent();
+      this.blurEvent();
+    }
+  
+    //next event clear the interval that was set before
+    focusEvent = () => {
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.setFetchInterval();
+      });
+    };
+  
+  //next event clear the interval that was set before
+    blurEvent = () => {
+      this.blurListener = this.props.navigation.addListener('blur', () => {
+        clearInterval(this.interval);
+      });
+    };
+  
+    // setting an interval of 3s
+    setFetchInterval = () => {
+      this.interval = setInterval(this.getNotifications, 1000);
+    };
+
+    componentWillUnmount = () =>{
+      this.focusListener();
+      this.blurListener();
+    }
 
   getNotifications = async () => {
     try {
@@ -51,6 +77,9 @@ class Notifications extends React.Component {
       //console.log(response.results);
       this.setState({notifications: notifications});
 
+      const array=[]
+
+
       const {markers} = this.state;
 
       for (var i = 0; i < notifications.length; i++) {
@@ -60,10 +89,10 @@ class Notifications extends React.Component {
           passenger_id: notifications[i].sender,
           id_notification: notifications[i].id,
         };
-        markers.push(notification);
-        this.setState({markers: markers});
+        array.push(notification);
         //console.log(markers)
       }
+      this.setState({markers: array});
     } catch (err) {
       console.log('Geting user info error', err);
       throw Error(err);
@@ -247,25 +276,25 @@ const Styles = StyleSheet.create({
 
   darkButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 16,
-    width: FormWidth * 0.15,
-    borderRadius: 8,
+    marginTop: FormHeight - 50,
+    width: FormWidth * 0.19,
+    borderRadius: 4,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.black,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -40,
+    marginLeft: -30,
   },
   redButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 60,
-    width: FormWidth * 0.15,
-    borderRadius: 8,
+    marginTop: FormHeight - 50,
+    width: FormWidth * 0.19,
+    borderRadius: 4,
     fontSize: Fonts.miniButtons,
     backgroundColor: '#8c8c8c',
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -114,
+    marginLeft: -137,
   },
 
   darkButtonText: {
@@ -275,14 +304,14 @@ const Styles = StyleSheet.create({
   },
   blueButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 60,
-    width: FormWidth * 0.15,
-    borderRadius: 8,
+    marginTop: FormHeight - 50,
+    width: FormWidth * 0.19,
+    borderRadius: 4,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -133,
+    marginLeft: -183,
   },
   blueButtonText: {
     alignSelf: 'center',
@@ -294,21 +323,20 @@ const Styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   nameDriver: {
-    marginTop: 10,
+    marginTop: 15,
 
-    marginLeft: 30,
 
     alignSelf: 'center',
 
     color: Colors.black,
 
-    fontSize: 12,
+    fontSize: 14,
   },
 
   priceDriver: {
     marginTop: 8,
 
-    marginLeft: 30,
+    marginLeft: 5,
 
     fontSize: Fonts.subTitle,
 
@@ -324,7 +352,7 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: 30,
-    height: FormHeight-25,
+    height: FormHeight-15,
     width: FormWidth+20,
     alignSelf: 'center',
     backgroundColor: Colors.white,
@@ -356,7 +384,7 @@ const Styles = StyleSheet.create({
     width: iconSize-20,
     backgroundColor: Colors.white,
     marginTop: 10,
-    marginLeft: 10,
+    marginLeft: 15,
     borderRadius: iconSize / 2,
     zIndex: 6,
     shadowColor: '#000',
