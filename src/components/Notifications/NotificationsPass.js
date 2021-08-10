@@ -112,8 +112,7 @@ class Notifications extends React.Component {
                   passenger: parseInt(id),
                   amount: ride_cost,
                 };
-                console.log(driver_id)
-                console.log(id, "passenger")
+                
                 let request = await fetch(
                   `https://carpool-utch.herokuapp.com/transaction/`,
                   {
@@ -290,26 +289,16 @@ const Styles = StyleSheet.create({
   },
   darkButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 16,
+    marginTop: FormHeight - 60,
     width: FormWidth * 0.15,
     borderRadius: 8,
     fontSize: Fonts.miniButtons,
-    backgroundColor: Colors.black,
+    backgroundColor: "#3c3c3c",
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -40,
+    marginLeft: -100,
   },
-  redButton: {
-    height: FormHeight * 0.2,
-    marginTop: FormHeight - 16,
-    width: FormWidth * 0.15,
-    borderRadius: 8,
-    fontSize: Fonts.miniButtons,
-    backgroundColor: '#8C0503',
-    justifyContent: 'center',
-    zIndex: 5,
-    marginLeft: -102,
-  },
+
 
   darkButtonText: {
     alignSelf: 'center',
@@ -318,14 +307,14 @@ const Styles = StyleSheet.create({
   },
   blueButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 16,
+    marginTop: FormHeight - 60,
     width: FormWidth * 0.15,
     borderRadius: 8,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -150,
+    marginLeft: -200,
   },
   blueButtonText: {
     alignSelf: 'center',
@@ -349,21 +338,59 @@ const Styles = StyleSheet.create({
     elevation: 20,
   },
   nameDriver: {
-    marginTop: 20,
+    marginTop: 10,
 
-    marginLeft: 20,
+    marginLeft: -96,
+
+    alignSelf: 'center',
 
     color: Colors.black,
-
-    fontSize: 15,
-  },
-  priceDriver: {
-    marginTop: 20,
-
-    marginLeft: 20,
 
     fontSize: 12,
+  },
+  picture: {
+    alignSelf: 'center',
+    height: 50,
+    width: 40,
+    marginTop:10,
+    zIndex: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+  },
+  pictureContainer: {
+    alignSelf: 'center',
+    height: iconSize-40,
+    width: iconSize-40,
+    backgroundColor: Colors.white,
+    marginTop: 10,
+    marginLeft: 10,
+    borderRadius: iconSize / 2,
+    zIndex: 6,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+  },
+  priceDriver: {
+    marginTop: 8,
+
+    marginLeft: 3,
+
+    fontSize: Fonts.subTitle,
+
+    fontSize: Fonts.mainTitle,
+
     color: Colors.black,
+
+    fontSize: Fonts.subTitle,
   },
 
   infoContainer: {
@@ -409,8 +436,8 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: 30,
-    height: FormHeight,
-    width: FormWidth,
+    height: FormHeight-25,
+    width: FormWidth+20,
     alignSelf: 'center',
     backgroundColor: Colors.white,
     borderRadius: 15,
