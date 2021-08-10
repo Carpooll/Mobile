@@ -369,7 +369,7 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight +50,
+    height: FormHeight - 30,
     width: FormWidth,
     alignSelf: 'center',
     backgroundColor: Colors.white,
@@ -413,7 +413,7 @@ const Styles = StyleSheet.create({
     color: Colors.blue,
   },
   subtitle: {
-    marginTop: FormHeight * 0.06,
+    marginTop: FormHeight * 0.035,
 
     alignSelf: 'center',
 
@@ -449,7 +449,7 @@ const Styles = StyleSheet.create({
 
     height: FormHeight * 0.05,
 
-    marginTop: 1220,
+    marginTop: 1140,
 
     width: 193,
 
