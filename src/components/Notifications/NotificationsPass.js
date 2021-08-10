@@ -34,7 +34,34 @@ class Notifications extends React.Component {
 
   componentDidMount = () => {
     this.getNotifications();
-  };
+      this.focusEvent();
+      this.blurEvent();
+    }
+  
+    //next event clear the interval that was set before
+    focusEvent = () => {
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.setFetchInterval();
+      });
+    };
+  
+  //next event clear the interval that was set before
+    blurEvent = () => {
+      this.blurListener = this.props.navigation.addListener('blur', () => {
+        clearInterval(this.interval);
+      });
+    };
+  
+    // setting an interval of 3s
+    setFetchInterval = () => {
+      this.interval = setInterval(this.getNotifications, 1000);
+    };
+
+    componentWillUnmount = () =>{
+      this.focusListener();
+      this.blurListener();
+    }
+  
 
   getNotifications = async () => {
     try {
@@ -51,9 +78,9 @@ class Notifications extends React.Component {
       );
       let response = await request.json();
       let notifications = response.results;
-      this.setState({notifications: notifications});
+      this.setState({notifications: notifications, markers:[]});
 
-      const {markers} = this.state;
+      const array=[]
 
       for (var i = 0; i < notifications.length; i++) {
         let notification = {
@@ -64,10 +91,10 @@ class Notifications extends React.Component {
           ride_cost: notifications[i].ride_cost,
           driver_id: notifications[i].sender,
         };
-        markers.push(notification);
-        this.setState({markers: markers});
+        array.push(notification);
         //console.log(markers)
       }
+      this.setState({markers: array});
     } catch (err) {
       console.log('Geting user info error', err);
       throw Error(err);
