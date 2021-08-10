@@ -118,7 +118,7 @@ class PassengerPrivate extends React.Component {
           <Image
             style={Styles.image}
             source={{
-              uri: 'https://images.unsplash.com/photo-1624759314986-43bee161a691?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDMzfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+              uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
             }}
           />
         </View>
@@ -307,7 +307,7 @@ const Styles = StyleSheet.create({
     marginTop:height*.08,
     left:55,
     fontSize: Fonts.miniButtons,
-    backgroundColor: 'red',
+    backgroundColor: Colors.white,
     position:'absolute',
     justifyContent: 'center',
 
