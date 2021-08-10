@@ -9,6 +9,7 @@ import {
   Alert,
   TouchableOpacity,
   TouchableOpacityComponent,
+  RefreshControl,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
@@ -24,7 +25,7 @@ const {width, height} = Dimensions.get('window');
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-class screens extends Component {
+class screens extends Component{
   animation = new Animated.Value(0);
 
   state = {
@@ -41,15 +42,21 @@ class screens extends Component {
   };
 
   componentDidMount = () => {
-    this.getRide();
-    this.getPassengers()
+    this.fetchdata();
+    this.focusEvent();
+    this.blurEvent();
   };
 
   handlePress = () => {
     this.props.navigation.navigate('PassengerPublicProfile');
   };
 
-  startRide = async () => {
+  fetchdata = () => {
+    this.getRide();
+    this.getPassengers();
+  }
+
+ startRide = async () => {
     try {
       let request = await fetch(`https://carpool-utch.herokuapp.com/rides/`, {
         method: 'POST',
@@ -162,6 +169,30 @@ class screens extends Component {
       console.log('Get passenger error', err);
     }
   };
+
+    //Fetch the interval calling the function to do it
+    focusEvent = () => {
+     this.focusListener = this.props.navigation.addListener('focus', () => {
+       this.setFetchInterval();
+     });
+   };
+ 
+   //Clear the interval
+   blurEvent = () => {
+     this.blurListener = this.props.navigation.addListener('blur', () => {
+       clearInterval(this.interval);
+     });
+   };
+ 
+   //Fetch the interval every 3 seconds
+   setFetchInterval = () => {
+     this.interval = setInterval(this.fetchdata, 10000);
+   };
+
+ componentWillUnmount() {
+   this.focusListener();
+   this.blurListener();
+ }
 
   render() {
     const {getRideStatus, passengers} = this.state;
