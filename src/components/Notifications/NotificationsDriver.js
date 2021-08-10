@@ -247,14 +247,14 @@ const Styles = StyleSheet.create({
 
   darkButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 60,
+    marginTop: FormHeight - 16,
     width: FormWidth * 0.15,
     borderRadius: 8,
     fontSize: Fonts.miniButtons,
-    backgroundColor: "#3c3c3c",
+    backgroundColor: Colors.black,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -1,
+    marginLeft: -40,
   },
   redButton: {
     height: FormHeight * 0.2,
