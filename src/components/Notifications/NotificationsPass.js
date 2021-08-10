@@ -209,7 +209,7 @@ class Notifications extends React.Component {
                     <Image
                       style={Styles.picture}
                       source={{
-                        uri: 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
+                        uri: 'https://image.flaticon.com/icons/png/512/3602/3602145.png',
                       }}
                     />
                   </View>
