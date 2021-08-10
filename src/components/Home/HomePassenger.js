@@ -164,13 +164,9 @@ class HomePassenger extends React.Component {
   };
 
   render() {
-
-    const {markers} = this.state;
        
-    
     return (
       <ScrollView style={Styles.Container}>
-        
         <StatusBar backgroundColor="transparent" translucent={true} />
         <View style={Styles.marginTopCards}>
           {this.state.markers.map((marker, profile_id) => {
@@ -181,20 +177,20 @@ class HomePassenger extends React.Component {
                     <Image
                       style={Styles.picture}
                       source={{
-                        uri: 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
+                        uri: 'https://image.flaticon.com/icons/png/512/3366/3366399.png',
                       }}
                     />
                   </View>
                 </View>
                 <View key={profile_id} style={Styles.FormContainerRight}>
-                  <Text style={Styles.nameDriver}>{marker.name}</Text>
-                  <Text style={Styles.priceDriver}>{marker.travel_cost}</Text>
-                </View>
+                  <Text style={Styles.nameDriver}>Driver: {marker.name}</Text>
+                  <Text style={Styles.priceDriver}>Travel cost: ${marker.travel_cost}</Text>
                 <TouchableOpacity
                   style={Styles.darkButton}
                   onPress={() => this.handlePress(marker.profile_id)}>
                   <Text style={Styles.darkButtonText}>Request driver</Text>
                 </TouchableOpacity>
+                </View>
               </View>
             );
           })}
@@ -263,7 +259,7 @@ const Styles = StyleSheet.create({
     alignSelf: 'center',
     height: iconSize,
     width: iconSize,
-    backgroundColor: Colors.white,
+    backgroundColor: "#f5f5f5",
     marginTop: 10,
     marginLeft: 10,
     borderRadius: iconSize / 2,
@@ -278,11 +274,17 @@ const Styles = StyleSheet.create({
 
     elevation: 20,
   },
+  label:{
+    marginLeft:39,
+    fontSize: 10,
+    marginTop: -15,
+    color: '#A497A6'
+  },
 
  nameDriver : {
     marginTop: 20,
 
-    marginLeft: 30,
+    marginLeft: -48,
 
     alignSelf: 'center',
 
@@ -311,14 +313,13 @@ const Styles = StyleSheet.create({
 
   darkButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 16,
+    marginTop: FormHeight -100,
     width: FormWidth * 0.39,
     borderRadius: 8,
     fontSize: Fonts.miniButtons,
-    backgroundColor: Colors.black,
-    justifyContent: 'center',
+    backgroundColor: Colors.black, 
     zIndex: 5,
-    marginLeft: -100,
+    marginLeft: 80,
   },
   darkButtonText: {
     alignSelf: 'center',

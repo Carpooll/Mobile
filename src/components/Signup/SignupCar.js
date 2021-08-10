@@ -98,7 +98,7 @@ class SignupCar extends React.Component {
                 style={styles.form}
                 placeholder="Passengers limit"
                 placeholderTextColor={Colors.black}
-                keyboardType='numeric'
+                keyboardType="numeric"
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
@@ -107,12 +107,11 @@ class SignupCar extends React.Component {
                   });
                 }}
               />
-
               <TextInput
                 style={styles.form}
                 placeholder="Travel cost"
                 placeholderTextColor={Colors.black}
-                keyboardType='numeric'
+                keyboardType="numeric"
                 onChangeText={text => {
                   this.setState(prevState => {
                     let form = Object.assign({}, prevState.form);
@@ -121,6 +120,7 @@ class SignupCar extends React.Component {
                   });
                 }}
               />
+              <Text style={styles.label}>Travel cost per user.</Text>
             </View>
 
             <TouchableOpacity
@@ -140,6 +140,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.blue,
     paddingTop: '48%',
     paddingBottom: '54.1%',
+  },
+  label: {
+    alignSelf:'center',
+    fontSize: 10,
+    marginTop: -15,
+    color: '#A497A6',
   },
 
   logoContainer: {

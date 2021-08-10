@@ -200,7 +200,7 @@ class Notifications extends React.Component {
                     <Image
                       style={Styles.picture}
                       source={{
-                        uri: 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
+                        uri: 'https://image.flaticon.com/icons/png/512/633/633816.png',
                       }}
                     />
                   </View>
@@ -258,14 +258,14 @@ const Styles = StyleSheet.create({
   },
   redButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 16,
+    marginTop: FormHeight - 60,
     width: FormWidth * 0.15,
     borderRadius: 8,
     fontSize: Fonts.miniButtons,
-    backgroundColor: '#8C0503',
+    backgroundColor: '#8c8c8c',
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -102,
+    marginLeft: -114,
   },
 
   darkButtonText: {
@@ -275,14 +275,14 @@ const Styles = StyleSheet.create({
   },
   blueButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 16,
+    marginTop: FormHeight - 60,
     width: FormWidth * 0.15,
     borderRadius: 8,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -150,
+    marginLeft: -133,
   },
   blueButtonText: {
     alignSelf: 'center',
@@ -294,7 +294,7 @@ const Styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   nameDriver: {
-    marginTop: 20,
+    marginTop: 10,
 
     marginLeft: 30,
 
@@ -302,11 +302,11 @@ const Styles = StyleSheet.create({
 
     color: Colors.black,
 
-    fontSize: 13,
+    fontSize: 12,
   },
 
   priceDriver: {
-    marginTop: 20,
+    marginTop: 8,
 
     marginLeft: 30,
 
@@ -324,8 +324,8 @@ const Styles = StyleSheet.create({
   },
   FormContainer: {
     marginTop: 30,
-    height: FormHeight,
-    width: FormWidth,
+    height: FormHeight-25,
+    width: FormWidth+20,
     alignSelf: 'center',
     backgroundColor: Colors.white,
     borderRadius: 15,
@@ -337,9 +337,9 @@ const Styles = StyleSheet.create({
   },
   picture: {
     alignSelf: 'center',
-    height: iconSize,
-    width: iconSize,
-    borderRadius: iconSize / 2,
+    height: 60,
+    width: 50,
+    marginTop:10,
     zIndex: 2,
     shadowColor: '#000',
     shadowOffset: {
@@ -348,14 +348,12 @@ const Styles = StyleSheet.create({
     },
     shadowOpacity: 0.51,
     shadowRadius: 13.16,
-
-    elevation: 20,
   },
 
   pictureContainer: {
     alignSelf: 'center',
-    height: iconSize,
-    width: iconSize,
+    height: iconSize-20,
+    width: iconSize-20,
     backgroundColor: Colors.white,
     marginTop: 10,
     marginLeft: 10,

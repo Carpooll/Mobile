@@ -139,7 +139,7 @@ class ProfileDriver extends React.Component {
           <Image
             style={Styles.image}
             source={{
-              uri: 'https://images.unsplash.com/photo-1624759314986-43bee161a691?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDMzfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+              uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
             }}
           />
         </View>
@@ -153,10 +153,18 @@ class ProfileDriver extends React.Component {
           <Text style={Styles.userInfo}>{car.color}</Text>
           <Text style={Styles.userInfo}>{car.plates}</Text>
 
-          <Text style={Styles.userTitle}>Your Profits</Text>
+          <Text style={Styles.userTitle}>Your balance</Text>
           <View style={Styles.profitContainer}>
             <Text style={Styles.userInfo}>${userBalance}</Text>
           </View>
+          <TouchableOpacity style={Styles.paypalB} onPress={this.logout}>
+          <Image 
+            style={Styles.paypal}
+            source={{uri: 'https://image.flaticon.com/icons/png/512/1377/1377239.png'}}
+          />
+
+
+        </TouchableOpacity>
           <Text style={Styles.profitTime}>This Week</Text>
 
           <Text style={Styles.userTitle}>Your Location</Text>
@@ -248,7 +256,7 @@ const Styles = StyleSheet.create({
 
   userName: {
     display: 'flex',
-    marginTop: -100,
+    marginTop: -80,
     color: Colors.black,
     fontSize: 20,
   },
@@ -336,7 +344,7 @@ const Styles = StyleSheet.create({
     marginTop:height*.08,
     left:55,
     fontSize: Fonts.miniButtons,
-    backgroundColor: 'red',
+    backgroundColor: Colors.white,
     position:'absolute',
     justifyContent: 'center',
 
@@ -346,6 +354,22 @@ const Styles = StyleSheet.create({
   redButtonText: {
     alignSelf: 'center',
 
+  },
+
+  paypal:{
+    alignSelf: 'center',
+    height: FormHeight * 0.1,
+    
+    width: FormWidth * 0.19,
+    borderRadius: 50,
+    marginTop:-405,
+    left:90,
+    fontSize: Fonts.miniButtons,
+    backgroundColor: Colors.white,
+    position:'absolute',
+    justifyContent: 'center',
+
+    zIndex: 5,
   },
 });
 

@@ -107,7 +107,7 @@ class DetailsPrivate extends React.Component {
               <Image
                 style={styles.profileImage}
                 source={{
-                  uri: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+                  uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
                 }}></Image>
             </View>
           </View>
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
   imagesContainer: {
     alignSelf: 'center',
     marginTop: -100,
+    backgroundColor:Colors.white,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

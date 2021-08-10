@@ -136,7 +136,7 @@ class SignUpAdrress extends React.Component {
         throw Error(err);
       }
     } else {
-      console.log(Address);
+      //console.log(Address);
       let response = await UserSession.instance.signupData(this.state.form);
       //console.log(response)
       /* console.log(typeof(response))
