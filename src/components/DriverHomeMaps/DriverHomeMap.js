@@ -55,6 +55,37 @@ class screens extends Component{
     this.getRide();
     this.getPassengers();
   }
+  componentDidMount = () => {
+    this.fetchdata();
+      this.focusEvent();
+      this.blurEvent();
+    }
+  
+    //next event clear the interval that was set before
+    focusEvent = () => {
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.setFetchInterval();
+      });
+    };
+  
+  //next event clear the interval that was set before
+    blurEvent = () => {
+      this.blurListener = this.props.navigation.addListener('blur', () => {
+        clearInterval(this.interval);
+      });
+    };
+  
+    // setting an interval of 3s
+    setFetchInterval = () => {
+      this.interval = setInterval(this.fetchdata, 1000);
+    };
+
+    componentWillUnmount = () =>{
+      this.focusListener();
+      this.blurListener();
+    }
+
+
 
  startRide = async () => {
     try {
@@ -140,13 +171,15 @@ class screens extends Component{
       //console.log(Object.keys(response).length);
       
       if (Object.keys(response).length == 0) {
-        
+        this.setState({markers:[]})
         createTwoButtonAlert();
         passenger= 0
       } else {
         passenger= 1
         this.setState({passengers:response});
         const {passengers, markers} = this.state;
+
+        const array=[]
 
         for (var i = 0; i < passengers.length; i++) {
           let marker = {
@@ -160,10 +193,10 @@ class screens extends Component{
             },
             phone: passengers[i].profile.phone,
           };
-          markers.push(marker);
+          array.push(marker);
 
-          this.setState({markers: markers});
         }
+        this.setState({markers: array});
       }
     } catch (err) {
       console.log('Get passenger error', err);
