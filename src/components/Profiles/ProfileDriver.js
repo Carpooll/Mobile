@@ -38,11 +38,18 @@ class ProfileDriver extends React.Component {
     },
   };
   componentDidMount = () => {
+    this.fetchdata();
+    this.focusEvent();
+    this.blurEvent();
+
+    //this.getMarkers();
+  };
+
+  fetchdata = () => {
     this.getCarData();
     this.getBalance();
     this.getUserData();
-    //this.getMarkers();
-  };
+  }
 
   getBalance = async () => {
     try {
@@ -130,6 +137,31 @@ class ProfileDriver extends React.Component {
     }
     )
 }
+
+    //next event clear the interval that was set before
+    focusEvent = () => {
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.setFetchInterval();
+      });
+    };
+  
+  //next event clear the interval that was set before
+    blurEvent = () => {
+      this.blurListener = this.props.navigation.addListener('blur', () => {
+        clearInterval(this.interval);
+      });
+    };
+  
+    // setting an interval of 3s
+    setFetchInterval = () => {
+      this.interval = setInterval(this.fetchdata, 3000);
+    };
+
+    componentWillUnmount = () =>{
+      this.focusListener();
+      this.blurListener();
+    }
+
   render() {
     const {user, car} = this.state;
     return (

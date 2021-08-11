@@ -264,7 +264,7 @@ class SignUpAdrress extends React.Component {
           
           {vars.driver ? (
             <View>
-                  <Text style={Styles.titleA}>Passanger range</Text>
+                  <Text style={Styles.titleA}>Passenger range</Text>
             <TextInput
             style={Styles.inputR}
             placeholder="Range (km)"

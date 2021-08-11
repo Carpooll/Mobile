@@ -20,7 +20,7 @@ import UserSession from '../../Libs/Sessions';
 import Storage from '../../Libs/Storage';
 
 // NEEDS TO CHANGE TO DYNAMIC DATA
-var userBalance;
+var userBalance=0;
 class PassengerPrivate extends React.Component {
   state = {
     user: {
@@ -35,11 +35,18 @@ class PassengerPrivate extends React.Component {
     balance:0,
   };
 
-  componentDidMount = () => {
-    this.getUserData();
-    this.getBalance()
+  componentDidMount = () => {  
+    this.fetchdata();
+    this.focusEvent();
+    this.blurEvent();
     //this.getMarkers();
   };
+
+  fetchdata = () => {
+    this.getUserData();
+    this.getBalance()
+  }
+
   getUserData = async () => {
     let user = await UserSession.instance.getUser();
     let markers ={
@@ -53,6 +60,7 @@ class PassengerPrivate extends React.Component {
 
   getBalance = async () => {
     try {
+      console.log(vars.username, )
       let request = await fetch(
         `https://carpool-arduino-backend.herokuapp.com/getUser/?user_id=${vars.username}`,
         {
@@ -61,8 +69,8 @@ class PassengerPrivate extends React.Component {
       );
 
       let response = await request.json();
+      console.log(response, "usr")
       userBalance = response.current_balance;
-      console.log(userBalance, "usr")
       this.setState({balance:userBalance})
     } catch (err) {
       console.log('get balance err', err);
@@ -108,6 +116,32 @@ class PassengerPrivate extends React.Component {
     }
     )
 }
+
+    //next event clear the interval that was set before
+    focusEvent = () => {
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.setFetchInterval();
+      });
+    };
+  
+  //next event clear the interval that was set before
+    blurEvent = () => {
+      this.blurListener = this.props.navigation.addListener('blur', () => {
+        clearInterval(this.interval);
+      });
+    };
+  
+    // setting an interval of 3s
+    setFetchInterval = () => {
+      this.interval = setInterval(this.fetchdata, 3000);
+    };
+
+    componentWillUnmount = () =>{
+      this.focusListener();
+      this.blurListener();
+    }
+
+
   render() {
     const {user, markers, balance} = this.state;
     //console.log(user);
