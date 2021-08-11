@@ -14,7 +14,7 @@ import {
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
 import ModalDeletePass from '../Generics/ModalDeletePass';
-import * as vars from '../../Libs/Sessions';
+import UserSession, * as vars from '../../Libs/Sessions';
 var passenger
 
 const createTwoButtonAlert = () =>
@@ -192,9 +192,10 @@ class screens extends Component{
               uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
             },
             phone: passengers[i].profile.phone,
+            passenger_id: passengers[i].profile.id,
           };
           array.push(marker);
-
+          
         }
         this.setState({markers: array});
       }
@@ -326,7 +327,7 @@ class screens extends Component{
                     {marker.phone}
                   </Text>
                   <View style={styles.buttons}>
-                    <ModalDeletePass></ModalDeletePass>
+                    <ModalDeletePass passenger_id={marker.passenger_id}></ModalDeletePass>
                   </View>
                 </View>
               </View>

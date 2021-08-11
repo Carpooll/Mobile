@@ -1,11 +1,19 @@
 import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View, Image} from 'react-native';
 import Colors from '../../res/Colors';
+import UserSession from '../../Libs/Sessions';
 
-const ModalDeletePass = () => {
-  handleDelete = () => {
-    console.log('passenger deleted');
+const ModalDeletePass = passenger_id => {
+  handleDelete = async () => {
+    // const {passenger_id} = this.props.passenger_id
+    try{
+      let response = await UserSession.instance.deletePassengerRelation(passenger_id)
+      console.log(response)
+    } catch (err) {
+      console.log("Error deleting relation with the passenger")
+    }
   };
+
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
