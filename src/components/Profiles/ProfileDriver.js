@@ -180,12 +180,12 @@ class ProfileDriver extends React.Component {
           <Text style={Styles.userInfo}>{user.username}</Text>
           <Text style={Styles.userInfo}>{user.profile.phone}</Text>
 
-          <Text style={Styles.userTitle}>Car Info</Text>
+          <Text style={Styles.userTitle}>Car information</Text>
           <Text style={Styles.userInfo}>{car.model}</Text>
           <Text style={Styles.userInfo}>{car.color}</Text>
           <Text style={Styles.userInfo}>{car.plates}</Text>
 
-          <Text style={Styles.userTitle}>Your balance</Text>
+          <Text style={Styles.userTitle}>Your current balance</Text>
           <View style={Styles.profitContainer}>
             <Text style={Styles.userInfo}>${userBalance}</Text>
           </View>
@@ -199,7 +199,7 @@ class ProfileDriver extends React.Component {
         </TouchableOpacity>
           <Text style={Styles.profitTime}>This Week</Text>
 
-          <Text style={Styles.userTitle}>Your Location</Text>
+          <Text style={Styles.userTitle}>Your location</Text>
           <View style={Styles.containerMap}>
             <MapView
               provider={PROVIDER_GOOGLE}
