@@ -31,33 +31,33 @@ class Notifications extends React.Component {
 
   componentDidMount = () => {
     this.getNotifications();
-      this.focusEvent();
-      this.blurEvent();
-    }
-  
-    //next event clear the interval that was set before
-    focusEvent = () => {
-      this.focusListener = this.props.navigation.addListener('focus', () => {
-        this.setFetchInterval();
-      });
-    };
-  
-  //next event clear the interval that was set before
-    blurEvent = () => {
-      this.blurListener = this.props.navigation.addListener('blur', () => {
-        clearInterval(this.interval);
-      });
-    };
-  
-    // setting an interval of 3s
-    setFetchInterval = () => {
-      this.interval = setInterval(this.getNotifications, 1000);
-    };
+    this.focusEvent();
+    this.blurEvent();
+  };
 
-    componentWillUnmount = () =>{
-      this.focusListener();
-      this.blurListener();
-    }
+  //next event clear the interval that was set before
+  focusEvent = () => {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.setFetchInterval();
+    });
+  };
+
+  //next event clear the interval that was set before
+  blurEvent = () => {
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      clearInterval(this.interval);
+    });
+  };
+
+  // setting an interval of 3s
+  setFetchInterval = () => {
+    this.interval = setInterval(this.getNotifications, 1000);
+  };
+
+  componentWillUnmount = () => {
+    this.focusListener();
+    this.blurListener();
+  };
 
   getNotifications = async () => {
     try {
@@ -77,8 +77,7 @@ class Notifications extends React.Component {
       //console.log(response.results);
       this.setState({notifications: notifications});
 
-      const array=[]
-
+      const array = [];
 
       const {markers} = this.state;
 
@@ -99,46 +98,44 @@ class Notifications extends React.Component {
     }
   };
 
-  deniedRequest = async (id_notification) => {
-      
+  deniedRequest = async id_notification => {
     Alert.alert(
-        'Denied passenger request.',
-        `Are you sure you want to reject the request?\n\nThis action can't be undone.`,
-        [
-          {
-            text: 'Reject passenger',
-            onPress: async () => {
-              try {
-                token = await Storage.instance.get('token');
-  
-                let body = {status: 'rejected'};
-                let request = await fetch(
-                  `https://carpool-utch.herokuapp.com/requests/${id_notification}/`,
-                  {
-                    method: 'PATCH',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: 'Token ' + token,
-                    },
-                    body: JSON.stringify(body),
-                  },
-                );
-                let response = await request.json();
-                
-              } catch (err) {
-                console.log('reject pass', err);
-                throw Error(err);
-              }
-            },
-          },
-          {
-          text: 'cancel'
-          }
-        ],
+      'Denied passenger request.',
+      `Are you sure you want to reject the request?\n\nThis action can't be undone.`,
+      [
         {
-          cancelable: true,
+          text: 'Reject passenger',
+          onPress: async () => {
+            try {
+              token = await Storage.instance.get('token');
+
+              let body = {status: 'rejected'};
+              let request = await fetch(
+                `https://carpool-utch.herokuapp.com/requests/${id_notification}/`,
+                {
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Token ' + token,
+                  },
+                  body: JSON.stringify(body),
+                },
+              );
+              let response = await request.json();
+            } catch (err) {
+              console.log('reject pass', err);
+              throw Error(err);
+            }
+          },
         },
-      );
+        {
+          text: 'cancel',
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
   };
 
   acceptRequest = async id_notification => {
@@ -165,8 +162,8 @@ class Notifications extends React.Component {
                 },
               );
               let response = await request.json();
-              if(response){
-                this.getNotifications()
+              if (response) {
+                this.getNotifications();
               }
               //console.log(response);
             } catch (err) {
@@ -176,8 +173,8 @@ class Notifications extends React.Component {
           },
         },
         {
-        text: 'cancel'
-        }
+          text: 'cancel',
+        },
       ],
       {
         cancelable: true,
@@ -238,21 +235,23 @@ class Notifications extends React.Component {
                   <Text style={Styles.nameDriver}>{marker.title}</Text>
                   <Text style={Styles.priceDriver}>{marker.text}</Text>
                 </View>
-                <TouchableOpacity
-                  style={Styles.blueButton}
-                  onPress={() => this.acceptRequest(marker.id_notification)}>
-                  <Text style={Styles.blueButtonText}>Accept</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={Styles.darkButton}
-                  onPress={() => this.seePassenger(marker.passenger_id)}>
-                  <Text style={Styles.darkButtonText}>See</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={Styles.redButton}
-                  onPress={() => this.deniedRequest(marker.id_notification)}>
-                  <Text style={Styles.blueButtonText}>Denied</Text>
-                </TouchableOpacity>
+                <View style={Styles.FormButtons}>
+                  <TouchableOpacity
+                    style={Styles.blueButton}
+                    onPress={() => this.acceptRequest(marker.id_notification)}>
+                    <Text style={Styles.blueButtonText}>Accept</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      style={Styles.redButton}
+                    onPress={() => this.deniedRequest(marker.id_notification)}>
+                    <Text style={Styles.blueButtonText}>Denied</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      style={Styles.darkButton}
+                    onPress={() => this.seePassenger(marker.passenger_id)}>
+                    <Text style={Styles.darkButtonText}>See</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             );
           })}
@@ -276,25 +275,28 @@ const Styles = StyleSheet.create({
 
   darkButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 50,
     width: FormWidth * 0.19,
     borderRadius: 4,
     fontSize: Fonts.miniButtons,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -30,
+    backgroundColor: Colors.black,
+    marginRight: 9
+
   },
   redButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 50,
     width: FormWidth * 0.19,
     borderRadius: 4,
     fontSize: Fonts.miniButtons,
-    backgroundColor: '#8c8c8c',
+    backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -137,
+    fontSize: Fonts.miniButtons,
+    backgroundColor: '#8c8c8c',
+    marginRight: 9
+
   },
 
   darkButtonText: {
@@ -304,14 +306,14 @@ const Styles = StyleSheet.create({
   },
   blueButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 50,
     width: FormWidth * 0.19,
     borderRadius: 4,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -183,
+    marginRight: 9
+  
   },
   blueButtonText: {
     alignSelf: 'center',
@@ -325,9 +327,6 @@ const Styles = StyleSheet.create({
   nameDriver: {
     marginTop: 15,
 
-
-    alignSelf: 'center',
-
     color: Colors.black,
 
     fontSize: 14,
@@ -335,8 +334,6 @@ const Styles = StyleSheet.create({
 
   priceDriver: {
     marginTop: 8,
-
-    marginLeft: 5,
 
     fontSize: Fonts.subTitle,
 
@@ -347,13 +344,12 @@ const Styles = StyleSheet.create({
     fontSize: Fonts.subTitle,
   },
   FormContainerRight: {
-    flexDirection: 'column',
-    alignSelf: 'flex-end',
+    marginLeft: 10,
   },
   FormContainer: {
     marginTop: 30,
-    height: FormHeight-15,
-    width: FormWidth+20,
+    height: FormHeight - 15,
+    width: FormWidth + 20,
     alignSelf: 'center',
     backgroundColor: Colors.white,
     borderRadius: 15,
@@ -367,7 +363,7 @@ const Styles = StyleSheet.create({
     alignSelf: 'center',
     height: 60,
     width: 50,
-    marginTop:10,
+    marginTop: 10,
     zIndex: 2,
     shadowColor: '#000',
     shadowOffset: {
@@ -380,8 +376,8 @@ const Styles = StyleSheet.create({
 
   pictureContainer: {
     alignSelf: 'center',
-    height: iconSize-20,
-    width: iconSize-20,
+    height: iconSize - 20,
+    width: iconSize - 20,
     backgroundColor: Colors.white,
     marginTop: 10,
     marginLeft: 15,
@@ -451,6 +447,11 @@ const Styles = StyleSheet.create({
   },
   marginTopCards: {
     marginTop: 70,
+  },
+  FormButtons: {
+    flexDirection: 'row',
+    marginLeft: 10,
+    marginTop: 10
   },
 });
 
