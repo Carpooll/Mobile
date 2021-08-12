@@ -9,18 +9,19 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Alert
+  Alert,
 } from 'react-native';
-import RNRestart from 'react-native-restart'
+import RNRestart from 'react-native-restart';
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import * as vars from '../../Libs/Sessions'
+import * as vars from '../../Libs/Sessions';
 import UserSession from '../../Libs/Sessions';
 import Storage from '../../Libs/Storage';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 // NEEDS TO CHANGE TO DYNAMIC DATA
-var userBalance=0;
+var userBalance = 0;
 class PassengerPrivate extends React.Component {
   state = {
     user: {
@@ -29,13 +30,14 @@ class PassengerPrivate extends React.Component {
     markers: {
       latitude: 28.6369439,
       longitude: -106.0767429,
-      longitudeDelta: .40,
-      latitudeDelta: 0.100,
+      longitudeDelta: 0.4,
+      latitudeDelta: 0.1,
     },
-    balance:0,
+    balance: 0,
+    picture: {},
   };
 
-  componentDidMount = () => {  
+  componentDidMount = () => {
     this.fetchdata();
     this.focusEvent();
     this.blurEvent();
@@ -44,23 +46,24 @@ class PassengerPrivate extends React.Component {
 
   fetchdata = () => {
     this.getUserData();
-    this.getBalance()
-  }
+    this.getBalance();
+  };
 
   getUserData = async () => {
     let user = await UserSession.instance.getUser();
-    let markers ={
+    let markers = {
       latitude: user.profile.coordinate_x,
       longitude: user.profile.coordinate_y,
       longitudeDelta: 0.0,
-      latitudeDelta: 0.001,}
-      console.log(markers.latitude, user.profile.coordinate_y)
-      this.setState({user: user, markers: markers});
+      latitudeDelta: 0.001,
+    };
+    console.log(markers.latitude, user.profile.coordinate_y);
+    this.setState({user: user, markers: markers});
   };
 
   getBalance = async () => {
     try {
-      console.log(vars.username, )
+      console.log(vars.username);
       let request = await fetch(
         `https://carpool-arduino-backend.herokuapp.com/getUser/?user_id=${vars.username}`,
         {
@@ -69,9 +72,8 @@ class PassengerPrivate extends React.Component {
       );
 
       let response = await request.json();
-   
       userBalance = response.current_balance;
-      this.setState({balance:userBalance})
+      this.setState({balance: userBalance});
     } catch (err) {
       console.log('get balance err', err);
       throw Error(err);
@@ -84,63 +86,115 @@ class PassengerPrivate extends React.Component {
 
   logout = () => {
     /* gives an alert to logout */
-    Alert.alert('Logout',
-    `Do you really want to logout?`,
-    [
+    Alert.alert(
+      'Logout',
+      `Do you really want to logout?`,
+      [
         {
-            text: 'Cancel',
-            style:'cancel'
+          text: 'Cancel',
+          style: 'cancel',
         },
         {
-            text: 'Logout',
-            onPress:async() =>{this.setState({
-                loading: true})
-                try{
-                    await Storage.instance.remove('id')
-                }
-                catch(e){
-                    console.log('id error', e)
-                }
-                try{
-                    RNRestart.Restart();
-                }catch(e){
-                    console.log('error restarting application', e)
-                    
-                }
-            },
-            style:'destructive',
-        },    
-    ],
-    {
+          text: 'Logout',
+          onPress: async () => {
+            this.setState({
+              loading: true,
+            });
+            try {
+              await Storage.instance.remove('id');
+            } catch (e) {
+              console.log('id error', e);
+            }
+            try {
+              RNRestart.Restart();
+            } catch (e) {
+              console.log('error restarting application', e);
+            }
+          },
+          style: 'destructive',
+        },
+      ],
+      {
         cancelable: true,
-    }
-    )
-}
-
-    //next event clear the interval that was set before
-    focusEvent = () => {
-      this.focusListener = this.props.navigation.addListener('focus', () => {
-        this.setFetchInterval();
-      });
+      },
+    );
+  };
+  handleChooseProfileImage = () => {
+    const options = {
+      includeBase64: false,
+      mediaType: 'photo',
     };
-  
+    launchImageLibrary(options, response => {
+      if (!response.didCancel) {
+        let photo = response.assets[0].uri;
+        this.setState({picture: photo}); /* 
+    console.log(photo);
+    console.log(this.state.picture) */
+        this.editProfilePicture();
+      }
+    });
+  };
+  editProfilePicture = async () => {
+    const {picture} = this.state;
+    console.log(this.state.picture, 'picture');
+    id = await Storage.instance.get('id');
+
+    let uploadData = new FormData();
+    uploadData.append('profile.image', {
+      type: 'image/jpeg',
+      uri: picture,
+      name: 'profile.jpg',
+    });
+
+    try {
+      //creating the request
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/profile/${id}/`,
+        {
+          method: 'PATCH',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Token ' + vars.token,
+          },
+          body: uploadData,
+        },
+      );
+      //console.log(request);
+      //saving the response
+      let response = await request.json();
+      console.log(response);
+      //returning the response
+      return response;
+    } catch (err) {
+      //showing the errors
+      console.log('uploading profile image in signup error', err);
+    }
+  };
+
   //next event clear the interval that was set before
-    blurEvent = () => {
-      this.blurListener = this.props.navigation.addListener('blur', () => {
-        clearInterval(this.interval);
-      });
-    };
-  
-    // setting an interval of 3s
-    setFetchInterval = () => {
-      this.interval = setInterval(this.fetchdata, 3000);
-    };
+  focusEvent = () => {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.setFetchInterval();
+    });
+  };
 
-    componentWillUnmount = () =>{
-      this.focusListener();
-      this.blurListener();
-    }
+  //next event clear the interval that was set before
+  blurEvent = () => {
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      clearInterval(this.interval);
+    });
+  };
 
+  // setting an interval of 3s
+  setFetchInterval = () => {
+    this.interval = setInterval(this.fetchdata, 3000);
+  };
+
+  componentWillUnmount = () => {
+    this.focusListener();
+    this.blurListener();
+  };
 
   render() {
     const {user, markers, balance} = this.state;
@@ -151,10 +205,18 @@ class PassengerPrivate extends React.Component {
         <View style={Styles.imageContainer}>
           <Image
             style={Styles.image}
-            source={{
-              uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
-            }}
+            source={{uri:`${ this.state.user.profile.image}`}}
           />
+          <TouchableOpacity
+            style={Styles.iconT}
+            onPress={this.handleChooseProfileImage}>
+            <Image
+              style={Styles.iconUploadImage}
+              source={{
+                uri: 'https://image.flaticon.com/icons/png/512/711/711191.png',
+              }}
+            />
+          </TouchableOpacity>
         </View>
         <View style={Styles.infoContainer}>
           <Text style={Styles.userName}>{user.first_name}</Text>
@@ -181,7 +243,7 @@ class PassengerPrivate extends React.Component {
           <Text style={Styles.darkButtonText}>EDIT</Text>
         </TouchableOpacity>
         <TouchableOpacity style={Styles.redButton} onPress={this.logout}>
-          <Image 
+          <Image
             style={Styles.redButtonText}
             source={require('../../assets/logout_icon.png')}
           />
@@ -218,6 +280,35 @@ const Styles = StyleSheet.create({
     borderRadius: 15,
     position: 'relative',
   },
+  iconT: {
+    width: 35,
+    height: 35,
+    padding: 5,
+    borderRadius: 20,
+    backgroundColor: '#e2e2e2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 80,
+    marginLeft:85,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+
+    elevation: 11,
+  },
+  iconUploadImage: {
+    flex: 2,
+    width: '100%',
+    height: '100%',
+  },
+  iconUploadImageText: {
+    marginBottom: 50,
+  },
   image: {
     alignSelf: 'center',
     height: iconSize,
@@ -246,9 +337,9 @@ const Styles = StyleSheet.create({
   containerMap: {
     ...StyleSheet.absoluteFillObject,
     height: '25%',
-    width: FormWidth*.80,
-    marginTop: FormHeight*.63,
-    marginLeft: FormWidth*.10,
+    width: FormWidth * 0.8,
+    marginTop: FormHeight * 0.63,
+    marginLeft: FormWidth * 0.1,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -335,14 +426,14 @@ const Styles = StyleSheet.create({
   redButton: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    
+
     width: FormWidth * 0.19,
     borderRadius: 50,
-    marginTop:height*.08,
-    left:55,
+    marginTop: height * 0.08,
+    left: 55,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.white,
-    position:'absolute',
+    position: 'absolute',
     justifyContent: 'center',
 
     zIndex: 5,
@@ -350,7 +441,6 @@ const Styles = StyleSheet.create({
 
   redButtonText: {
     alignSelf: 'center',
-
   },
   loc: {
     color: Colors.blue,

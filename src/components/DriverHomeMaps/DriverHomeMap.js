@@ -166,8 +166,6 @@ class screens extends Component {
         },
       );
       let response = await request.json();
-      //console.log(Object.keys(response).length);
-
       if (Object.keys(response).length == 0) {
         this.setState({markers: []});
         createTwoButtonAlert();
@@ -180,15 +178,14 @@ class screens extends Component {
         const array = [];
 
         for (var i = 0; i < passengers.length; i++) {
+          console.log(passengers[i].profile.image, "image profile")
           let marker = {
             coordinate: {
               latitude: passengers[i].profile.coordinate_x,
               longitude: passengers[i].profile.coordinate_y,
             },
             title: passengers[i].profile.user.first_name,
-            image: {
-              uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
-            },
+            image: passengers[i].profile.image,
             phone: passengers[i].profile.phone,
             passenger_id: passengers[i].profile.id,
           };
@@ -309,7 +306,7 @@ class screens extends Component {
             return (
               <View key={index} style={styles.card}>
                 <Image
-                  source={marker.image}
+                  source={{uri:`${ marker.image}`}}
                   style={styles.cardImage}
                   resizeMode="cover"
                 />
@@ -400,9 +397,9 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     overflow: 'hidden',
     borderRadius: 5,
+   
   },
   cardImage: {
-    marginTop: 10,
     width: '100%',
     height: '50%',
     alignSelf: 'center',
@@ -410,6 +407,8 @@ const styles = StyleSheet.create({
   cardphone: {
     alignSelf: 'center',
     color: '#424242',
+    marginTop:10,
+    marginBottom:10
   },
   textContent: {
     alignSelf: 'center',

@@ -32,10 +32,43 @@ class HomePassenger extends React.Component {
    };
 
   componentDidMount = () => {
-    this.checkDriver();
-    this.getDriver();
+    this.fetchdata();
+      this.focusEvent();
+      this.blurEvent()
     
   };
+
+  fetchdata = () => {
+    driver=false
+    this.setState({driver:false, driverData:[]})
+    this.checkDriver();
+    this.getDriver();
+  }
+  
+    //next event clear the interval that was set before
+    focusEvent = () => {
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.setFetchInterval();
+      });
+    };
+  
+  //next event clear the interval that was set before
+    blurEvent = () => {
+      this.blurListener = this.props.navigation.addListener('blur', () => {
+        clearInterval(this.interval);
+      });
+    };
+  
+    // setting an interval of 3s
+    setFetchInterval = () => {
+      this.interval = setInterval(this.fetchdata, 1000);
+    };
+
+    componentWillUnmount = () =>{
+      this.focusListener();
+      this.blurListener();
+      
+    }
 
    checkDriver = async () => {
     try {
@@ -145,16 +178,20 @@ class HomePassenger extends React.Component {
       this.setState({drivers: response});
 
       const {drivers, markers} = this.state;
+
+const array=[]
+
     for (var i = 0; i < drivers.length; i++) {
         let driver = {
           name: drivers[i].first_name,
           travel_cost: drivers[i].travel_cost,
           profile_id: drivers[i].profile_id,
+          image: drivers[i].image
         };
-        markers.push(driver);
-        this.setState({markers: markers});
+        array.push(driver);
         //console.log(markers)
       }  
+      this.setState({markers: array});
       return response;
     } catch (err) {
       console.log('get drivers err', err);
@@ -176,9 +213,7 @@ class HomePassenger extends React.Component {
                   <View style={Styles.pictureContainer}>
                     <Image
                       style={Styles.picture}
-                      source={{
-                        uri: 'https://image.flaticon.com/icons/png/512/3366/3366399.png',
-                      }}
+                      source={{uri:`${ marker.image}`}}
                     />
                   </View>
                 </View>
