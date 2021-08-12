@@ -1,6 +1,7 @@
 import React from 'react';
 import Geocoder from 'react-native-geocoding';
 import Geolocation from 'react-native-geolocation-service';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {
   Text,
   View,
@@ -18,7 +19,7 @@ import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import * as vars from '../../Libs/Sessions';
 import UserSession from '../../Libs/Sessions';
-import api from '../../../config';
+import Storage from '../../Libs/Storage';
 
 var address = ''
 var Lat=0
@@ -73,6 +74,7 @@ class SignUpAdrress extends React.Component {
     user: {
       address: '',
     },
+    picture: {},
   };
 
   handleSubmit = async () => {
@@ -137,6 +139,7 @@ class SignUpAdrress extends React.Component {
       }
     } else {
       //console.log(Address);
+      console.log(this.state.form, 'form')
       let response = await UserSession.instance.signupData(this.state.form);
       //console.log(response)
       /* console.log(typeof(response))
@@ -209,6 +212,58 @@ class SignUpAdrress extends React.Component {
     );
   };
 
+  handleChooseProfileImage = () => {
+    const options = {
+      includeBase64: false,
+      mediaType: 'photo',
+    };
+    launchImageLibrary(options, response => {
+      if (!response.didCancel) {
+        let photo = response.assets[0].uri;
+        this.setState({picture: photo});/* 
+        console.log(photo);
+        console.log(this.state.picture) */
+        this.editProfilePicture();
+      }
+    });
+  };
+  editProfilePicture = async () => {
+    const {picture} = this.state;
+    id=await Storage.instance.get('id')
+    
+    let uploadData = new FormData();
+    uploadData.append('profile.image', {
+      type: 'image/jpeg',
+      uri: picture,
+      name: 'profile.jpg',
+    });
+  
+    try {
+      //creating the request
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/profile/${id}/`,
+        {
+          method: 'PATCH',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Token ' + vars.token,
+          },
+          body: uploadData,
+        },
+      );
+      //console.log(request);
+      //saving the response
+      let response = await request.json();
+      console.log(response)
+      //returning the response
+      return response;
+    } catch (err) {
+      //showing the errors
+      console.log('uploading profile image in signup error', err);
+    }
+  };
+
   render() {
     return (
       <ScrollView style={Styles.Container}>
@@ -224,6 +279,19 @@ class SignUpAdrress extends React.Component {
         <View style={Styles.FormContainer}>
           <Text style={Styles.title}>Personal Data</Text>
           <View style={Styles.inputContainer}>
+
+
+            <Text  style={Styles.iconUploadImageText}>Upload your profile picture</Text>
+          <TouchableOpacity
+            style={Styles.iconT}
+            onPress={this.handleChooseProfileImage}>
+            <Image
+              style={Styles.iconUploadImage}
+              source={{uri: 'https://image.flaticon.com/icons/png/512/1837/1837526.png'}}
+            />
+             </TouchableOpacity>
+
+
             <TextInput
               style={Styles.input}
               placeholder="First name"
@@ -385,9 +453,29 @@ const Styles = StyleSheet.create({
     position: 'relative',
     zIndex: 0,
   },
+  iconT: {
+    width: 35,
+    height: 35,
+    padding: 5,
+    borderRadius: 20,
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 30,
+  },
+  iconUploadImage:{
+    flex: 2,
+    width: '100%',
+    height: '100%',
+  },
+  iconUploadImageText:{
+
+marginBottom:50,
+  },
   FormContainer: {
     marginTop: borderTop + iconSize / 2,
-    height: FormHeight + 450,
+    height: FormHeight + 470,
     width: FormWidth,
     alignSelf: 'center',
     padding: 'auto',
@@ -449,7 +537,7 @@ const Styles = StyleSheet.create({
   darkButton: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    marginTop: FormHeight + 560,
+    marginTop: FormHeight + 580,
     width: 193,
     borderRadius: 15,
     fontSize: Fonts.miniButtons,
