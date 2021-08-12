@@ -69,7 +69,7 @@ class PassengerPrivate extends React.Component {
       );
 
       let response = await request.json();
-      console.log(response, "usr")
+   
       userBalance = response.current_balance;
       this.setState({balance:userBalance})
     } catch (err) {
