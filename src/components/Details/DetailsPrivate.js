@@ -11,10 +11,12 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Alert,
 } from 'react-native';
 import Fonts from '../../res/Fonts';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Storage from '../../Libs/Storage';
+
 
 var coorx, coory;
 
@@ -30,14 +32,13 @@ class DetailsPrivate extends React.Component {
     driverData: [],
     info_driver: {
       profile: {
-        user: {}
-      }
-      
+        user: {},
+      },
     },
   };
   componentDidMount = () => {
     this.checkDriver();
-  }; 
+  };
 
   checkDriver = async () => {
     try {
@@ -55,12 +56,12 @@ class DetailsPrivate extends React.Component {
       let response = await request.json();
       driverData = response;
       this.setState({driverData: driverData});
-    
+
       info_driver = driverData[0];
-     
+
       coorx = info_driver.profile.coordinate_x;
       coory = info_driver.profile.coordinate_y;
-   
+
       let markers = {
         latitude: coorx,
         longitude: coory,
@@ -68,15 +69,14 @@ class DetailsPrivate extends React.Component {
         latitudeDelta: 0.001,
       };
       this.setState({markers: markers});
-    
-      this.setState({info_driver: info_driver});
 
+      this.setState({info_driver: info_driver});
     } catch (err) {
       console.log('Getting user info error', err);
       throw Error(err);
     }
     try {
-      id = info_driver.profile.id
+      id = info_driver.profile.id;
 
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/driver/car/${id}/`,
@@ -95,9 +95,46 @@ class DetailsPrivate extends React.Component {
       throw Error(err);
     }
   };
+
+  
+  deletePass = () => {
+    Alert.alert(
+      'Important',
+      `Are you sure you want to delete your driver?`,
+      [
+        {
+          text: 'Yes!',
+          onPress: async () => {
+            try {
+              token = await Storage.instance.get('token');
+
+              let request = await fetch(
+                `https://carpool-utch.herokuapp.com/passenger/driver/${id}/`,
+                {
+                  method: 'DELETE',
+                  headers: {
+                    Authorization: 'Token ' + token,
+                  },
+                },
+              );
+            } catch (err) {
+              console.log('accept pass', err);
+              throw Error(err);
+            }
+          },
+        },
+        {
+          text: 'cancel',
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
+  };
   render() {
     const {car, info_driver} = this.state;
-    
+
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -112,13 +149,22 @@ class DetailsPrivate extends React.Component {
             </View>
           </View>
           <View style={styles.formShadow}>
+            <TouchableOpacity
+              style={styles.deletePass}
+              onPress={this.deletePass}>
+              <Image
+                style={styles.deletePassImg}
+                source={{
+                  uri: 'https://image.flaticon.com/icons/png/512/109/109602.png',
+                }}></Image>
+            </TouchableOpacity>
             <View style={styles.dataContainer}>
               <Text style={styles.textName}>
-                {  info_driver.profile.user.first_name  || "loading" }
+                {info_driver.profile.user.first_name || 'loading'}
               </Text>
               <Text style={styles.phone}>
-                { info_driver.profile.phone   || "loading" }
-                </Text>
+                {info_driver.profile.phone || 'loading'}
+              </Text>
 
               <Text style={styles.titleLocation}>Location</Text>
               <View style={styles.containerMap}>
@@ -130,16 +176,10 @@ class DetailsPrivate extends React.Component {
                 </MapView>
               </View>
               <Text style={styles.titleCar}>Car info</Text>
-              <Text style={styles.textPlates}>{car.plates}</Text>
-              <Text style={styles.textModel}>{car.model}</Text>
-              <Text style={styles.textColor}>{car.color}</Text>
+              <Text style={styles.textPlates}>{car.plates || 'loading'}</Text>
+              <Text style={styles.textModel}>{car.model || 'loading'}</Text>
+              <Text style={styles.textColor}>{car.color || 'loading'}</Text>
             </View>
-
-            {/*  <TouchableOpacity
-              style={styles.buttonDark}
-              onPress={this.handlePress}>
-              <Text style={styles.buttonDarkText}>Start ride</Text>
-            </TouchableOpacity> */}
           </View>
         </View>
       </ScrollView>
@@ -157,7 +197,7 @@ const styles = StyleSheet.create({
   imagesContainer: {
     alignSelf: 'center',
     marginTop: -100,
-    backgroundColor:Colors.white,
+    backgroundColor: Colors.white,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -174,6 +214,24 @@ const styles = StyleSheet.create({
     position: 'absolute',
 
     zIndex: 2,
+  },
+  deletePassImg: {
+    flex: 2,
+    width: '70%',
+    height: '70%',
+    zIndex: 2,
+  },
+  deletePass: {
+    width: 35,
+    height: 35,
+    padding: 5,
+    borderRadius: 20,
+    backgroundColor: '#ff4d4d',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 480,
+    alignSelf: 'center',
   },
 
   profileImage: {
@@ -250,7 +308,7 @@ const styles = StyleSheet.create({
       height: 5,
     },
 
-    height: 480,
+    height: 500,
     marginTop: -30,
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
