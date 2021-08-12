@@ -120,7 +120,7 @@ class DetailsPrivate extends React.Component {
                 { info_driver.profile.phone   || "loading" }
                 </Text>
 
-              <Text style={styles.titleLocation}>Location</Text>
+              <Text style={styles.titleLocation}>Driver location</Text>
               <View style={styles.containerMap}>
                 <MapView
                   provider={PROVIDER_GOOGLE}
@@ -129,10 +129,10 @@ class DetailsPrivate extends React.Component {
                   <Marker coordinate={this.state.markers} />
                 </MapView>
               </View>
-              <Text style={styles.titleCar}>Car info</Text>
-              <Text style={styles.textPlates}>{car.plates}</Text>
-              <Text style={styles.textModel}>{car.model}</Text>
-              <Text style={styles.textColor}>{car.color}</Text>
+              <Text style={styles.titleCar}>Car information</Text>
+              <Text style={styles.textPlates}>Plates: {car.plates}</Text>
+              <Text style={styles.textModel}>Model: {car.model}</Text>
+              <Text style={styles.textColor}>Color: {car.color}</Text>
             </View>
 
             {/*  <TouchableOpacity
@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
   },
 
   profileImage: {
-    marginTop: 10,
     width: 105,
     height: 105,
     justifyContent: 'center',
@@ -302,7 +301,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 150,
     marginTop: 180,
-    marginLeft: -65,
+    marginLeft: -45,
   },
   map: {
     ...StyleSheet.absoluteFillObject,

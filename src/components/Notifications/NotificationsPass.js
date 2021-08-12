@@ -293,10 +293,11 @@ const Styles = StyleSheet.create({
     flexDirection: 'column',
     alignSelf: 'flex-start',
   },
-  FormContainerLeft: {
-    flexDirection: 'column',
-    alignSelf: 'flex-start',
+  FormContainerRight: {
+    marginLeft: 10,
+   
   },
+
   pictureContainer: {
     alignSelf: 'center',
     height: iconSize,

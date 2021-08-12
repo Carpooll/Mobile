@@ -10,9 +10,9 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Alert
+  Alert,
 } from 'react-native';
-import RNRestart from 'react-native-restart'
+import RNRestart from 'react-native-restart';
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
@@ -49,7 +49,7 @@ class ProfileDriver extends React.Component {
     this.getCarData();
     this.getBalance();
     this.getUserData();
-  }
+  };
 
   getBalance = async () => {
     try {
@@ -62,7 +62,7 @@ class ProfileDriver extends React.Component {
 
       let response = await request.json();
       userBalance = response.current_balance;
-      console.log(userBalance, "usr")
+      console.log(userBalance, 'usr');
     } catch (err) {
       console.log('get balance err', err);
       throw Error(err);
@@ -105,62 +105,63 @@ class ProfileDriver extends React.Component {
   };
   logout = () => {
     /* gives an alert to logout */
-    Alert.alert('Logout',
-    `Do you really want to logout?`,
-    [
+    Alert.alert(
+      'Logout',
+      `Do you really want to logout?`,
+      [
         {
-            text: 'Cancel',
-            style:'cancel'
+          text: 'Cancel',
+          style: 'cancel',
         },
         {
-            text: 'Logout',
-            onPress:async() =>{this.setState({
-                loading: true})
-                try{
-                    await Storage.instance.remove('id')
-                }
-                catch(e){
-                    console.log('id error', e)
-                }
-                try{
-                    RNRestart.Restart();
-                }catch(e){
-                    console.log('error restarting application', e)
-                    
-                }
-            },
-            style:'destructive',
-        },    
-    ],
-    {
+          text: 'Logout',
+          onPress: async () => {
+            this.setState({
+              loading: true,
+            });
+            try {
+              await Storage.instance.remove('id');
+            } catch (e) {
+              console.log('id error', e);
+            }
+            try {
+              RNRestart.Restart();
+            } catch (e) {
+              console.log('error restarting application', e);
+            }
+          },
+          style: 'destructive',
+        },
+      ],
+      {
         cancelable: true,
-    }
-    )
-}
+      },
+    );
+  };
 
-    //next event clear the interval that was set before
-    focusEvent = () => {
-      this.focusListener = this.props.navigation.addListener('focus', () => {
-        this.setFetchInterval();
-      });
-    };
-  
   //next event clear the interval that was set before
-    blurEvent = () => {
-      this.blurListener = this.props.navigation.addListener('blur', () => {
-        clearInterval(this.interval);
-      });
-    };
-  
-    // setting an interval of 3s
-    setFetchInterval = () => {
-      this.interval = setInterval(this.fetchdata, 3000);
-    };
+  focusEvent = () => {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.setFetchInterval();
+    });
+  };
 
-    componentWillUnmount = () =>{
-      this.focusListener();
-      this.blurListener();
-    }
+  //next event clear the interval that was set before
+  blurEvent = () => {
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      clearInterval(this.interval);
+    });
+  };
+
+  // setting an interval of 3s
+  setFetchInterval = () => {
+    this.interval = setInterval(this.fetchdata, 3000);
+  };
+
+  componentWillUnmount = () => {
+    this.focusListener();
+    this.blurListener();
+  };
 
   render() {
     const {user, car} = this.state;
@@ -177,29 +178,20 @@ class ProfileDriver extends React.Component {
         </View>
         <View style={Styles.infoContainer}>
           <Text style={Styles.userName}>{user.first_name}</Text>
-          <Text style={Styles.userInfo}>{user.username}</Text>
-          <Text style={Styles.userInfo}>{user.profile.phone}</Text>
+          <Text style={Styles.userInfo}>ID: {user.username}</Text>
+          <Text style={Styles.userInfo}>Cellphone: {user.profile.phone}</Text>
 
-          <Text style={Styles.userTitle}>Car Info</Text>
-          <Text style={Styles.userInfo}>{car.model}</Text>
-          <Text style={Styles.userInfo}>{car.color}</Text>
-          <Text style={Styles.userInfo}>{car.plates}</Text>
+          <Text style={Styles.userTitle}>Car information</Text>
+          <Text style={Styles.userInfo}>Model: {car.model}</Text>
+          <Text style={Styles.userInfo}>Color: {car.color}</Text>
+          <Text style={Styles.userInfo}>Plates: {car.plates}</Text>
 
-          <Text style={Styles.userTitle}>Your balance</Text>
+          <Text style={Styles.userTitle}>Your current balance</Text>
           <View style={Styles.profitContainer}>
             <Text style={Styles.userInfo}>${userBalance}</Text>
           </View>
-          <TouchableOpacity style={Styles.paypalB} onPress={this.logout}>
-          <Image 
-            style={Styles.paypal}
-            source={{uri: 'https://image.flaticon.com/icons/png/512/1377/1377239.png'}}
-          />
 
-
-        </TouchableOpacity>
-          <Text style={Styles.profitTime}>This Week</Text>
-
-          <Text style={Styles.userTitle}>Your Location</Text>
+          <Text style={Styles.userTitle}>Your location</Text>
           <View style={Styles.containerMap}>
             <MapView
               provider={PROVIDER_GOOGLE}
@@ -213,11 +205,17 @@ class ProfileDriver extends React.Component {
           <Text style={Styles.darkButtonText}>EDIT</Text>
         </TouchableOpacity>
         <TouchableOpacity style={Styles.redButton} onPress={this.logout}>
-          <Image 
+          <Image
             style={Styles.redButtonText}
             source={require('../../assets/logout_icon.png')}
           />
         </TouchableOpacity>
+       
+          <Image
+            style={Styles.paypalButton}
+            source={{uri: 'https://image.flaticon.com/icons/png/512/1377/1377239.png'}}
+          />
+      
       </ScrollView>
     );
   }
@@ -296,6 +294,7 @@ const Styles = StyleSheet.create({
   userInfo: {
     color: Colors.black,
     fontSize: Fonts.miniButtons,
+    marginTop: 4,
   },
 
   userTitle: {
@@ -370,14 +369,14 @@ const Styles = StyleSheet.create({
   redButton: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    
+
     width: FormWidth * 0.19,
     borderRadius: 50,
-    marginTop:height*.08,
-    left:55,
+    marginTop: height * 0.08,
+    left: 55,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.white,
-    position:'absolute',
+    position: 'absolute',
     justifyContent: 'center',
 
     zIndex: 5,
@@ -385,23 +384,22 @@ const Styles = StyleSheet.create({
 
   redButtonText: {
     alignSelf: 'center',
-
   },
 
-  paypal:{
+  paypalButton: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    
+
     width: FormWidth * 0.19,
     borderRadius: 50,
-    marginTop:-405,
-    left:90,
+    marginTop: height * 0.08,
+    right: 55,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.white,
-    position:'absolute',
+    position: 'absolute',
     justifyContent: 'center',
 
-    zIndex: 5,
+    zIndex: 6,
   },
 });
 

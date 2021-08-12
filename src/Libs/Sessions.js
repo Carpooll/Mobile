@@ -228,6 +228,7 @@ getBalance = async () => {
     console.log('get balance err', err);
     throw Error(err);
   }
+
   /* try {
     //https://carpool-arduino-backend.herokuapp.com/
     const key = `token-${username}`;
