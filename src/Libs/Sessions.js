@@ -211,27 +211,9 @@ class UserSession {
       console.log('Get token error', err);
     }
   };
-}
-
-getBalance = async () => {
-  try {
-    let request = await fetch(
-      `https://carpool-arduino-backend.herokuapp.com/getUser/?user_id=${username}`,
-      {
-        method: 'GET',
-      },
-    );
-    let response = await request.json();
-    console.log("the balance is: ")
-    console.log(response);
-  } catch (err) {
-    console.log('get balance err', err);
-    throw Error(err);
-  }
 
   deletePassengerRelation = async passenger_id => {
     token = await Storage.instance.get('token');
-    console.log(passenger_id);
     try {
       let request = await fetch(
         `https://carpool-utch.herokuapp.com/driver/passengers/${passenger_id}/`,
@@ -242,22 +224,11 @@ getBalance = async () => {
           },
         },
       );
-
-      let response = await request.json();
-      console.log(response)
     } catch (err) {
-      
       console.log('Delete passenger relation err', err);
       throw Error(err);
     }
   };
-  /* try {
-    //https://carpool-arduino-backend.herokuapp.com/
-    const key = `token-${username}`;
-    return await Storage.instance.get(key);
-  } catch (err) {
-    console.log('Get token error', err);
-  } */
-};
+}
 
 export default UserSession;

@@ -15,7 +15,7 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from '../../res/Colors';
 import ModalDeletePass from '../Generics/ModalDeletePass';
 import UserSession, * as vars from '../../Libs/Sessions';
-var passenger
+var passenger;
 
 const createTwoButtonAlert = () =>
   Alert.alert('Important', 'You do not have passenger yet!', [{text: 'OK'}]);
@@ -25,7 +25,7 @@ const {width, height} = Dimensions.get('window');
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-class screens extends Component{
+class screens extends Component {
   animation = new Animated.Value(0);
 
   state = {
@@ -38,7 +38,7 @@ class screens extends Component{
       longitudeDelta: 0.240142817690068,
     },
     getRideStatus: undefined,
-    passenger:undefined,
+    passenger: undefined,
   };
 
   componentDidMount = () => {
@@ -54,40 +54,38 @@ class screens extends Component{
   fetchdata = () => {
     this.getRide();
     this.getPassengers();
-  }
+  };
   componentDidMount = () => {
     this.fetchdata();
-      this.focusEvent();
-      this.blurEvent();
-    }
-  
-    //next event clear the interval that was set before
-    focusEvent = () => {
-      this.focusListener = this.props.navigation.addListener('focus', () => {
-        this.setFetchInterval();
-      });
-    };
-  
+    this.focusEvent();
+    this.blurEvent();
+  };
+
   //next event clear the interval that was set before
-    blurEvent = () => {
-      this.blurListener = this.props.navigation.addListener('blur', () => {
-        clearInterval(this.interval);
-      });
-    };
-  
-    // setting an interval of 3s
-    setFetchInterval = () => {
-      this.interval = setInterval(this.fetchdata, 1000);
-    };
+  focusEvent = () => {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.setFetchInterval();
+    });
+  };
 
-    componentWillUnmount = () =>{
-      this.focusListener();
-      this.blurListener();
-    }
+  //next event clear the interval that was set before
+  blurEvent = () => {
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      clearInterval(this.interval);
+    });
+  };
 
+  // setting an interval of 3s
+  setFetchInterval = () => {
+    this.interval = setInterval(this.fetchdata, 1000);
+  };
 
+  componentWillUnmount = () => {
+    this.focusListener();
+    this.blurListener();
+  };
 
- startRide = async () => {
+  startRide = async () => {
     try {
       let request = await fetch(`https://carpool-utch.herokuapp.com/rides/`, {
         method: 'POST',
@@ -104,7 +102,7 @@ class screens extends Component{
           [{text: 'OK'}],
         );
       }
-      this.setState({getRideStatus:true})
+      this.setState({getRideStatus: true});
       //console.log("the balance is: ")
       //console.log(response);
     } catch (err) {
@@ -147,8 +145,8 @@ class screens extends Component{
         },
       );
       let response = await request.json();
-      if(response.message =="ride successfully closed"){
-        this.setState({ getRideStatus:false})
+      if (response.message == 'ride successfully closed') {
+        this.setState({getRideStatus: false});
       }
     } catch (err) {
       console.log('Start ride error', err);
@@ -169,17 +167,17 @@ class screens extends Component{
       );
       let response = await request.json();
       //console.log(Object.keys(response).length);
-      
+
       if (Object.keys(response).length == 0) {
-        this.setState({markers:[]})
+        this.setState({markers: []});
         createTwoButtonAlert();
-        passenger= 0
+        passenger = 0;
       } else {
-        passenger= 1
-        this.setState({passengers:response});
+        passenger = 1;
+        this.setState({passengers: response});
         const {passengers, markers} = this.state;
 
-        const array=[]
+        const array = [];
 
         for (var i = 0; i < passengers.length; i++) {
           let marker = {
@@ -195,7 +193,6 @@ class screens extends Component{
             passenger_id: passengers[i].profile.id,
           };
           array.push(marker);
-          
         }
         this.setState({markers: array});
       }
@@ -204,29 +201,29 @@ class screens extends Component{
     }
   };
 
-    //Fetch the interval calling the function to do it
-    focusEvent = () => {
-     this.focusListener = this.props.navigation.addListener('focus', () => {
-       this.setFetchInterval();
-     });
-   };
- 
-   //Clear the interval
-   blurEvent = () => {
-     this.blurListener = this.props.navigation.addListener('blur', () => {
-       clearInterval(this.interval);
-     });
-   };
- 
-   //Fetch the interval every 3 seconds
-   setFetchInterval = () => {
-     this.interval = setInterval(this.fetchdata, 10000);
-   };
+  //Fetch the interval calling the function to do it
+  focusEvent = () => {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.setFetchInterval();
+    });
+  };
 
- componentWillUnmount() {
-   this.focusListener();
-   this.blurListener();
- }
+  //Clear the interval
+  blurEvent = () => {
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      clearInterval(this.interval);
+    });
+  };
+
+  //Fetch the interval every 3 seconds
+  setFetchInterval = () => {
+    this.interval = setInterval(this.fetchdata, 10000);
+  };
+
+  componentWillUnmount() {
+    this.focusListener();
+    this.blurListener();
+  }
 
   render() {
     const {getRideStatus, passengers} = this.state;
@@ -250,16 +247,15 @@ class screens extends Component{
     });
     return (
       <View style={styles.container}>
-        {getRideStatus == "False" && passenger>0?( 
-          <TouchableOpacity  style={styles.cardRide} onPress={this.startRide}>
-          <Text style={styles.cardRideText}>Start ride</Text>
-        </TouchableOpacity>
-        ):getRideStatus == "True" && passenger>0?(
-          <TouchableOpacity  style={styles.cardRide} onPress={this.closeRide}>
+        {getRideStatus == 'False' && passenger > 0 ? (
+          <TouchableOpacity style={styles.cardRide} onPress={this.startRide}>
+            <Text style={styles.cardRideText}>Start ride</Text>
+          </TouchableOpacity>
+        ) : getRideStatus == 'True' && passenger > 0 ? (
+          <TouchableOpacity style={styles.cardRide} onPress={this.closeRide}>
             <Text style={styles.cardRideText}>Close ride</Text>
           </TouchableOpacity>
-        ): null}
-
+        ) : null}
 
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -327,7 +323,8 @@ class screens extends Component{
                     {marker.phone}
                   </Text>
                   <View style={styles.buttons}>
-                    <ModalDeletePass passenger_id={marker.passenger_id}></ModalDeletePass>
+                    <ModalDeletePass
+                      passenger_id={marker.passenger_id}></ModalDeletePass>
                   </View>
                 </View>
               </View>

@@ -62,7 +62,7 @@ class ProfileDriver extends React.Component {
 
       let response = await request.json();
       userBalance = response.current_balance;
-      console.log(userBalance, "usr")
+   
     } catch (err) {
       console.log('get balance err', err);
       throw Error(err);

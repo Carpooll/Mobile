@@ -7,10 +7,18 @@ const ModalDeletePass = passenger_id => {
   handleDelete = async () => {
     // const {passenger_id} = this.props.passenger_id
     try{
-      let response = await UserSession.instance.deletePassengerRelation(passenger_id)
-      console.log(response)
+      const pass_id = passenger_id["passenger_id"]
+      await UserSession.instance.deletePassengerRelation(pass_id)
+      setModalVisible(!modalVisible)
+      setTimeout(function(){Alert.alert(
+        'Done',
+        'Your passenger was deleted!',
+        [{text: 'OK'}],
+      )} , 2000);
+      
+
     } catch (err) {
-      console.log("Error deleting relation with the passenger")
+      console.log("Error deleting relation with the passenger", err)
     }
   };
 
