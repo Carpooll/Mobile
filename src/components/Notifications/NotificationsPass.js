@@ -96,7 +96,7 @@ class Notifications extends React.Component {
       }
       this.setState({markers: array});
     } catch (err) {
-      console.log('Geting user info error', err);
+      console.log('Getting notifications error', err);
       throw Error(err);
     }
   };
@@ -244,6 +244,22 @@ class Notifications extends React.Component {
                   <Text style={Styles.nameDriver}>{marker.title}</Text>
                   <Text style={Styles.priceDriver}>{marker.text}</Text>
                 </View>
+                <View style={Styles.FormButtons}>
+                  {marker.title == 'Your driver has begun a ride' ? (
+                    <View>
+                      <TouchableOpacity
+                        style={Styles.blueButton}
+                        onPress={() =>
+                          this.acceptRide(
+                            marker.id_notification,
+                            marker.ride_cost,
+                            marker.driver_id,
+                          )
+                        }>
+                        <Text style={Styles.blueButtonText}>Accept</Text>
+                      </TouchableOpacity>
+                  </View>
+                  ) : null}
                 <TouchableOpacity
                   style={Styles.darkButton}
                   onPress={() =>
@@ -251,21 +267,7 @@ class Notifications extends React.Component {
                   }>
                   <Text style={Styles.darkButtonText}>Delete</Text>
                 </TouchableOpacity>
-                {marker.title == 'Your driver has begun a ride' ? (
-                  <View>
-                    <TouchableOpacity
-                      style={Styles.blueButton}
-                      onPress={() =>
-                        this.acceptRide(
-                          marker.id_notification,
-                          marker.ride_cost,
-                          marker.driver_id,
-                        )
-                      }>
-                      <Text style={Styles.blueButtonText}>Accept</Text>
-                    </TouchableOpacity>
-                  </View>
-                ) : null}
+                </View>
               </View>
             );
           })}
@@ -286,16 +288,18 @@ const Styles = StyleSheet.create({
     position: 'relative',
     zIndex: 0,
   },
+  
   marginTopCards: {
     marginTop: 70,
   },
+
   FormContainerLeft: {
     flexDirection: 'column',
     alignSelf: 'flex-start',
   },
+
   FormContainerRight: {
     marginLeft: 10,
-   
   },
 
   pictureContainer: {
@@ -315,40 +319,43 @@ const Styles = StyleSheet.create({
     shadowOpacity: 0.51,
     shadowRadius: 13.16,
   },
+
   darkButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 60,
-    width: FormWidth * 0.15,
-    borderRadius: 8,
+    width: FormWidth * 0.19,
+    borderRadius: 4,
     fontSize: Fonts.miniButtons,
-    backgroundColor: "#3c3c3c",
+    backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -100,
+    backgroundColor: "#3c3c3c",
+    fontSize: Fonts.miniButtons,
+    marginRight: 9
   },
-
 
   darkButtonText: {
     alignSelf: 'center',
     color: Colors.white,
     fontSize: Fonts.miniButtons,
   },
+
   blueButton: {
     height: FormHeight * 0.2,
-    marginTop: FormHeight - 60,
-    width: FormWidth * 0.15,
-    borderRadius: 8,
+    width: FormWidth * 0.19,
+    borderRadius: 4,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.blueLight,
     justifyContent: 'center',
     zIndex: 5,
-    marginLeft: -200,
+    marginRight: 9
   },
+
   blueButtonText: {
     alignSelf: 'center',
     color: Colors.white,
     fontSize: Fonts.miniButtons,
   },
+
   picture: {
     alignSelf: 'center',
     height: iconSize,
@@ -362,20 +369,15 @@ const Styles = StyleSheet.create({
     },
     shadowOpacity: 0.51,
     shadowRadius: 13.16,
-
     elevation: 20,
   },
+
   nameDriver: {
-    marginTop: 10,
-
-    marginLeft: -96,
-
-    alignSelf: 'center',
-
+    marginTop: 15,
     color: Colors.black,
-
-    fontSize: 12,
+    fontSize: 14,
   },
+
   picture: {
     alignSelf: 'center',
     height: 50,
@@ -390,6 +392,7 @@ const Styles = StyleSheet.create({
     shadowOpacity: 0.51,
     shadowRadius: 13.16,
   },
+
   pictureContainer: {
     alignSelf: 'center',
     height: iconSize-40,
@@ -407,17 +410,12 @@ const Styles = StyleSheet.create({
     shadowOpacity: 0.51,
     shadowRadius: 13.16,
   },
+
   priceDriver: {
     marginTop: 8,
-
-    marginLeft: 3,
-
     fontSize: Fonts.subTitle,
-
     fontSize: Fonts.mainTitle,
-
     color: Colors.black,
-
     fontSize: Fonts.subTitle,
   },
 
@@ -425,15 +423,12 @@ const Styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
     marginTop: height * 0.08,
     height: 80,
     width: FormWidth,
     alignSelf: 'center',
     padding: 0,
-
     backgroundColor: Colors.blue,
-
     borderColor: Colors.blue,
     borderBottomColor: Colors.white,
     borderWidth: 1,
@@ -441,9 +436,7 @@ const Styles = StyleSheet.create({
 
   text: {
     position: 'absolute',
-
     marginBottom: height * 0.5,
-
     paddingLeft: width * 0.008, //3
     paddingTop: height * 0.005, //5
     paddingRight: width * 0.1, //25
@@ -451,7 +444,6 @@ const Styles = StyleSheet.create({
 
   pop: {
     fontSize: 14,
-
     color: Colors.white,
   },
 
@@ -462,8 +454,9 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 0,
   },
+
   FormContainer: {
-    marginTop: 30,
+    marginTop: 15,
     height: FormHeight-25,
     width: FormWidth+20,
     alignSelf: 'center',
@@ -475,17 +468,22 @@ const Styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginBottom: 30,
   },
+
   erase: {
     height: 22,
     width: 22,
-
     resizeMode: 'cover',
     justifyContent: 'center',
     alignItems: 'flex-end',
-
     marginLeft: width * 0.7, //250
     marginBottom: height * 0.001, //40
   },
+
+  FormButtons: {
+    flexDirection: 'row',
+    marginLeft: 10,
+    marginTop: 10
+  }
 });
 
 export default Notifications;
