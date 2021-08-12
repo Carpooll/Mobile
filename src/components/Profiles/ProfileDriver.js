@@ -265,7 +265,6 @@ class ProfileDriver extends React.Component {
               }}
             />
           </TouchableOpacity>
-          <Text style={Styles.profitTime}>This Week</Text>
           <Text style={Styles.userTitle}>Your location</Text>
 
           <View style={Styles.containerMap}>

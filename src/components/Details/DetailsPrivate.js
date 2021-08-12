@@ -117,6 +117,7 @@ class DetailsPrivate extends React.Component {
                   },
                 },
               );
+              console.log('deleted')
             } catch (err) {
               console.log('accept pass', err);
               throw Error(err);
@@ -143,9 +144,7 @@ class DetailsPrivate extends React.Component {
             <View style={styles.imagesContainer}>
               <Image
                 style={styles.profileImage}
-                source={{
-                  uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
-                }}></Image>
+                source={{uri:`${ info_driver.profile.image}`}}></Image>
             </View>
           </View>
           <View style={styles.formShadow}>
@@ -235,8 +234,8 @@ const styles = StyleSheet.create({
   },
 
   profileImage: {
-    width: 105,
-    height: 105,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignSelf: 'center',
     borderRadius: 100,
@@ -366,4 +365,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsPrivate;
+export default DetailsPrivate

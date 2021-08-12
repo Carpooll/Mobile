@@ -220,8 +220,8 @@ class PassengerPrivate extends React.Component {
         </View>
         <View style={Styles.infoContainer}>
           <Text style={Styles.userName}>{user.first_name}</Text>
-          <Text style={Styles.schoolId}>{user.username}</Text>
-          <Text style={Styles.phone}>{user.profile.phone}</Text>
+          <Text style={Styles.schoolId}>Id: {user.username}</Text>
+          <Text style={Styles.phone}>Cellphone: {user.profile.phone}</Text>
 
           <Text style={Styles.userTitle}>Your current balance</Text>
           <View style={Styles.profitContainer}>

@@ -214,7 +214,7 @@ class screens extends Component {
 
   //Fetch the interval every 3 seconds
   setFetchInterval = () => {
-    this.interval = setInterval(this.fetchdata, 10000);
+    this.interval = setInterval(this.fetchdata, 5000);
   };
 
   componentWillUnmount() {
