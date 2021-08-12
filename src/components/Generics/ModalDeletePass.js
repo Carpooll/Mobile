@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     elevation: 2,
+    
   },
 
   buttonNo: {
@@ -127,12 +128,12 @@ const styles = StyleSheet.create({
   blueButton: {
     height: 15,
     width: 50,
-    marginLeft: -20,
-    marginTop: -23,
-    borderRadius: 3,
+    justifyContent: 'center',
+    
     // backgroundColor: '#bdbdbd',
     zIndex: 2,
-    marginBottom: 13,
+    marginBottom: 25,
+    marginLeft: -3
   },
   blueButtonText: {
     alignSelf: 'center',

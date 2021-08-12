@@ -384,10 +384,9 @@ const styles = StyleSheet.create({
     paddingRight: width - CARD_WIDTH,
   },
   buttons: {
-    width: 165,
+    width: "100%",
     height: 40,
 
-    justifyContent: 'center',
   },
   card: {
     elevation: 4,
@@ -413,7 +412,11 @@ const styles = StyleSheet.create({
     color: '#424242',
   },
   textContent: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
     flex: 1,
+    marginLeft: -3
   },
   cardtitle: {
     fontSize: 15,
