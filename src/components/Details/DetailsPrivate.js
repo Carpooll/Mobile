@@ -120,7 +120,7 @@ class DetailsPrivate extends React.Component {
                 { info_driver.profile.phone   || "loading" }
                 </Text>
 
-              <Text style={styles.titleLocation}>Your location</Text>
+              <Text style={styles.titleLocation}>Driver location</Text>
               <View style={styles.containerMap}>
                 <MapView
                   provider={PROVIDER_GOOGLE}

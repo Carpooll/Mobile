@@ -244,7 +244,7 @@ class Notifications extends React.Component {
                   <TouchableOpacity
                       style={Styles.redButton}
                     onPress={() => this.deniedRequest(marker.id_notification)}>
-                    <Text style={Styles.blueButtonText}>Denied</Text>
+                    <Text style={Styles.blueButtonText}>Deny</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                       style={Styles.darkButton}
