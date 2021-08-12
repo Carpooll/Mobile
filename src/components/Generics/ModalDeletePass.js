@@ -1,11 +1,27 @@
 import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View, Image} from 'react-native';
 import Colors from '../../res/Colors';
+import UserSession from '../../Libs/Sessions';
 
-const ModalDeletePass = () => {
-  handleDelete = () => {
-    console.log('passenger deleted');
+const ModalDeletePass = passenger_id => {
+  handleDelete = async () => {
+    // const {passenger_id} = this.props.passenger_id
+    try{
+      const pass_id = passenger_id["passenger_id"]
+      await UserSession.instance.deletePassengerRelation(pass_id)
+      setModalVisible(!modalVisible)
+      setTimeout(function(){Alert.alert(
+        'Done',
+        'Your passenger was deleted!',
+        [{text: 'OK'}],
+      )} , 2000);
+      
+
+    } catch (err) {
+      console.log("Error deleting relation with the passenger", err)
+    }
   };
+
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -72,6 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     elevation: 2,
+    
   },
 
   buttonNo: {
@@ -111,12 +128,12 @@ const styles = StyleSheet.create({
   blueButton: {
     height: 15,
     width: 50,
-    marginLeft: -20,
-    marginTop: -23,
-    borderRadius: 3,
+    justifyContent: 'center',
+    
     // backgroundColor: '#bdbdbd',
     zIndex: 2,
-    marginBottom: 13,
+    marginBottom: 25,
+    marginLeft: -3
   },
   blueButtonText: {
     alignSelf: 'center',

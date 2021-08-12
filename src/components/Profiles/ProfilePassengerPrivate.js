@@ -72,7 +72,6 @@ class PassengerPrivate extends React.Component {
       );
 
       let response = await request.json();
-      console.log(response, 'usr');
       userBalance = response.current_balance;
       this.setState({balance: userBalance});
     } catch (err) {
@@ -229,7 +228,7 @@ class PassengerPrivate extends React.Component {
             <Text style={Styles.userInfo}>${balance}</Text>
           </View>
 
-          <Text style={Styles.loc}>Location</Text>
+          <Text style={Styles.loc}>Your location</Text>
           <View style={Styles.containerMap}>
             <MapView
               provider={PROVIDER_GOOGLE}

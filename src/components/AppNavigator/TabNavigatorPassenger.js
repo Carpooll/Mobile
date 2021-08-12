@@ -28,7 +28,6 @@ var driver = false;
 
 checkDriver = async () => {
   try {
-    console.log('esta cosa es es check a ver si es verdah ')
     token = await Storage.instance.get('token');
     let request = await fetch(
       `https://carpool-utch.herokuapp.com/passenger/driver/`,
