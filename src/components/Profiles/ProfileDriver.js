@@ -10,15 +10,16 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Alert
+  Alert,
 } from 'react-native';
-import RNRestart from 'react-native-restart'
+import RNRestart from 'react-native-restart';
 import Fonts from '../../res/Fonts';
 import Colors from '../../res/Colors';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import UserSession from '../../Libs/Sessions';
 import Storage from '../../Libs/Storage';
 import * as vars from '../../Libs/Sessions';
+import {launchImageLibrary} from 'react-native-image-picker';
 // NEEDS TO CHANGE TO DYNAMIC DATA
 
 var Car = {};
@@ -36,6 +37,7 @@ class ProfileDriver extends React.Component {
       longitudeDelta: 0.4,
       latitudeDelta: 0.1,
     },
+    picture: {},
   };
   componentDidMount = () => {
     this.fetchdata();
@@ -49,7 +51,7 @@ class ProfileDriver extends React.Component {
     this.getCarData();
     this.getBalance();
     this.getUserData();
-  }
+  };
 
   getBalance = async () => {
     try {
@@ -62,7 +64,7 @@ class ProfileDriver extends React.Component {
 
       let response = await request.json();
       userBalance = response.current_balance;
-      console.log(userBalance, "usr")
+      console.log(userBalance, 'usr');
     } catch (err) {
       console.log('get balance err', err);
       throw Error(err);
@@ -91,6 +93,7 @@ class ProfileDriver extends React.Component {
     }
   };
   getUserData = async () => {
+    
     let user = await UserSession.instance.getUser();
     let markers = {
       latitude: user.profile.coordinate_x,
@@ -99,68 +102,124 @@ class ProfileDriver extends React.Component {
       latitudeDelta: 0.001,
     };
     this.setState({user: user, markers: markers});
+    
   };
   handlePress = () => {
     this.props.navigation.navigate('EditProfileDriver');
   };
   logout = () => {
     /* gives an alert to logout */
-    Alert.alert('Logout',
-    `Do you really want to logout?`,
-    [
+    Alert.alert(
+      'Logout',
+      `Do you really want to logout?`,
+      [
         {
-            text: 'Cancel',
-            style:'cancel'
+          text: 'Cancel',
+          style: 'cancel',
         },
         {
-            text: 'Logout',
-            onPress:async() =>{this.setState({
-                loading: true})
-                try{
-                    await Storage.instance.remove('id')
-                }
-                catch(e){
-                    console.log('id error', e)
-                }
-                try{
-                    RNRestart.Restart();
-                }catch(e){
-                    console.log('error restarting application', e)
-                    
-                }
-            },
-            style:'destructive',
-        },    
-    ],
-    {
+          text: 'Logout',
+          onPress: async () => {
+            this.setState({
+              loading: true,
+            });
+            try {
+              await Storage.instance.remove('id');
+            } catch (e) {
+              console.log('id error', e);
+            }
+            try {
+              RNRestart.Restart();
+            } catch (e) {
+              console.log('error restarting application', e);
+            }
+          },
+          style: 'destructive',
+        },
+      ],
+      {
         cancelable: true,
-    }
-    )
-}
+      },
+    );
+  };
 
-    //next event clear the interval that was set before
-    focusEvent = () => {
-      this.focusListener = this.props.navigation.addListener('focus', () => {
-        this.setFetchInterval();
-      });
+  handleChooseProfileImage = () => {
+    const options = {
+      includeBase64: false,
+      mediaType: 'photo',
     };
-  
+    launchImageLibrary(options, response => {
+      if (!response.didCancel) {
+        let photo = response.assets[0].uri;
+        this.setState({picture: photo}); /* 
+      console.log(photo);
+      console.log(this.state.picture) */
+        this.editProfilePicture();
+      }
+    });
+  };
+  editProfilePicture = async () => {
+    const {picture} = this.state;
+    console.log(this.state.picture, 'picture');
+    id = await Storage.instance.get('id');
+
+    let uploadData = new FormData();
+    uploadData.append('profile.image', {
+      type: 'image/jpeg',
+      uri: picture,
+      name: 'profile.jpg',
+    });
+
+    try {
+      //creating the request
+      let request = await fetch(
+        `https://carpool-utch.herokuapp.com/profile/${id}/`,
+        {
+          method: 'PATCH',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Token ' + vars.token,
+          },
+          body: uploadData,
+        },
+      );
+      //console.log(request);
+      //saving the response
+      let response = await request.json();
+      console.log(response);
+      //returning the response
+      return response;
+    } catch (err) {
+      //showing the errors
+      console.log('uploading profile image in signup error', err);
+    }
+  };
+
   //next event clear the interval that was set before
-    blurEvent = () => {
-      this.blurListener = this.props.navigation.addListener('blur', () => {
-        clearInterval(this.interval);
-      });
-    };
-  
-    // setting an interval of 3s
-    setFetchInterval = () => {
-      this.interval = setInterval(this.fetchdata, 3000);
-    };
+  focusEvent = () => {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.setFetchInterval();
+    });
+  };
 
-    componentWillUnmount = () =>{
-      this.focusListener();
-      this.blurListener();
-    }
+  //next event clear the interval that was set before
+  blurEvent = () => {
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      clearInterval(this.interval);
+    });
+  };
+
+  // setting an interval of 3s
+  setFetchInterval = () => {
+    this.interval = setInterval(this.fetchdata, 3000);
+  };
+
+  componentWillUnmount = () => {
+    this.focusListener();
+    this.blurListener();
+  };
+
 
   render() {
     const {user, car} = this.state;
@@ -170,10 +229,18 @@ class ProfileDriver extends React.Component {
         <View style={Styles.imageContainer}>
           <Image
             style={Styles.image}
-            source={{
-              uri: 'https://res.cloudinary.com/django-api-asgc/image/upload/v1/media/user4_ubl0ry',
-            }}
+            source={{uri:`${ this.state.user.profile.image}`}}
           />
+          <TouchableOpacity
+            style={Styles.iconT}
+            onPress={this.handleChooseProfileImage}>
+            <Image
+              style={Styles.iconUploadImage}
+              source={{
+                uri: 'https://image.flaticon.com/icons/png/512/1837/1837526.png',
+              }}
+            />
+          </TouchableOpacity>
         </View>
         <View style={Styles.infoContainer}>
           <Text style={Styles.userName}>{user.first_name}</Text>
@@ -190,13 +257,13 @@ class ProfileDriver extends React.Component {
             <Text style={Styles.userInfo}>${userBalance}</Text>
           </View>
           <TouchableOpacity style={Styles.paypalB} onPress={this.logout}>
-          <Image 
-            style={Styles.paypal}
-            source={{uri: 'https://image.flaticon.com/icons/png/512/1377/1377239.png'}}
-          />
-
-
-        </TouchableOpacity>
+            <Image
+              style={Styles.paypal}
+              source={{
+                uri: 'https://image.flaticon.com/icons/png/512/1377/1377239.png',
+              }}
+            />
+          </TouchableOpacity>
           <Text style={Styles.profitTime}>This Week</Text>
 
           <Text style={Styles.userTitle}>Your Location</Text>
@@ -213,7 +280,7 @@ class ProfileDriver extends React.Component {
           <Text style={Styles.darkButtonText}>EDIT</Text>
         </TouchableOpacity>
         <TouchableOpacity style={Styles.redButton} onPress={this.logout}>
-          <Image 
+          <Image
             style={Styles.redButtonText}
             source={require('../../assets/logout_icon.png')}
           />
@@ -235,6 +302,35 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.blue,
     position: 'relative',
     zIndex: 0,
+  },
+  iconT: {
+    width: 35,
+    height: 35,
+    padding: 5,
+    borderRadius: 20,
+    backgroundColor:  '#e2e2e2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 80,
+    marginLeft:85,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+
+    elevation: 20,
+  },
+  iconUploadImage: {
+    flex: 2,
+    width: '100%',
+    height: '100%',
+  },
+  iconUploadImageText: {
+    marginBottom: 50,
   },
   infoContainer: {
     display: 'flex',
@@ -370,14 +466,14 @@ const Styles = StyleSheet.create({
   redButton: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    
+
     width: FormWidth * 0.19,
     borderRadius: 50,
-    marginTop:height*.08,
-    left:55,
+    marginTop: height * 0.08,
+    left: 55,
     fontSize: Fonts.miniButtons,
     backgroundColor: Colors.white,
-    position:'absolute',
+    position: 'absolute',
     justifyContent: 'center',
 
     zIndex: 5,
@@ -385,20 +481,18 @@ const Styles = StyleSheet.create({
 
   redButtonText: {
     alignSelf: 'center',
-
   },
 
-  paypal:{
+  paypal: {
     alignSelf: 'center',
     height: FormHeight * 0.1,
-    
+
     width: FormWidth * 0.19,
     borderRadius: 50,
-    marginTop:-405,
-    left:90,
-    fontSize: Fonts.miniButtons,
+    marginTop: -405,
+    left: 90,
     backgroundColor: Colors.white,
-    position:'absolute',
+    position: 'absolute',
     justifyContent: 'center',
 
     zIndex: 5,
